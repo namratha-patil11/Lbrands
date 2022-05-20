@@ -1,0 +1,204 @@
+<aura:component access="public"
+                description="A custom component with type ahead picklist functionality.">
+    
+    <!-- Public Attributes -->
+    <aura:attribute name="label" 
+                    type="String" 
+                    required="true" 
+                    description="Text that describes the desired input picklist"/>
+    
+    <aura:attribute name="class" 
+                    type="String" 
+                    description="A CSS class that will be applied to the outer element. This style is in addition to base classes associated with the component"/>
+    
+    <aura:attribute name="value" 
+                    type="Object" 
+                    description="values that reflect the selected option"/>
+    
+    <aura:attribute name="options" 
+                    type="list" 
+                    description="list of all options"/>
+    
+    <aura:attribute name="errorMessage" 
+                    type="String" 
+                    description="message to be displayed when the component is in an error state"/>
+    
+    <aura:attribute name="disabled" 
+                    type="Boolean" 
+                    description="Can be toggled to make the field disabled"/>
+    
+    <aura:attribute name="required" 
+                    type="Boolean" 
+                    description="displays an * indicating that the field is required"/>
+    
+    <aura:attribute name="error" 
+                    type="Boolean" 
+                    description="Specifies whether or not the text area is in an error state. This will trigger errorMessage"/>
+    
+    <aura:attribute name="helpText" 
+                    type="String" 
+                    description="Specifies helper text to be displayed as a tooltip"/>
+    
+    <aura:attribute name="helpTextPlacement" 
+                    type="String" 
+                    default="auto top" 
+                    description="Determines position of the helpText"/>
+                    
+    <aura:attribute name="scrollHeight" 
+                    type="String" 
+                    default="150px" 
+                    description="Determines position of the helpText"/>
+    <aura:attribute name="index"
+                    type="Integer" />
+    
+    <!-- Methods -->
+    <aura:method name="showError" 
+                 action="{!c.showError}" 
+                 description="A method which triggers the error state">
+        <aura:attribute name="errorMessage" 
+                        type="String"/>
+    </aura:method>
+    
+    <aura:method name="hideError" 
+                 action="{!c.hideError}" 
+                 description="A method which removes the error state"/>
+    
+    <!-- Private Attributes -->
+    <aura:attribute name="selectedOption" 
+                    type="Object"
+                    access="private"
+                    description="values that reflect the selected option"/>
+    
+    <aura:attribute name="menuIsOpen" 
+                    type="Boolean" 
+                    access="private" 
+                    description="toggles the slds-is-open class for the lookup menu"/>
+    
+    <aura:attribute name="filteredOptions" 
+                    type="list" 
+                    description="List of filtered options"/>
+    
+    <aura:attribute name="noResultsMessage" 
+                    type="String" 
+                    default="No results found for {0}" 
+                    description="String value that will appear when the component finds 0 results"/>
+    
+    <aura:attribute name="searchTerm" 
+                    type="String" 
+                    description="String value of the user's entered search term"/>
+    
+    <aura:attribute name="searchActive" 
+                    type="String" 
+                    description="String value of the user's entered search term"/>
+    
+    
+    <!-- Event registration -->
+    <aura:registerEvent name="onchange" 
+                        type="c:DGTL_CustomSearchEvt"/>
+    
+    <!-- Event handlers -->
+    <aura:handler name="init" 
+                  value="{!this}" 
+                  action="{!c.doInit}"/>
+    
+    <aura:handler name="change" 
+                  value="{!v.options}" 
+                  action="{!c.doInit}"/>
+    
+    <aura:handler name="change" 
+                  value="{!v.value}" 
+                  action="{!c.valueChangeHandler}"/>
+    
+    <!-- Markup -->
+    <div aura:id="multiSelectMenu" 
+         class="{!'slds-form-element slds-lookup ' + if(v.menuIsOpen, 'slds-is-open ', '') + v.class}" 
+         data-select="single">
+        <label class="slds-form-element__label" 
+               for="{!'strike-multi-select-' + v.idNumber}">
+            <aura:if isTrue="{!v.required}">
+                <abbr class="slds-required" 
+                      title="required">*</abbr>
+            </aura:if>
+            {!v.label}
+        </label>
+        <div class="{!'slds-form-element__control' + if(v.error, ' slds-has-error', '')}">
+            <div class="slds-input-has-icon slds-input-has-icon--right">
+                <lightning:icon iconName="utility:down" 
+                                class="slds-input__icon" 
+                                size="x-small"/>
+                <div aura:id="selectedOption"
+                     type="text"
+                     class="{!'slds-lookup__search-input slds-input' + if(v.disabled, ' disabled', '')}"
+                     aria-expanded="false"
+                     aria-autocomplete="list"
+                     tabindex="0"
+                     onclick="{!c.handleOnclick}">
+                    {!v.selectedOption.label}
+                </div>
+            </div>
+        </div>
+        
+        <div class="{!if(v.searchActive, '', 'slds-hide')}">
+            <div class="{!'slds-form-element__control' + if(v.error, ' slds-has-error', '')}">
+                <div class="slds-input-has-icon slds-input-has-icon--right">
+                    <lightning:icon iconName="utility:search" 
+                                    class="slds-input__icon" 
+                                    size="x-small"/>
+                    <input aura:id="inputField"
+                           type="text"
+                           class="slds-lookup__search-input slds-input"
+                           placeholder="Please enter to filter"
+                           autofocus="true"
+                           tabindex="0"
+                           onkeyup="{!c.handleOnkeyup}"/>
+                </div>
+            </div>
+            
+            <ul class="slds-dropdown__list slds-dropdown--length-5 scrollable" 
+                role="listbox"
+                style="{! 'max-height: ' + v.scrollHeight + ';'}">
+                <aura:iteration items="{!v.filteredOptions}"
+                                var="filteredOption"
+                                indexVar="index">
+                    <li role="presentation"
+                        tabindex="0"
+                        onclick="{!c.selectHandler}"
+                        id="{!index}">
+                        <span class="slds-lookup__item-action slds-media sl-no-results" 
+                              role="option">
+                            <div class="slds-media__body">
+                                <div class="slds-lookup__result-text">
+                                    {!filteredOption.label}
+                                    <aura:if isTrue="{!filteredOption.iconName}">
+                                        <lightning:icon iconName="{!filteredOption.iconName}" 
+                                                        class="slds-input__icon" 
+                                                        size="x-small"/>
+                                    </aura:if>
+                                </div>
+                            </div>
+                        </span>
+                    </li>
+                </aura:iteration>
+                
+                <aura:if isTrue="{!!v.filteredOptions.length}">
+                    <li role="presentation">
+                        <span class="slds-lookup__item-action slds-media sl-no-results" 
+                              role="option">
+                            <div class="slds-media__body">
+                                <div class="slds-lookup__result-text">
+                                    {!format(v.noResultsMessage, '"' + v.searchTerm + '"')}
+                                </div>
+                            </div>
+                        </span>
+                    </li>
+                </aura:if>
+            </ul>
+        </div>
+        
+        <aura:if isTrue="{!and(v.error, not(empty(v.errorMessage)))}">
+            <div class="{!'slds-form-element' + (v.error ? ' slds-has-error' : '')}">
+                <div class="slds-form-element__help">{!v.errorMessage}</div>
+            </div>
+        </aura:if>
+    </div>
+</aura:component>

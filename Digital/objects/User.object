@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <fullName>DGTL_Brands__c</fullName>
+        <description>This pick list value is used as primary/default brand in Layouts,View and Compare tab</description>
+        <externalId>false</externalId>
+        <label>DGTL Brand</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetName>DGTL_Brands</valueSetName>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>DGTL_Profile__c</fullName>
+        <externalId>false</externalId>
+        <label>DGTL Profile</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>DGTL_Bangalore_Commerce_Services</fullName>
+                    <default>false</default>
+                    <label>Bangalore Commerce Services</label>
+                </value>
+                <value>
+                    <fullName>DGTL_Commerce_Operations</fullName>
+                    <default>false</default>
+                    <label>Commerce Operations</label>
+                </value>
+                <value>
+                    <fullName>DGTL_Copy_Writer</fullName>
+                    <default>false</default>
+                    <label>Copy Writers</label>
+                </value>
+                <value>
+                    <fullName>DGTL_Creative_Design</fullName>
+                    <default>false</default>
+                    <label>Creative Design</label>
+                </value>
+                <value>
+                    <fullName>DGTL_Digital_Producers</fullName>
+                    <default>false</default>
+                    <label>Digital Producers</label>
+                </value>
+                <value>
+                    <fullName>DGTL_Merchandiser</fullName>
+                    <default>false</default>
+                    <label>Merchandiser</label>
+                </value>
+                <value>
+                    <fullName>DGTL_Offer_Management</fullName>
+                    <default>false</default>
+                    <label>Offer Management</label>
+                </value>
+                <value>
+                    <fullName>DGTL_Angelcard</fullName>
+                    <default>false</default>
+                    <label>Angelcard</label>
+                </value>
+                <value>
+                    <fullName>DGTL_Creative_Operations</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>Creative Operations</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+</CustomObject>

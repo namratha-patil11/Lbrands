@@ -1,0 +1,6 @@
+<aura:event type="COMPONENT" description="Event to remove Row" >
+    <aura:attribute name="indexVar" type="Integer" description="Use For Delete Row" />
+    <aura:attribute name="delete" type="boolean"  description="Use For Delete Row" />
+    <aura:attribute name="DetailInstance" type="Placement_Content_Detail__c"/> 
+    
+</aura:event>

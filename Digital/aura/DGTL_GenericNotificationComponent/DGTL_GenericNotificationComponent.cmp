@@ -1,0 +1,29 @@
+<aura:component >
+    
+    <aura:attribute name="parameters" type="Object"/>
+    
+    <div class="demo-only demo-only_viewport" style="height:4.5rem">
+        <div class="slds-notification-container">
+            <div aria-live="assertive" aria-atomic="true" class="slds-assistive-text">Notification</div>
+            <section class="slds-notification" role="dialog" aria-labelledby="noti52" aria-describedby="dialog-body-id-42">
+                <div class="slds-notification__body" id="dialog-body-id-42">
+                    <a class="slds-notification__target slds-media" href="javascript:void(0);">
+                        <span class="slds-icon_container slds-icon-standard-event slds-media__figure" title="event">
+                            <lightning:icon iconName="standard:announcement" alternativeText="Utility image" />
+                        </span>
+                        <div class="slds-media__body">
+                            <h2 class="slds-text-heading_small slds-m-bottom_xx-small" id="noti52">
+                                <span class="slds-assistive-text"><aura:unescapedHtml value="{!v.parameters.header}"/></span><aura:unescapedHtml value="{!v.parameters.header}"/></h2>
+                            <p><aura:unescapedHtml value="{!v.parameters.message}"/></p>
+                        </div>
+                    </a>
+                    <button class="slds-button slds-button_icon slds-button_icon-container slds-notification__close" onclick="{!c.close}" title="Dismiss Notification">
+                       <lightning:icon iconName="utility:close" alternativeText="Close" size="small" />
+                        <span class="slds-assistive-text">Dismiss Notification</span>
+                    </button>
+                </div>
+            </section>
+        </div>
+    </div>
+    
+</aura:component>

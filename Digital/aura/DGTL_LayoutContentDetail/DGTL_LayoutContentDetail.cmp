@@ -1,0 +1,233 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    
+    <aura:attribute name="activeSections" type="List" default="[]" />
+    <aura:attribute name="activeSectionsMessage" type="String" default="" />
+    <aura:attribute name="layoutLocked" type="Boolean" default="false"/>
+    <!--Init handler which is call doInit js function on component Load-->  
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/> 
+    <aura:attribute name="UnsavedChanges" type="Boolean" default="false" />
+    
+    <!--Event handler for Add and Delete Row Event which is fire from Child Component-->    
+    <aura:handler name="DeleteRowEvt" event="c:DeleteRowEvt" action="{!c.removeDeletedRow}"/>
+    <!--   <aura:handler name="AddRowEvt" event="c:AddNewRowEvt" action="{!c.addNewRow}"/>
+    <aura:handler name="CloneEvt" event="c:CloneRowEvt" action="{!c.cloneRow}"/>  -->
+    
+    <aura:registerEvent name="Unsavedchanges" type="c:UnsavedChanges"/>
+    
+    <aura:attribute name="writeSlides" type="boolean" default="false"/>
+    <aura:attribute name="writeSubType" type="boolean" default="false"/>
+    <aura:attribute name="writeLink" type="boolean" default="false"/>
+    <aura:attribute name="writeCopy" type="boolean" default="false"/>
+    <aura:attribute name="writeAsset" type="boolean" default="false"/>
+    <aura:attribute name="writeComments" type="boolean" default="false"/>
+    
+    <!-- Attribute to disable input fields and icons when Layout is compared -->
+    <aura:attribute name="isCompared" type="boolean" default="false"/>
+    
+    <!--Aura Attribute to hide Sub Type Field if Content Type is Carousel-->    
+    <aura:attribute name="hideSubType" type="boolean" default="false"/>
+    
+    <!--Aura Attribute for store ContentDetail  Object List as Array-->    
+    <aura:attribute name="detailList" type="Placement_Content_Detail__c[]"/> 
+    <aura:attribute name="ReplacedInst" type="Placement_Content_Detail__c"/> 
+    
+    <!--Aura Attribute for store ContentDetail  Object List to be deleted-->    
+    <aura:attribute name="deleteList" type="Placement_Content_Detail__c[]"/>
+    <aura:attribute name="saveRecList" type="Placement_Content_Detail__c[]"/>
+    
+    <!--Aura Attributes REQUIRED--> 
+    <aura:attribute name="contentId" type="String" /> <!-- default="a4l2C0000000BWWQA2"  default="Swim" -->
+    <aura:attribute name="brand" type="String" />
+    <!-- <aura:attribute name="libraryId" type="String" /> -->
+    
+    <aura:attribute name="spinner" type="boolean" default="false"/>
+    <aura:attribute name="deletePrompt" type="boolean" default="false"/>
+    
+    <aura:attribute name="delIndex" type="Integer"/>
+    <aura:attribute name="recToBeDelted" type="Placement_Content_Detail__c"/> 
+    
+    <aura:attribute name="checkHistory" type="boolean" default="false"/>
+    <aura:attribute name="historyId" type="String"/>
+    <aura:attribute name="historyIndex" type="String"/>
+    
+    <!--Event handler close History which is fire from Child Component-->
+    <aura:handler name="closePrompt" event="c:DGTL_ClosePrompt" action="{!c.handelCloseHistory}"/>
+    
+    <aura:handler name="change" value="{!v.detailList}" action="{!c.hideDeleteButton}"/>
+    <aura:attribute name="hideDel" type="boolean" default="false"/>
+    
+    
+    <!--  Access Management variable strart   -->
+    <aura:attribute name="readFieldsList" type="List" access="global"/>
+    <aura:attribute name="writeFieldsList" type="List" access="global"/>
+    <aura:attribute name="allFields" type="List"/>
+    
+    <aura:attribute name="readFieldsMap" type="Map" access="global"/>
+    <aura:attribute name="writeFieldsMap" type="Map" access="global"/>
+    
+    <aura:attribute name="contEditFields" type="List"/>
+    <aura:attribute name="contDetailEditFields" type="List"/>
+    
+    <aura:renderIf isTrue="{!v.spinner}">
+        <lightning:spinner alternativeText="Loading" variant="brand" size="medium" />
+    </aura:renderIf>
+    <div class="slds-box" style="padding: 0px;">
+        
+       <!-- <lightning:unsavedChanges aura:id="unsaved"
+                                  onsave="{!c.saveUnsavedChanges}"
+                                  ondiscard="{!c.handleDiscard}" />-->
+        
+        <lightning:accordion
+                             allowMultipleSectionsOpen="true"
+                             onsectiontoggle="{! c.handleSectionToggle }"
+                             activeSectionName="{! v.activeSections }"    >
+            <lightning:accordionSection name="A" label="Content Details">
+                
+                <!--Table Part-->           
+                <table class="slds-table slds-table_bordered slds-table_cell-buffer" style="width:100%;"> 
+                    <thead>
+                        <tr class="slds-text-title_caps">
+                            <!-- <aura:if isTrue="{!not(v.isCompared)}"> -->
+                            <th scope="col">
+                                <div class="slds-truncate" title="Clone Row"></div>
+                            </th><!-- </aura:if> -->
+                            <aura:if isTrue="{!v.hideSubType}">
+                                <th scope="col">
+                                    <div class="slds-truncate" title="Sub type" >Slides</div>
+                                </th>
+                                <th scope="col">
+                                    <div class="slds-truncate" title="Sub type" >Sub type</div>
+                                </th></aura:if>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Link">URL </div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Copy">Copy</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Asset Path">Asset Path </div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Comments">Comments </div>
+                            </th>
+                        </tr>
+                    </thead>   
+                    <tbody>
+                        <!--Iterate the child Component for display Table rows 
+               with pass the List Item Index for track the Every child Component 
+               and pass each List Contact Instance -->    
+                        
+                        <aura:iteration items="{!v.detailList}" var="item" indexVar="index">
+                            <!--  <tr class="slds-text-title_caps"> -->
+                            <tr>
+                                <td>
+                                    <aura:if isTrue="{!not(v.isCompared)}">
+                                        <a onclick="{!c.addNewRow}">
+                                            <lightning:icon iconName="utility:add" variant="success" class="slds-icon slds-icon_small" size="small" alternativeText="add"/>
+                                        </a>  <br /><br />
+                                        <a onclick="{!c.cloneRow}" data-selected-Index="{!index}" >
+                                            <lightning:icon iconName="action:clone" size="xx-small" alternativeText="Clone"/>                                        
+                                        </a><br /><br />
+                                        <aura:if isTrue="{!not(v.hideDel)}"> <!-- data-nag-index data-row-index-->
+                                            <a onclick="{!c.removeRow}" data-selected-Index="{!index}" >
+                                                <lightning:icon variant="error" iconName="utility:delete" class="slds-icon slds-icon_small" size="small" alternativeText="Delete"/>
+                                                <span class="slds-assistive-text">Delete Icon</span>
+                                            </a><br /><br />
+                                        </aura:if> </aura:if> 
+                                    <aura:if isTrue="{!item.Id != null}">
+                                        <a onclick="{!c.checkHistory}" data-value="{!item.Id}" data-selected-Index="{!index}" >
+                                            <lightning:icon iconName="utility:clock" variant="warning"
+                                                            class="slds-icon slds-icon_small" size="small" alternativeText="History"/>
+                                        </a>
+                                    </aura:if>
+                                </td>                                
+                                <aura:if isTrue="{!v.hideSubType}">
+                                    <td class="slds-size_1-of-12" style="word-break: break-all;white-space: pre-wrap;user-select: text;">
+                                        <lightning:recordEditForm objectApiName="Placement_Content_Detail__c">
+                                            <aura:if isTrue="{!and(v.writeSlides,not(v.isCompared))}">
+                                                <lightning:inputField fieldName="Slides__c" variant="label-hidden" value="{!item.Slides__c}" onchange="{!c.onValChange}"/>
+                                                <aura:set attribute="else">
+                                                    <c:DGTL_DynamicSobjectOutPutField objName="{!item}" fieldName="Slides__c" />
+                                                </aura:set>
+                                            </aura:if>
+                                        </lightning:recordEditForm>
+                                    </td>
+                                    <td class="slds-size_1-of-12" style="word-break: break-all;white-space: pre-wrap;user-select: text;">
+                                        <lightning:recordEditForm objectApiName="Placement_Content_Detail__c">
+                                            <aura:if isTrue="{!and(v.writeSubType,not(v.isCompared))}">
+                                                <lightning:inputField fieldName="Sub_Type__c" variant="label-hidden" value="{!item.Sub_Type__c}" onchange="{!c.onValChange}"/>
+                                                <aura:set attribute="else">
+                                                    <c:DGTL_DynamicSobjectOutPutField objName="{!item}" fieldName="Sub_Type__c" />
+                                                </aura:set>
+                                            </aura:if>
+                                        </lightning:recordEditForm>
+                                    </td></aura:if>
+                                <td class="slds-size_2-of-12" style="word-break: break-all;white-space: pre-wrap;user-select: text;">
+                                    <lightning:recordEditForm objectApiName="Placement_Content_Detail__c">
+                                        <aura:if isTrue="{!and(v.writeLink,not(v.isCompared))}">
+                                            <lightning:inputField fieldName="Link_Text__c" variant="label-hidden" value="{!item.Link_Text__c}" onchange="{!c.onValChange}"/> 
+                                            <aura:set attribute="else">
+                                                <c:DGTL_DynamicSobjectOutPutField objName="{!item}" fieldName="Link_Text__c" />
+                                            </aura:set>
+                                        </aura:if>
+                                    </lightning:recordEditForm>
+                                </td>
+                                <td class="{!and(v.writeCopy,not(v.isCompared)) ? 'slds-size_5-of-12' : 'slds-size_2-of-12'}" style="word-break: break-all;white-space: pre-wrap;user-select: text;">
+                                    <lightning:recordEditForm objectApiName="Placement_Content_Detail__c">
+                                        <aura:if isTrue="{!and(v.writeCopy,not(v.isCompared))}">                                            
+                                            <div class="hideLabel"> 
+                                                <c:DGTL_DynamicSobjectInputField objName="{!item}" fieldName="Copy__c" /> 
+                                                <!-- <lightning:inputRichText  value="{!item.Copy__c}" />
+                                                 <lightning:inputField fieldName="Copy__c" variant="label-hidden" value="{!item.Copy__c}"/> -->
+                                            </div>
+                                            <aura:set attribute="else">
+                                                <c:DGTL_DynamicSobjectOutPutField objName="{!item}" fieldName="Copy__c" />
+                                            </aura:set>
+                                        </aura:if> 
+                                    </lightning:recordEditForm>
+                                </td>
+                                <td class="slds-size_2-of-12" style="word-break: break-all;white-space: pre-wrap;user-select: text;">
+                                    <lightning:recordEditForm objectApiName="Placement_Content_Detail__c">
+                                        <aura:if isTrue="{!and(v.writeAsset,not(v.isCompared))}">
+                                            <lightning:inputField fieldName="Asset_Path__c" variant="label-hidden" value="{!item.Asset_Path__c}" onchange="{!c.onValChange}"/>
+                                            <aura:set attribute="else">
+                                                <c:DGTL_DynamicSobjectOutPutField objName="{!item}" fieldName="Asset_Path__c" />
+                                            </aura:set>
+                                        </aura:if> 
+                                    </lightning:recordEditForm>
+                                </td>
+                                <td class="slds-size_3-of-12" style="word-break: break-all;white-space: pre-wrap;user-select: text;">
+                                    <lightning:recordEditForm objectApiName="Placement_Content_Detail__c">
+                                        <aura:if isTrue="{!and(v.writeComments,not(v.isCompared))}">
+                                            <lightning:inputField fieldName="Comments__c" variant="label-hidden" value="{!item.Comments__c}" onchange="{!c.onValChange}"/>
+                                            <aura:set attribute="else">
+                                                <c:DGTL_DynamicSobjectOutPutField objName="{!item}" fieldName="Comments__c" />
+                                            </aura:set>
+                                        </aura:if> 
+                                    </lightning:recordEditForm>
+                                </td>                                
+                            </tr>
+                        </aura:iteration>
+                    </tbody>
+                </table>
+                <br/>
+                
+                <!--Save Button which is call Save js function on click 
+            <div style="text-align:center;">
+                <button class="slds-button slds-button_brand" onclick="{!c.Save}">Save</button>
+            </div> --> 
+                
+                <!--Prompt before deleting any Record --> 
+                <aura:if isTrue="{!v.deletePrompt}">
+                    <c:DGTL_DeletePrompt deleteIndex="{!v.delIndex}" record="{!v.recToBeDelted}"/>
+                </aura:if>
+                
+                <aura:if isTrue="{!v.checkHistory}">
+                    <!-- <c:DGTL_RecordHistory objId="{!v.historyId}" recordIndex="{!v.historyIndex}"/> -->
+                    <c:dGTL_HistoryLWC layoutLocked="{!v.layoutLocked}" objRecordId="{!v.historyId}" contEditFields="{!v.contEditFields}" contDetailEditFields="{!v.contDetailEditFields}" oncloseHis="{!c.handelCloseHistory}" onreplaceHis="{!c.historyReplace}"></c:dGTL_HistoryLWC>
+                </aura:if>
+            </lightning:accordionSection>  
+        </lightning:accordion>
+    </div>
+    <!--  </c:CollapsableSection> -->
+</aura:component>

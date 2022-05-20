@@ -1,0 +1,399 @@
+<aura:component controller="DGTL_ComparePlcLayout_Ctr" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" >
+    <!--attributes for navigation -->
+    <aura:attribute name="pageReference" type="Object"/>
+    <lightning:navigation aura:id="navService"/>
+    
+    <aura:attribute name="brand" type="List"/>
+    <aura:attribute name="pageTypes" type="List"/>
+    <aura:attribute name="startDateVal" type="Date"/>
+    <aura:attribute name="endDateVal" type="Date"/>
+    <aura:attribute name="selectedPageType" type="String" default=""/>
+    <aura:attribute name="selectedBrand" type="String" default=""/>
+    <aura:attribute name="deviceType" type="String" default="Mobile"/>
+    <aura:attribute name="url" type="String" default=""/>
+    <aura:attribute name="viewRecord" type="Boolean" default="false"/>
+    <aura:attribute name="viewHistory" type="Boolean" default="false"/>
+    <aura:attribute name="showFieldsToSelect" type="Boolean" default="false"/>
+    <aura:attribute name="userPreferences" type="Object"/>
+    <aura:attribute name="selectedValues" type="List"/>
+    <aura:attribute name="viewRecordId" type="String" default=""/>
+    <aura:attribute name="layoutRec" type="Placement_Layout__c"/>
+    <aura:attribute name="editorialName" type="String"/>
+    <aura:attribute name="editorialTypeahead" type="String"/>
+    <aura:attribute name="editorialNameOption" type="List"/>
+    <aura:attribute name="historyRecords" type="List"/>
+    <aura:attribute name="lockedDetailFields" type="List"/>
+    <aura:attribute name="hasAccessManagement" type="Boolean" default="false"/>
+    <aura:attribute name="showInfo" type="Boolean" default="false"/>
+    <aura:attribute name="changeDataObj" type="Object"/>
+    <aura:attribute name="historyColumns" type="List" default="[
+                                                               {label: 'FIELD NAME', fieldName: 'Field_Name__c', type: 'text'},
+                                                               {label: 'OLD VALUE', fieldName: 'Old_Value__c', type: 'text'},
+                                                               {label: 'NEW VALUE', fieldName: 'New_Value__c', type: 'text'},
+                                                               {label: 'LAST MODIFIED BY', fieldName: 'LastModifiedByName', type: 'text'},
+                                                               {label: 'LAST MODIFIED DATE', fieldName: 'LastModifiedDate', type: 'date', typeAttributes: {  
+                                                               day: 'numeric',  
+                                                               month: 'short',  
+                                                               year: 'numeric',  
+                                                               hour: '2-digit',  
+                                                               minute: '2-digit',  
+                                                               second: '2-digit',  
+                                                               hour12: true}
+                                                               }
+                                                               ]"/>
+    <aura:attribute name="options" type="List"/>
+    
+    
+    <aura:attribute type="DGTL_ComparePlcLayout_Ctr.finalWpr" name="finalData"/>
+    
+    <aura:attribute type="boolean" name="spinner" default="false"/>
+    
+    <aura:handler name="change" 
+                  value="{!v.editorialTypeahead}" 
+                  action="{!c.handleEditorialTypeahead}"/>
+    <aura:handler value="{!this}" name="init" action="{!c.init}"/>
+    
+    <aura:if isTrue="{!v.spinner}">
+        <lightning:spinner alternativeText="Loading" size="large" />
+    </aura:if>
+    <div class="slds-box slds-theme_shade">
+        <div class="slds">
+            <lightning:recordEditForm aura:id="recordEdit" objectApiName="Placement_Layout__c" > 
+                <lightning:layout>	
+                    <lightning:layoutItem padding="around-small">                             
+                        <div class="brandcss">  
+                            <lightning:inputField fieldName="Brands__c" onchange="{!c.onChangeBrand}" value="{!v.selectedBrand}"/> 
+                        </div> 
+                    </lightning:layoutItem> 
+                    <aura:if isTrue="{!and(v.selectedBrand != '',v.selectedBrand != null)}">
+                    <lightning:layoutItem padding="around-small">                             
+                        <div class="pagetypecss">
+                            <lightning:inputField aura:id="pageTypeInput" fieldName="Page_Types__c" onchange="{!c.onChangePageType}" /> 
+                        </div> 
+                    </lightning:layoutItem>
+                    </aura:if>
+                    <aura:if isTrue="{!v.selectedPageType == 'Editorials'}">
+                        <lightning:layoutItem padding="around-small" class="slds-size__2-of-6"> 
+                            <div style="width:310px;">
+                            <c:DGTL_CustomSearchComponent options="{!v.editorialNameOption}"
+                                                          aura:id="editorialName"
+                                                          label="Editorial Name"
+                                                          value="{!v.editorialName}"
+                                                          required="true"
+                                                          searchTerm="{!v.editorialTypeahead}"/></div>
+                        </lightning:layoutItem>
+                    </aura:if>
+                    <lightning:layoutItem padding="around-small">
+                        <lightning:input aura:id="field"  label="Date" type="date" value="{!v.startDateVal}" required="true"/>
+                    </lightning:layoutItem>
+                    <lightning:layoutItem padding="around-small">
+                        <lightning:input aura:id="field"  label="Date" type="date" value="{!v.endDateVal}" required="true"/>
+                    </lightning:layoutItem>
+                     <lightning:layoutItem padding="around-small">                             
+                        <div class="deviceType">
+                            <lightning:inputField fieldName="Device_Type__c" aura:id="deviceTypeID" required="true" onchange="{!c.onDeviceType}" value="{!v.deviceType}"/> 
+                        </div>    
+                    </lightning:layoutItem> 
+                    <lightning:layoutItem padding="around-small"><br/>
+                        <lightning:button disabled="{!!v.hasAccessManagement}" label="Search" onclick="{!c.fetchLayouts}"/>
+                    </lightning:layoutItem>
+                     <lightning:layoutItem padding="around-small"><br/>
+                        <lightning:button disabled="{!!v.hasAccessManagement}" label="Fields" onclick="{!c.showFields}"/>
+                    </lightning:layoutItem>
+                </lightning:layout>  
+            </lightning:recordEditForm> 
+        </div>
+    </div>
+    <aura:if isTrue="{!not(empty(v.finalData.list_pLayoutWpr))}">
+        <div class="slds-grid slds-theme_default" style="width:100%;height:100%;white-space: nowrap; overflow-x:scroll;"> <!-- overflow-x:scroll; -->
+            <aura:iteration items="{!v.finalData.list_pLayoutWpr}" var="pLayout" indexVar="layoutIndex">
+                <div class="slds-col slds-size_4-of-12">
+                    <span>                
+                        <div style="height:48px;" class="slds-box">
+                            <h2 class="slds-panel__header-title slds-text-heading_small slds-truncate" title="{!pLayout.plcLayout.Name}">
+                                <center style="font-size:12px;"><a data-value="{!pLayout.plcLayout.Id}" onclick="{!c.navigateToLayout}">{!pLayout.plcLayout.Name}</a></center>
+                            </h2>
+                            <center style="font-size:12px;"><a data-index="{!layoutIndex}" onclick="{!c.showChangesIcon}">
+                                <lightning:buttonStateful
+                                                          state="{!pLayout.showChanges}"
+                                                          variant="text"
+                                                          labelWhenOff="[Show Changes]"
+                                                          labelWhenOn="[Acknowledge]"
+                                                          />
+                                </a></center>
+                        </div>
+                        <aura:if isTrue="{!pLayout.plcLayout.Page_Types__c == 'Editorials'}">
+                            <div style="height:25px;padding:2px;font-style: italic;" class="slds-box slds-truncate">
+                                <center>{!pLayout.plcLayout.Collection_Page_Url__c}</center>
+                            </div>
+                        </aura:if>
+                       <!-- <div style="height:45px;" class="slds-box slds-scrollable">
+                            <h2 class="slds-panel__header-title slds-text-heading_small slds-truncate" title="{!pLayout.removedLibriaries}">
+                                <span  style="font-size:10px;font-weight:bold;">{!pLayout.removedLibriaries}</span><br/>
+                            </h2>
+                        </div> -->
+                        <div style="padding:0px;overflow-x:hidden;margin-top: 1px;" class="slds-box slds-scrollable">
+                        <aura:iteration items="{!pLayout.list_plcContentWpr}" var="pContent">
+                            <div style="{! 'min-height:50px; line-height: 22px; background-color:' + (pContent.type eq 'N' ? '#bbff99' : pContent.type eq 'C' ? '#e6e6e6' : pContent.type eq 'S' ? '' : pContent.type eq 'NA' ? 'grey' : '' ) +';text-decoration:'+ (pContent.type eq 'R' ? 'line-through;':';')}" class="slds-border_bottom slds-truncate">
+                                <lightning:layout >
+                                    <lightning:layoutItem size="10" padding="around-small">
+                                        <div style="word-break: break-word;white-space: normal;">
+                                            {! pContent.plcContent.Placement_type__c + ' - '+pContent.plcContent.Main_Message__c} <aura:if isTrue="{!pContent.plcContent.Type__c != 'Controlled'}"> [{!pContent.plcContent.Type__c}]</aura:if>
+                                        </div>
+                                    </lightning:layoutItem>
+                                    <lightning:layoutItem size="2" padding="around-small">
+                                        <aura:if isTrue="{!pContent.type eq 'C'}">
+                                            <lightning:buttonIcon name="{!pContent.changeResult}" iconName="utility:info" size="small" variant="bare" onclick="{!c.showInfo}" alternativeText="Update Info" title="Update Info" />&nbsp;&nbsp;
+                                        </aura:if>
+                                        <aura:if isTrue="{!pContent.showChanges}"><lightning:buttonIcon name="{!pLayout.plcLayout.Id + '-' +pContent.plcContent.Id}" iconName="utility:notification" size="small" variant="bare" onclick="{!c.showContentHistory}" alternativeText="History" title="History" /></aura:if>
+                                    </lightning:layoutItem>
+                                </lightning:layout>
+                               <!-- {!pContent.plcContent.Placement_type__c} - {!pContent.plcContent.Main_Message__c}
+                                	<aura:if isTrue="{!pContent.type eq 'C'}"><lightning:helptext content="iupdated"/></aura:if> -->
+                                </div>
+                               <!-- <div class="slds-border_bottom thickBottom" style="height:40px;line-height: 40px;">
+                                    <aura:if isTrue="{!pContent.type == 'C'}">
+                                        {!pContent.changedFields}  <a  data-recid="{!pContent.plcContent.Id}" onclick="{!c.viewRecord}" class="slds-m-left_medium">view</a>
+                                        <aura:set attribute="else">
+                                        	<a class="slds-m-left_medium" data-recid="{!pContent.plcContent.Id}" onclick="{!c.viewRecord}">view</a>
+                                        </aura:set>
+                                    </aura:if>
+                                </div>-->
+                               
+                               <!-- <article class="slds-tile slds-tile_board slds-p-top_small">
+                                    <div class="slds-grid slds-gutters">
+                                        <div class="slds-col slds-size_6-of-8">
+                                            <aura:iteration items="{!pContent.contentDetails}" var="cDetail">
+                                                <lightning:layout >
+                                                    
+                                                    <lightning:layoutItem padding="around-small" class="slds-col slds-size_1-of-12">
+                                                        <aura:if isTrue="{!cDetail.type == 'C'}">
+                                                            <lightning:icon iconName="utility:stop" variant="success" size=" x-small" alternativeText="Changed" />
+                                                        </aura:if>
+                                                        <aura:if isTrue="{!cDetail.type == 'S'}">
+                                                            <lightning:icon iconName="utility:stop" size=" x-small" variant="warning" alternativeText="Unchanged" />
+                                                        </aura:if>
+                                                        <aura:if isTrue="{!cDetail.type == 'N'}">
+                                                            <lightning:icon iconName="utility:stop" variant="error" size=" x-small" alternativeText="Same"/>
+                                                        </aura:if>
+                                                    </lightning:layoutItem>
+                                                    
+                                                    <lightning:layoutItem padding="around-small" class="slds-col slds-size_11-of-12 slds-truncate">
+                                                        <lightning:layout >
+                                                            <lightning:layoutItem class="slds-col slds-size_3-of-12 font">
+                                                                Copy
+                                                            </lightning:layoutItem>
+                                                            <lightning:layoutItem class="slds-col slds-size_9-of-12" title="{!cDetail.pConDetail.Copy__c}">
+                                                               {!cDetail.pConDetail.Copy__c}
+                                                            </lightning:layoutItem>
+                                                        </lightning:layout>
+                                                        <lightning:layout >
+                                                            <lightning:layoutItem  class="slds-col slds-size_3-of-12 font">
+                                                                URL
+                                                            </lightning:layoutItem>
+                                                            <lightning:layoutItem class="slds-col slds-size_9-of-12" title="{!cDetail.pConDetail.Link_Text__c}">
+                                                                {!cDetail.pConDetail.Link_Text__c}
+                                                            </lightning:layoutItem>
+                                                        </lightning:layout>
+                                                        add comments == <aura:if isTrue="{!cDetail.type == 'C'}">
+                                                            <span style="word-break: break-word;white-space: pre-line;"> {!cDetail.changedFields} </span>
+                                                        </aura:if> == add comments ends 
+                                                    </lightning:layoutItem>
+                                                </lightning:layout>
+                                            </aura:iteration>
+                                          <aura:if isTrue="{!pContent.removedContentDetails != ''}">
+                                            <lightning:layout >
+                                                <lightning:layoutItem padding="around-small" class="slds-col slds-size_1-of-12">
+                                                     <lightning:icon iconName="utility:stop" size=" x-small" alternativeText="Removed" />
+                                                </lightning:layoutItem>
+                                                <lightning:layoutItem padding="around-small" class="slds-col slds-size_11-of-12 slds-truncate">
+                                                    {!pContent.removedContentDetails}
+                                                </lightning:layoutItem>
+                                            </lightning:layout>
+                                            </aura:if> 
+                                        </div>
+                                        
+                                        <div class="slds-col slds-size_2-of-8">
+                                            <lightning:formattedRichText aura:id="outputRT" class="imazeSize" value="{!pContent.plcContent.Image__c}" />
+                                        </div>
+                                    </div>
+                                </article> -->
+                        </aura:iteration>
+                        </div>
+                    </span>
+                </div>
+            </aura:iteration>
+        </div>
+    </aura:if>
+    
+    <!-- select fields preferences -->
+    <aura:if isTrue="{!v.showFieldsToSelect}">
+        <section role="dialog" tabindex="-1" aria-label="Fields to compare preferences" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header slds-modal__header_empty">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick="{!c.closeModal}">
+                        <lightning:icon iconName="utility:close" size="medium" variant="inverse" alternativeText="Close" />
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <lightning:dualListbox name="fields"
+                                           label= "Select Fields to Compare"
+                                           sourceLabel="Available"
+                                           selectedLabel="Selected"
+                                           requiredOptions="{!v.lockedDetailFields}"
+                                           fieldLevelHelp="Select your preferred fields to be compared"
+                                           value="{!v.selectedValues}"
+                                           options="{!v.userPreferences.options}"/>
+                </div>
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick="{!c.closeModal}">Cancel</button>
+                    <button class="slds-button slds-button_brand" onclick="{!c.saveUserPreferences}">Save</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+        
+    </aura:if>
+    
+    <!--- modal -->
+    <aura:if isTrue="{!v.viewRecord}">
+        <div style="height:640px">
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" onclick="{!c.closeModal}" title="Close">
+                             <lightning:icon iconName="utility:close" size="medium" variant="inverse" alternativeText="Close" />
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <force:recordView recordId="{!v.viewRecordId}" />
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <button class="slds-button slds-button_neutral" onclick="{!c.closeModal}">Close</button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </aura:if>
+    
+    <!--- modal -->
+    <aura:if isTrue="{!v.viewHistory}">
+        <div style="height:640px">
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" onclick="{!c.closeModal}" title="Close">
+                             <lightning:icon iconName="utility:close" size="medium" variant="inverse" alternativeText="Close" />
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                         <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">History Tracking</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium " id="modal-content-id-1">
+                        <lightning:datatable class=""
+                                             keyField="id"
+                                             data="{! v.historyRecords }"
+                                             columns="{! v.historyColumns }"
+                                             hideCheckboxColumn="true"/>
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <button class="slds-button slds-button_neutral" onclick="{!c.closeModal}">Close</button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </aura:if>
+    
+    
+     <!--- change info -->
+    <aura:if isTrue="{!v.showInfo}">
+        <div style="height:640px">
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" onclick="{!c.closeModal}" title="Close">
+                             <lightning:icon iconName="utility:close" size="medium" variant="inverse" alternativeText="Close" />
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Update Information</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <aura:if isTrue="{!and(v.changeDataObj.updateResult,v.changeDataObj.updateResult.length > 0)}">
+                            <b>Content has been updated with the following changes : </b><br/>
+                            <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-box">
+                                <thead class="table-head">
+                                    <tr class="slds-text-title_caps">
+                                        <th scope="col"><ui:outputText value="Field" /></th>
+                                        <th scope="col"><ui:outputText value="Old Value" /></th>
+                                        <th scope="col"><ui:outputText value="New Value" /></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <aura:iteration items="{!v.changeDataObj.updateResult}" 
+                                                    var="record">
+                                        <tr>
+                                            <td class="slds-size_2-of-12 widthControl"><ui:outputText value="{!record.field}"/></td>
+                                            <td class="slds-size_5-of-12 widthControl"><ui:outputText value="{!record.oldValue}"/></td>
+                                            <td class="slds-size_5-of-12 widthControl"><ui:outputText value="{!record.newValue}"/></td>
+                                        </tr>
+                                    </aura:iteration>
+                                </tbody>
+                            </table>
+                        </aura:if>
+                        <aura:if isTrue="{!and(v.selectedValues,v.selectedValues.length > 0)}">
+                            <b>There are no changes in the Content.</b><br/>
+                        </aura:if>
+                        <aura:if isTrue="{!and(v.changeDataObj.detailChanges,v.changeDataObj.detailChanges.length > 0)}">
+                            <br/><b>Following changes in the details have been found : </b><br/>
+                            <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-box">
+                                <thead class="table-head">
+                                    <tr class="slds-text-title_caps">
+                                        <th scope="col"><ui:outputText value="URL" /></th>
+                                        <th scope="col"><ui:outputText value="Copy" /></th>
+                                        <th scope="col"><ui:outputText value="Status" /></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <aura:iteration items="{!v.changeDataObj.detailChanges}" 
+                                                    var="record">
+                                        <tr>
+                                            <td class="slds-size_4-of-12 widthControl"><ui:outputText value="{!record.url}"/></td>
+                                            <td class="slds-size_6-of-12 widthControl"><aura:unescapedHtml value="{!record.copy}" /></td>
+                                            <td class="slds-size_2-of-12 widthControl"><ui:outputText value="{!record.status}"/></td>
+                                            <!--<aura:if isTrue="{!record.status eq 'Update'}">
+                                                <td>
+                                                    <tr  class="slds-text-title_caps">
+                                                        <th scope="col"><ui:outputText value="Field" /></th>
+                                                        <th scope="col"><ui:outputText value="Old Value" /></th>
+                                                        <th scope="col"><ui:outputText value="New Value" /></th>
+                                                    </tr>
+                                                    <aura:iteration items="{!record.updateResult}" 
+                                                                    var="changes">
+                                                        <tr>
+                                                            <td><ui:outputText value="{!changes.field}"/></td>
+                                                            <td><ui:outputText value="{!changes.oldValue}"/></td>
+                                                            <td><ui:outputText value="{!changes.newValue}"/></td>
+                                                        </tr>
+                                                    </aura:iteration>
+                                                </td>
+                                            </aura:if>-->
+                                        </tr>
+                                    </aura:iteration>
+                                </tbody>
+                            </table>
+                        </aura:if>
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <button class="slds-button slds-button_neutral" onclick="{!c.closeModal}">Close</button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </aura:if>
+    
+    
+</aura:component>

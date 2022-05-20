@@ -1,0 +1,125 @@
+<aura:component controller="DGTL_PlacementContentUpdate" implements="force:appHostable,lightning:isUrlAddressable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    
+    <!--attributes for navigation -->
+    <aura:attribute name="pageReference" type="Object"/>
+    <lightning:navigation aura:id="navService"/>
+    
+    <aura:attribute name="spinner" type="boolean" default="false"/>
+    
+    <aura:attribute name="WraperObject" type="Object"/>
+    <aura:attribute name="readFieldsList" type="List"/>
+    <aura:attribute name="writeFieldsList" type="List"/>
+    <aura:attribute name="TaskRec" type="DGTL_Task__c"/>
+    <aura:attribute name="viewTask" type="boolean" default="false"/>
+    
+    <aura:attribute name="changedFields" type="List"/>
+    
+    <aura:attribute name="parentContentId" type="String" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    
+    <lightning:card title=''>
+        
+        <aura:renderIf isTrue="{!v.spinner}">
+            <lightning:spinner alternativeText="Loading" variant="brand" size="medium" />
+        </aura:renderIf>
+        
+        <div style="text-align:center;">
+            <lightning:button name='Save' label ='Save' variant="brand" onclick="{!c.handelSave}"/>
+            <lightning:button name='Cancel' label='Cancel' onclick="{!c.handelCancel}"/>
+            <aura:if isTrue="{!not(empty(v.TaskRec))}">
+                <lightning:button name='View Task' label='View Task' onclick="{!c.handelView}"/>
+                <lightning:button name='Submit For Approval' label='Submit For Approval' onclick="{!c.sendEmail}"/>
+            </aura:if>
+        </div>
+        <c:CollapsableSection defaultState="open" title="Update Content">
+            <div style="padding-around:5%;">
+                <div class="slds-tile slds-tile_board slds-grid slds-gutters" >                                                
+                    <div class="slds-col slds-size_2-of-5" style="padding-left:3.75rem;">
+                        <table>
+                            <tr>
+                                <td>
+                                    <table width="100%" class="tableBorderCurve">
+                                        <aura:iteration items="{!v.readFieldsList}" var="cus" indexVar="key">                                                                    
+                                            <tr class="tableTRTHCurve">
+                                                <td class="tableTRTHCurve">
+                                                    <div class="slds-truncate" style="white-space:normal;">
+                                                        <p style="font-size:9px;">{!cus.value}</p>
+                                                        <c:DGTL_DynamicSobjectOutPutField objName="{!v.WraperObject.PlacementContent}" fieldName="{!cus.key}" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </aura:iteration>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>                                        
+                    <div class="slds-col slds-size_1-of-5">
+                        <lightning:recordEditForm aura:id="recordEdit" objectApiName="Placement_Content__c" 
+                                                  class="removeborder" recordId="{!v.WraperObject.PlacementContent.Id}"> 
+                            <lightning:outputField variant="label-hidden" fieldName="Image__c" />
+                        </lightning:recordEditForm>
+                    </div>
+                    <!-- edit fields -->
+                    <div class="slds-col slds-size_2-of-5">  
+                        <lightning:recordEditForm aura:id="recordEdit" objectApiName="Placement_Content__c" 
+                                                  class="removeborder" recordId="{!v.WraperObject.PlacementContent.Id}">                                                    
+                            <table width="100%" class="tableBorderCurve">   
+                                <aura:iteration items="{!v.writeFieldsList}" var="cus" indexVar="key">
+                                    <tr class="tableTRTHCurve">
+                                        <td class="tableTRTHCurve">                                                                                          
+                                            <div  style="white-space:normal;" data-value="{!cus.key}" onchange="{!c.contentChanged}" >
+                                                <p style="font-size:9px;">{!cus.value}</p> 
+                                                <aura:if isTrue="{!cus.key == 'Row_Start__c'}">
+                                                    <lightning:input type="checkbox" checked="{!v.WraperObject.PlacementContent.Row_Start__c}"/>                                                                          
+                                                </aura:if>
+                                                <aura:if isTrue="{!cus.key == 'Active__c'}">
+                                                    <lightning:input type="checkbox" checked="{!v.WraperObject.PlacementContent.Active__c}"/>
+                                                </aura:if>
+                                                <aura:if isTrue="{!and(cus.key != 'Active__c',cus.key != 'Row_Start__c')}">
+                                                    <c:DGTL_DynamicSobjectInputField objName="{!v.WraperObject.PlacementContent}" fieldName="{!cus.key}" /> 
+                                                </aura:if>
+                                            </div> 
+                                        </td>
+                                    </tr>
+                                </aura:iteration>   
+                            </table>
+                        </lightning:recordEditForm> 
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <aura:if isTrue="{!v.WraperObject.PlacementContent.Id != null}">
+                <c:DGTL_LayoutContentDetail contentId="{!v.WraperObject.PlacementContent.Id}" 
+                                            brand="{!v.WraperObject.PlacementContent.Brand__c}" 
+                                            readFieldsMap = "{!v.WraperObject.map_DetailReadFields}"
+                                            writeFieldsMap= "{!v.WraperObject.map_DetailWriteFields}"
+                                            hideSubType = "{!v.WraperObject.hideSubType}"
+                                            detailList = "{!v.WraperObject.list_PlacementContentDetail}"
+                                            deleteList = "{!v.WraperObject.list_DetelePlacementContentDetail}"
+                                            isCompared = "false"/>
+            </aura:if> 
+        </c:CollapsableSection>
+        
+        
+        <aura:if isTrue="{!v.viewTask}">
+            <div style="height:60%; width:50%;">
+                <section role="alertdialog" tabindex="0" aria-labelledby="prompt-heading-id" aria-describedby="prompt-message-wrapper" class="slds-modal slds-fade-in-open slds-modal_prompt" aria-modal="true">
+                    <div class="slds-modal__container">
+                        <header class="slds-modal__header">
+                            <h2 class="slds-text-heading_medium slds-hyphenate" id="prompt-heading-id">Task Details</h2>
+                        </header>
+                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                            <force:recordView recordId="{!v.TaskRec.Id}" />
+                        </div>
+                        <footer class="slds-modal__footer slds-theme_default">
+                            <lightning:button label="Close" title="Close" onclick="{! c.handleCloseView }"/>
+                        </footer>
+                    </div>
+                </section>
+                <div class="slds-backdrop slds-backdrop_open"></div>
+            </div>
+        </aura:if>
+        
+    </lightning:card>
+</aura:component>

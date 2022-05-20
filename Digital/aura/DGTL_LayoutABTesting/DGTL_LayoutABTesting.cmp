@@ -1,0 +1,65 @@
+<aura:component controller="DGTL_LayoutABTesting" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+	<aura:attribute name="recordId" type="String" default=""/>
+    <aura:attribute name="CreateOrUpdate" type="String" default=""/>
+    <aura:attribute name="layoutId" type="String" default=""/>
+    <aura:attribute name="selectedBrand" type="String" default=""/>
+    <aura:attribute name="selectedPageType" type="String" default=""/>
+    <aura:attribute name="selectedFloorset" type="String" default=""/>
+    <aura:attribute name="selectedDeviceType" type="String" default=""/>
+    <aura:attribute name="TestingName" type="String" default=""/>
+    <aura:attribute name="TestingNameUpdate" type="String" default=""/>
+    <aura:attribute name="selectedTest" type="string" default=""/>
+    <aura:attribute name="TestingList" type="List" />
+    <aura:attribute name="selectedConts" type="List" />
+    <aura:attribute name="cloneConts" type="List" />
+    
+    <aura:attribute name="toggleABModal" type="Boolean" default="false"/>
+    <aura:attribute name="contColumns" type="List"/>
+	<aura:attribute name="isNewLayout" type="boolean" default="false"/>    
+    <aura:handler name="init" action="{!c.init}" value="{!this}"/>
+    <aura:registerEvent name="ABTestingId" type="c:DGTL_LayoutEvents"/>
+    <aura:attribute name="spinner" type="boolean" default="false"/> 
+    <aura:if isTrue="{!v.spinner}">
+        <lightning:spinner alternativeText="Loading" size="large" />
+    </aura:if> 
+    <div class="demo-only" style="height:640px;width:40%">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-modal_large slds-fade-in-open">
+            <div class="slds-modal__container"> 
+                <header class="slds-modal__header">                    
+                    <lightning:button class="slds-button slds-button_neutral" label="Save/Search" onclick="{!c.updateTestLayJs}"/>
+                    <lightning:button class="slds-button slds-button_neutral" label="Cancel" onclick="{!c.closeModalBox}"/>
+                </header> 
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">     
+                    <lightning:recordEditForm objectApiName="Placement_Layout__c" recordId="{!v.recordId}" >                        
+                                   <lightning:select name="selectedTest" label="Select Testing" aura:id="selectedTest" 
+                                                     value="{!v.selectedTest}"  onchange="{!c.getTesting}">
+                                       <aura:if isTrue="{!not(empty(v.selectedConts))}">
+                                           <option text="None" value="None" /> 
+                                       </aura:if>
+                            <aura:iteration items="{!v.TestingList}" var="item">
+                                <option text="{!item.value}" value="{!item.key}" selected="{!item.selected}"/>
+                            </aura:iteration>
+                        </lightning:select>         
+                        <lightning:inputField fieldName="Test_Name__c" onchange="{!c.getTestName}" required="true"/>                         
+                    </lightning:recordEditForm>
+                    <aura:if isTrue="{!not(empty(v.selectedConts))}">
+                            <div style="padding:0.5rem;" class="slds-box slds-theme_default">
+                                <div class="stageContainer" style="width:100%">
+                                    <div style="height: 300px">
+                                        <div class="slds-truncate" style="white-space:normal;">
+                                            <lightning:datatable keyField="id" data="{!v.selectedConts}" columns="{!v.contColumns}" hideCheckboxColumn="true"/>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </aura:if>
+                </div>
+            </div>
+            <footer class="slds-modal__footer">
+                <lightning:button class="slds-button slds-button_neutral" label="Cancel" />
+            </footer>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>    
+</aura:component>

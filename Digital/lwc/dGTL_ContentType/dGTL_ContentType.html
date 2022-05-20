@@ -1,0 +1,44 @@
+<template>
+    <div style="height: 500px" >
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-modal_small">
+            <div class="slds-modal__container">
+                 <header class="slds-modal__header"> 
+                      
+                 <lightning-radio-group name="radioGroup"
+                    label=""
+                    options={contTypes}
+                    value={NewContentType}
+                    type="button" onchange={handleOnChange}></lightning-radio-group>   
+                </header>               
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    
+                                <template if:true={enableABTestPrompt}>
+                                    <lightning-input type="text" label="Test Name" value={abTestName}
+                                        placeholder="enter test name..." required onchange={getTestName}></lightning-input>
+                                </template>
+                                <template if:true={enableTakedownPrompt}>
+                                    <div align="center">
+                                        <h2 class="slds-text-heading_medium slds-hyphenate" >Are you sure?</h2>
+                                    </div>                                    
+                                </template>
+                                <template if:true={enableContigencyPrompt}>
+                                    <div align="center">
+                                        <h2 class="slds-text-heading_medium slds-hyphenate" >Are you sure?</h2>
+                                    </div>
+                                </template>
+                            
+                    
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button variant="brand" label={buttonLabel} title={buttonTitle}
+                        onclick={createContentType} class="slds-m-left_x-small">
+                    </lightning-button>
+                    <lightning-button label="Close" title="Close" onclick={closeModalBox}
+                        class="slds-m-left_x-small"></lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+</template>

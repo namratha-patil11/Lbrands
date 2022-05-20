@@ -1,0 +1,5 @@
+<aura:event type="COMPONENT" description="Event template" >
+    <aura:attribute name="close" type="boolean" default="false"/>
+    <aura:attribute name="replacedContentDetail" type="Placement_Content_Detail__c" />
+    <aura:attribute name="index" type="String" />
+</aura:event>

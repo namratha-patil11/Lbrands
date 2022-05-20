@@ -1,0 +1,12 @@
+Hi Team,<br/><br/><br/>
+
+<p>
+One Placement Content has been updated. It needs to be Approved to publish. 
+
+<a href="https://lbrands--personal02.lightning.force.com/lightning/r/Placement_Content__c/{!Placement_Content__c.Id}/view">Click Here</a> to access the record.
+</p>
+
+<br/><br/>
+Placement Type : {!Placement_Content__c.00N2C000001LsNo}<br/>
+KOD : {!Placement_Content__c.KOD__c}<br/>
+Placement Date : {!Placement_Content__c.Placement_LayoutId__r.Date__c}

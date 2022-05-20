@@ -1,0 +1,126 @@
+<template>
+                <div style="height: 500px;">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+        aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container" style="width:100%;">
+                        <header class="slds-modal__header" style="width:100%;">
+                                <h2 class="slds-text-heading_medium slds-hyphenate" id="prompt-heading-id">History
+                                        Tracking </h2>
+                        </header>
+                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1"
+                                style="width:100%;">
+
+                                <template if:true={historyRecords}>
+
+                                        </br><b>Selected Fields: </b>{selectedFields}
+                                        </br></br>
+                                        <!-- </br>objRecordId --  {objRecordId}  ---</br>
+                 contEditFields ---- {contEditFields}</br>
+                 contDetailEditFields -- {contDetailEditFields}</br> -->
+                                        <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-box"
+                                                style="width:100%;">
+                                                <thead>
+                                                        <tr class="slds-text-title_caps">
+                                                                <td></td>
+                                                                <td><strong> Field Name </strong> </td>
+                                                                <td><strong> Old Value </strong> </td>
+                                                                <td><strong> New Value </strong> </td>
+                                                                <td><strong> Modified By </strong> </td>
+                                                                <td><strong> Modified Date </strong> </td>
+                                                        </tr>
+                                                </thead>
+                                                <tbody>
+                                                        <template for:each={historyRecords} for:item="record">
+                                                                <tr key={record.contHistRec.Id}>                                                                        
+                                                                                <td>
+                                                                                                <template if:false={layoutLocked}>
+                                                                                                                <template
+                                                                                                                if:true={record.isEditable}>
+                                                                                                <div
+                                                                                                        class="slds-form-element">
+                                                                                                        <div
+                                                                                                                class="slds-form-element__control">
+                                                                                                                <label
+                                                                                                                        class="slds-checkbox">
+                                                                                                                        <lightning-input
+                                                                                                                                type="checkbox"
+                                                                                                                                label=""
+                                                                                                                                name={record}
+                                                                                                                                value={record.isSelected}
+                                                                                                                                onchange={handleFieldSelection}>
+                                                                                                                        </lightning-input>
+
+                                                                                                                </label>
+                                                                                                        </div>
+                                                                                                </div> 
+                                                                                        </template>
+                                                                                </template>                                                                                        
+
+                                                                                </td>
+                                                                          
+                                                                        <td> {record.contHistRec.Field_Name__c}</td>
+                                                                        <td>
+                                                                                <div class="slds-truncate"
+                                                                                        style="white-space:normal;">
+                                                                                        <template
+                                                                                                if:true={record.isImage}>
+                                                                                                <lightning-formatted-rich-text
+                                                                                                        value={record.contHistRec.Old_Value__c}>
+                                                                                                </lightning-formatted-rich-text>
+                                                                                        </template>
+                                                                                        <template
+                                                                                                if:false={record.isImage}>
+                                                                                                {record.contHistRec.Old_Value__c}
+                                                                                        </template>
+                                                                                </div>
+                                                                        </td>
+                                                                        <td>
+                                                                                <div class="slds-truncate"
+                                                                                        style="white-space:normal;">
+                                                                                        <template
+                                                                                                if:true={record.isImage}>
+                                                                                                <lightning-formatted-rich-text
+                                                                                                        value={record.contHistRec.New_Value__c}>
+                                                                                                </lightning-formatted-rich-text>
+                                                                                        </template>
+                                                                                        <template
+                                                                                                if:false={record.isImage}>
+                                                                                                {record.contHistRec.New_Value__c}
+                                                                                        </template>
+                                                                                </div>
+                                                                        </td>
+                                                                        <td> {record.contHistRec.LastModifiedBy.Name}
+                                                                        </td>
+                                                                        <td>
+                                                                                <lightning-record-edit-form record-id={record.contHistRec.Id} object-api-name="History_Tracking__c">
+                                                                                        <div style="display: inline-block;">
+                                                                                            <lightning-output-field field-name="LastModifiedDate" variant="label-hidden" value={record.contHistRec.LastModifiedDate}>
+                                                                                            </lightning-output-field>
+                                                                                        </div>
+                                                                                </lightning-record-edit-form>
+                                                                        </td>
+                                                                </tr>
+                                                        </template>
+                                                </tbody>
+                                        </table>
+                                </template>
+
+
+                        </div>
+                        <footer class="slds-modal__footer">
+                                <template if:false={layoutLocked}>
+                                        <template if:true={historyRecords}>
+                                                <lightning-button variant="brand" label="Replace" title="Replace"
+                                                        onclick={replaceValues} class="slds-m-left_x-small">
+                                                </lightning-button>
+                                        </template>
+                                </template>
+                                <lightning-button label="Close/Cancel" title="Close/Cancel" onclick={closeModalBox}
+                                        class="slds-m-left_x-small"></lightning-button>
+                        </footer>
+                </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+</div>
+
+</template>

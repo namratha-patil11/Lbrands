@@ -1,0 +1,104 @@
+<aura:component controller="DGTL_MultiContentDelete" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    
+    
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+    <aura:attribute name="options" type="List" default="[
+                                                        {'label': 'Delete Placement', 'value': 'DeleteContent'},
+                                                        {'label': 'Delete Related Placements', 'value': 'DeleteRelContents'}]"/>
+    <aura:attribute name="openMultiContentDelete" type="boolean" default="false"/>  
+    <aura:attribute name="content" type="Placement_Content__c"/>
+    <aura:attribute name="nonCotrolled" type="List"/>
+
+    <aura:attribute name="isContentDeleted" type="boolean" default="false" />
+    <aura:attribute name="showTable" type="boolean" default="false" />
+    
+    <aura:attribute name="currentPageNumber" type="Integer" default="1"/>
+    <aura:attribute name="pageSize" type="Integer" default="10"/>
+    <aura:attribute name="totalPages" type="Integer" default="0"/>
+    <aura:attribute name="pageList" type="List"/>   
+    
+    <aura:attribute name="allData" type="List"/>
+    <aura:attribute name="listPlacementContents" type="List"/>
+    <aura:attribute name="listLockedContents" type="List"/>
+    <aura:attribute name="selectedPlacementContents" type="List"/>
+    <aura:attribute name="selectedCountAdd" type="integer" default="0"/>
+    <aura:attribute name="addColumns" type="List"/>
+    <aura:attribute name="disableRadio" type="boolean" default ="false"/>
+    <aura:attribute name="choosenValue" type="String" default="DeleteContent"/>
+    
+    <!--Event handler close KOD link popup which is fire from Child Component-->
+    <aura:registerEvent name="closeKODPopup" type="c:DGTL_CloseMultiKODPopup"/>
+    
+    <!--aura handler with waiting and donewaiting events-->
+    <aura:attribute name="spinner" type="boolean" default="false"/> 
+    
+    <div style="height:50%">
+        <section role="alertdialog" tabindex="0" aria-labelledby="prompt-heading-id" aria-describedby="prompt-message-wrapper" class="slds-modal slds-fade-in-open slds-modal_prompt" aria-modal="true">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 class="slds-text-heading_medium slds-hyphenate" id="prompt-heading-id">Confirm Delete Content(s)</h2>
+                </header>
+                <aura:if isTrue="{!v.spinner}">
+                    <lightning:spinner alternativeText="Loading" size="large" variant="brand"/>
+                </aura:if>   
+                <div style="padding:0.5rem;" class="slds-box slds-theme_default overflowautocss"><br/>
+                    <div style="text-align:center;font-size:18px;">
+                        
+                        <lightning:radioGroup name="radioGroup" label="" options="{!v.options}" 
+                                              value="{!v.choosenValue}" onchange="{!c.radioChange}"
+                                              type="button"
+                                              disabled="{!v.disableRadio}"/>
+                        <span style="font-size:10px;">*All the Associated AB Test / Takedown record(s) will be deleted </span><br/>
+                    </div>
+                    <aura:if isTrue="{!v.showTable}">
+                        <aura:if isTrue="{!v.choosenValue == 'DeleteRelContents'}">
+                            <!-- if Delete Related Placement -->
+                            <div class="stageContainer" style="width:100%;height: 100%">
+                                <!-- List of Related Placements to Delete -->
+                                <div class="slds-truncate" style="white-space:normal;">
+                                    <lightning:layout multipleRows="true" horizontalAlign="center">
+                                        <div style="height: 100%"> 
+                                            <lightning:datatable keyField="Id" data="{!v.listPlacementContents}" columns="{!v.addColumns}" 
+                                                                 onrowselection="{!c.handleSelect}" /> <br/><br/>
+                                        </div><br/>
+                                    </lightning:layout>
+                                </div> <br/><br/><br/>
+                                <!-- List of Locked Related Placements -->
+                                <aura:if isTrue="{!not(empty(v.listLockedContents))}">
+                                    <div class="slds-truncate" style="white-space:normal;height: 100%">
+                                        <div class="tableHeader">
+                                            <strong><span>List of Locked / Processed Placements</span></strong></div>
+                                        <div class="slds-truncate" style="white-space:normal;">
+                                            <lightning:datatable keyField="Id" data="{!v.listLockedContents}" columns="{!v.addColumns}"
+                                                                 hideCheckboxColumn="true"/>
+                                        </div> 
+                                    </div>
+                                </aura:if>
+                            </div>
+                            <!-- if Delete Placement -->
+                            <aura:set attribute="else">
+                                <div class="contentInfo">
+                                    <span> {!v.content.Placement_type__c} - {!v.content.Main_Message__c}</span><br/><br/>
+                                   <aura:if isTrue="{!!empty(v.nonCotrolled)}"> 
+                                        <aura:iteration items="{!v.nonCotrolled}" indexVar="index" var="conts">
+                                             {!conts.Type__c} - {!conts.Placement_type__c} - {!conts.Main_Message__c}<br/>
+                                        </aura:iteration>
+                                    </aura:if> 
+                                </div><br/>
+                            </aura:set>
+                        </aura:if>    
+                    </aura:if>
+                </div>
+                
+                <footer class="slds-modal__footer slds-theme_default" style="text-align:right;">
+                    <lightning:button label="Cancel" title="Cancel" onclick="{!c.handleCancel}"/>
+                    <lightning:button label="Delete" title="Select one or All Placements to Delete" 
+                                      disabled="{!and(v.choosenValue == 'DeleteRelContents',v.selectedCountAdd == 0)? true : false}" 
+                                      variant="brand" onclick="{!c.handleDetele}"/>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+    
+</aura:component>

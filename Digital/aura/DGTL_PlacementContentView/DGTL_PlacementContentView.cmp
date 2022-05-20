@@ -1,0 +1,18 @@
+<aura:component controller="DGTL_PlacementContentView" implements="lightning:actionOverride,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    
+    <!--attributes for navigation -->
+    <aura:attribute name="pageReference" type="Object"/>
+    <lightning:navigation aura:id="navService"/>
+    
+    <!--Init handler which is call doInit js function on component Load-->  
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/> 
+    <aura:attribute name="fields" type="String[]" default="['Name','Placement_Layout__c']" />
+    
+    
+    <lightning:Card title="">
+        <div Style="padding-top:5%;padding-left:5%;Height:50%;padding-bottom:5%;">
+         <H1> <Strong>Navigating to Layouts...... </Strong></H1>
+        </div>
+    </lightning:Card>
+   
+</aura:component>

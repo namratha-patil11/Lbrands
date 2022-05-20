@@ -1,0 +1,2448 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>Offer_Retail_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>true</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>true</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <label>Placement Library</label>
+    <nameField>
+        <label>Name</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Placement Library</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <visibility>Public</visibility>
+    <fields>
+        <fullName>API_Product_Preview_IDs__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Add previewID,publishedID,stackIds and product count in the following format.previewID:&lt;enter preview ID from HIPPO here&gt;,publishedID:&lt;enter published ID from HIPPO here&gt;,stackIds:&lt;Enter all stack ids here&gt;,cards:&lt;Enter card count here&gt;,products:&lt;enter pr</inlineHelpText>
+        <label>API Product Information</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Approver__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Approver</label>
+        <referenceTo>User</referenceTo>
+        <relationshipName>Placement_Library</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>App_Copy__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter copy for App specific placements. This would usually be populated only on OSL type placements.</inlineHelpText>
+        <label>App Copy</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Brands__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Select the brand from the drop down: E.g. VS, PINK, Beauty, Marketplace</inlineHelpText>
+        <label>Brand</label>
+        <required>true</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetName>DGTL_Brands</valueSetName>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Collection_Page_Url__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Add collection page URLs for collection Header and collection cue placements.  Enter URL without live site details. For e.g. enter “/vs/newarrivals/shop-collection” without “https://victoriassecret.com/”</inlineHelpText>
+        <label>Collection Page Url</label>
+        <length>20768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Content_Type__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Select the type of the content from the drop down. E.g. Image, Dynamic, Video</inlineHelpText>
+        <label>Content Type</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Video</fullName>
+                    <default>false</default>
+                    <label>Video</label>
+                </value>
+                <value>
+                    <fullName>Carousel</fullName>
+                    <default>false</default>
+                    <label>Carousel</label>
+                </value>
+                <value>
+                    <fullName>Image</fullName>
+                    <default>true</default>
+                    <label>Image</label>
+                </value>
+                <value>
+                    <fullName>Dynamic</fullName>
+                    <default>false</default>
+                    <label>Dynamic</label>
+                </value>
+                <value>
+                    <fullName>API Product feed</fullName>
+                    <default>false</default>
+                    <label>API Product feed</label>
+                </value>
+                <value>
+                    <fullName>ImageText</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>ImageText</label>
+                </value>
+                <value>
+                    <fullName>Offer Spotlight</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>Offer Spotlight</label>
+                </value>
+                <value>
+                    <fullName>Popup</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>Popup</label>
+                </value>
+                <value>
+                    <fullName>Site Majority Offer</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>Site Majority Offer</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Copy_Image__c</fullName>
+        <externalId>false</externalId>
+        <label>Copy</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Creative_delivery_path__c</fullName>
+        <externalId>false</externalId>
+        <label>Creative delivery path</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Device_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Device Type</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Desktop</fullName>
+                    <default>false</default>
+                    <label>Desktop</label>
+                </value>
+                <value>
+                    <fullName>Mobile</fullName>
+                    <default>false</default>
+                    <label>Mobile</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Editorial_Name__c</fullName>
+        <description>Indicates the Editorial name when page type is Editorial</description>
+        <externalId>false</externalId>
+        <label>Editorial Name</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>End_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>End Date</label>
+        <required>true</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>End_Minute__c</fullName>
+        <externalId>false</externalId>
+        <label>End Minute</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>00</fullName>
+                    <default>true</default>
+                    <label>00</label>
+                </value>
+                <value>
+                    <fullName>01</fullName>
+                    <default>false</default>
+                    <label>01</label>
+                </value>
+                <value>
+                    <fullName>02</fullName>
+                    <default>false</default>
+                    <label>02</label>
+                </value>
+                <value>
+                    <fullName>03</fullName>
+                    <default>false</default>
+                    <label>03</label>
+                </value>
+                <value>
+                    <fullName>04</fullName>
+                    <default>false</default>
+                    <label>04</label>
+                </value>
+                <value>
+                    <fullName>05</fullName>
+                    <default>false</default>
+                    <label>05</label>
+                </value>
+                <value>
+                    <fullName>06</fullName>
+                    <default>false</default>
+                    <label>06</label>
+                </value>
+                <value>
+                    <fullName>07</fullName>
+                    <default>false</default>
+                    <label>07</label>
+                </value>
+                <value>
+                    <fullName>08</fullName>
+                    <default>false</default>
+                    <label>08</label>
+                </value>
+                <value>
+                    <fullName>09</fullName>
+                    <default>false</default>
+                    <label>09</label>
+                </value>
+                <value>
+                    <fullName>10</fullName>
+                    <default>false</default>
+                    <label>10</label>
+                </value>
+                <value>
+                    <fullName>11</fullName>
+                    <default>false</default>
+                    <label>11</label>
+                </value>
+                <value>
+                    <fullName>12</fullName>
+                    <default>false</default>
+                    <label>12</label>
+                </value>
+                <value>
+                    <fullName>13</fullName>
+                    <default>false</default>
+                    <label>13</label>
+                </value>
+                <value>
+                    <fullName>14</fullName>
+                    <default>false</default>
+                    <label>14</label>
+                </value>
+                <value>
+                    <fullName>15</fullName>
+                    <default>false</default>
+                    <label>15</label>
+                </value>
+                <value>
+                    <fullName>16</fullName>
+                    <default>false</default>
+                    <label>16</label>
+                </value>
+                <value>
+                    <fullName>17</fullName>
+                    <default>false</default>
+                    <label>17</label>
+                </value>
+                <value>
+                    <fullName>18</fullName>
+                    <default>false</default>
+                    <label>18</label>
+                </value>
+                <value>
+                    <fullName>19</fullName>
+                    <default>false</default>
+                    <label>19</label>
+                </value>
+                <value>
+                    <fullName>20</fullName>
+                    <default>false</default>
+                    <label>20</label>
+                </value>
+                <value>
+                    <fullName>21</fullName>
+                    <default>false</default>
+                    <label>21</label>
+                </value>
+                <value>
+                    <fullName>22</fullName>
+                    <default>false</default>
+                    <label>22</label>
+                </value>
+                <value>
+                    <fullName>23</fullName>
+                    <default>false</default>
+                    <label>23</label>
+                </value>
+                <value>
+                    <fullName>24</fullName>
+                    <default>false</default>
+                    <label>24</label>
+                </value>
+                <value>
+                    <fullName>25</fullName>
+                    <default>false</default>
+                    <label>25</label>
+                </value>
+                <value>
+                    <fullName>26</fullName>
+                    <default>false</default>
+                    <label>26</label>
+                </value>
+                <value>
+                    <fullName>27</fullName>
+                    <default>false</default>
+                    <label>27</label>
+                </value>
+                <value>
+                    <fullName>28</fullName>
+                    <default>false</default>
+                    <label>28</label>
+                </value>
+                <value>
+                    <fullName>29</fullName>
+                    <default>false</default>
+                    <label>29</label>
+                </value>
+                <value>
+                    <fullName>30</fullName>
+                    <default>false</default>
+                    <label>30</label>
+                </value>
+                <value>
+                    <fullName>31</fullName>
+                    <default>false</default>
+                    <label>31</label>
+                </value>
+                <value>
+                    <fullName>32</fullName>
+                    <default>false</default>
+                    <label>32</label>
+                </value>
+                <value>
+                    <fullName>33</fullName>
+                    <default>false</default>
+                    <label>33</label>
+                </value>
+                <value>
+                    <fullName>34</fullName>
+                    <default>false</default>
+                    <label>34</label>
+                </value>
+                <value>
+                    <fullName>35</fullName>
+                    <default>false</default>
+                    <label>35</label>
+                </value>
+                <value>
+                    <fullName>36</fullName>
+                    <default>false</default>
+                    <label>36</label>
+                </value>
+                <value>
+                    <fullName>37</fullName>
+                    <default>false</default>
+                    <label>37</label>
+                </value>
+                <value>
+                    <fullName>38</fullName>
+                    <default>false</default>
+                    <label>38</label>
+                </value>
+                <value>
+                    <fullName>39</fullName>
+                    <default>false</default>
+                    <label>39</label>
+                </value>
+                <value>
+                    <fullName>40</fullName>
+                    <default>false</default>
+                    <label>40</label>
+                </value>
+                <value>
+                    <fullName>41</fullName>
+                    <default>false</default>
+                    <label>41</label>
+                </value>
+                <value>
+                    <fullName>42</fullName>
+                    <default>false</default>
+                    <label>42</label>
+                </value>
+                <value>
+                    <fullName>43</fullName>
+                    <default>false</default>
+                    <label>43</label>
+                </value>
+                <value>
+                    <fullName>44</fullName>
+                    <default>false</default>
+                    <label>44</label>
+                </value>
+                <value>
+                    <fullName>45</fullName>
+                    <default>false</default>
+                    <label>45</label>
+                </value>
+                <value>
+                    <fullName>46</fullName>
+                    <default>false</default>
+                    <label>46</label>
+                </value>
+                <value>
+                    <fullName>47</fullName>
+                    <default>false</default>
+                    <label>47</label>
+                </value>
+                <value>
+                    <fullName>48</fullName>
+                    <default>false</default>
+                    <label>48</label>
+                </value>
+                <value>
+                    <fullName>49</fullName>
+                    <default>false</default>
+                    <label>49</label>
+                </value>
+                <value>
+                    <fullName>50</fullName>
+                    <default>false</default>
+                    <label>50</label>
+                </value>
+                <value>
+                    <fullName>51</fullName>
+                    <default>false</default>
+                    <label>51</label>
+                </value>
+                <value>
+                    <fullName>52</fullName>
+                    <default>false</default>
+                    <label>52</label>
+                </value>
+                <value>
+                    <fullName>53</fullName>
+                    <default>false</default>
+                    <label>53</label>
+                </value>
+                <value>
+                    <fullName>54</fullName>
+                    <default>false</default>
+                    <label>54</label>
+                </value>
+                <value>
+                    <fullName>55</fullName>
+                    <default>false</default>
+                    <label>55</label>
+                </value>
+                <value>
+                    <fullName>56</fullName>
+                    <default>false</default>
+                    <label>56</label>
+                </value>
+                <value>
+                    <fullName>57</fullName>
+                    <default>false</default>
+                    <label>57</label>
+                </value>
+                <value>
+                    <fullName>58</fullName>
+                    <default>false</default>
+                    <label>58</label>
+                </value>
+                <value>
+                    <fullName>59</fullName>
+                    <default>false</default>
+                    <label>59</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>End_Time_No__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(CONTAINS( TEXT(End_Time__c) , &#39;AM&#39;), 
+IF(LEN(TEXT(End_Time__c))=5, 
+IF(CONTAINS( TEXT(End_Time__c) , &#39;12&#39;),0,VALUE(LEFT(TEXT(End_Time__c),2))), 
+VALUE(LEFT(TEXT(End_Time__c),1)) 
+), 
+IF(LEN(TEXT(End_Time__c))=5, 
+VALUE(LEFT(TEXT(End_Time__c),2))+12, 
+VALUE(LEFT(TEXT(End_Time__c),1))+12 
+) 
+) * 60 + VALUE(Text(End_Minute__c))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>End Time No</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>End_Time__c</fullName>
+        <externalId>false</externalId>
+        <label>End Hour</label>
+        <required>true</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>12 AM</fullName>
+                    <default>false</default>
+                    <label>12 AM</label>
+                </value>
+                <value>
+                    <fullName>1 AM</fullName>
+                    <default>false</default>
+                    <label>1 AM</label>
+                </value>
+                <value>
+                    <fullName>2 AM</fullName>
+                    <default>false</default>
+                    <label>2 AM</label>
+                </value>
+                <value>
+                    <fullName>3 AM</fullName>
+                    <default>false</default>
+                    <label>3 AM</label>
+                </value>
+                <value>
+                    <fullName>4 AM</fullName>
+                    <default>false</default>
+                    <label>4 AM</label>
+                </value>
+                <value>
+                    <fullName>5 AM</fullName>
+                    <default>true</default>
+                    <label>5 AM</label>
+                </value>
+                <value>
+                    <fullName>6 AM</fullName>
+                    <default>false</default>
+                    <label>6 AM</label>
+                </value>
+                <value>
+                    <fullName>7 AM</fullName>
+                    <default>false</default>
+                    <label>7 AM</label>
+                </value>
+                <value>
+                    <fullName>8 AM</fullName>
+                    <default>false</default>
+                    <label>8 AM</label>
+                </value>
+                <value>
+                    <fullName>9 AM</fullName>
+                    <default>false</default>
+                    <label>9 AM</label>
+                </value>
+                <value>
+                    <fullName>10 AM</fullName>
+                    <default>false</default>
+                    <label>10 AM</label>
+                </value>
+                <value>
+                    <fullName>11 AM</fullName>
+                    <default>false</default>
+                    <label>11 AM</label>
+                </value>
+                <value>
+                    <fullName>12 PM</fullName>
+                    <default>false</default>
+                    <label>12 PM</label>
+                </value>
+                <value>
+                    <fullName>1 PM</fullName>
+                    <default>false</default>
+                    <label>1 PM</label>
+                </value>
+                <value>
+                    <fullName>2 PM</fullName>
+                    <default>false</default>
+                    <label>2 PM</label>
+                </value>
+                <value>
+                    <fullName>3 PM</fullName>
+                    <default>false</default>
+                    <label>3 PM</label>
+                </value>
+                <value>
+                    <fullName>4 PM</fullName>
+                    <default>false</default>
+                    <label>4 PM</label>
+                </value>
+                <value>
+                    <fullName>5 PM</fullName>
+                    <default>false</default>
+                    <label>5 PM</label>
+                </value>
+                <value>
+                    <fullName>6 PM</fullName>
+                    <default>false</default>
+                    <label>6 PM</label>
+                </value>
+                <value>
+                    <fullName>7 PM</fullName>
+                    <default>false</default>
+                    <label>7 PM</label>
+                </value>
+                <value>
+                    <fullName>8 PM</fullName>
+                    <default>false</default>
+                    <label>8 PM</label>
+                </value>
+                <value>
+                    <fullName>9 PM</fullName>
+                    <default>false</default>
+                    <label>9 PM</label>
+                </value>
+                <value>
+                    <fullName>10 PM</fullName>
+                    <default>false</default>
+                    <label>10 PM</label>
+                </value>
+                <value>
+                    <fullName>11 PM</fullName>
+                    <default>false</default>
+                    <label>11 PM</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Evergreen__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Check the box if the placement is evergreen for the page</inlineHelpText>
+        <label>Evergreen</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Grouped__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Select group start/group end to show placements in grid view</inlineHelpText>
+        <label>Grouped</label>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Group Start</fullName>
+                    <default>false</default>
+                    <label>Group Start</label>
+                </value>
+                <value>
+                    <fullName>Group End</fullName>
+                    <default>false</default>
+                    <label>Group End</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Image__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Upload one or more screen cap(s) of a product image to be featured on site</inlineHelpText>
+        <label>CAD/Shot/Screen Cap</label>
+        <length>131072</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Html</type>
+        <visibleLines>25</visibleLines>
+    </fields>
+    <fields>
+        <fullName>KOD__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <inlineHelpText>Select one or more approved KODs if the placement is an offer type. Use search icon in the dropdown to filter further.</inlineHelpText>
+        <label>KOD</label>
+        <lookupFilter>
+            <active>false</active>
+            <filterItems>
+                <field>KOD__c.Offer_Status__c</field>
+                <operation>equals</operation>
+                <value>APPROVED</value>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>KOD__c</referenceTo>
+        <relationshipLabel>Placement Library</relationshipLabel>
+        <relationshipName>Placement_Library</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Link__c</fullName>
+        <externalId>false</externalId>
+        <label>Link</label>
+        <length>30000</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Main_Message__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter concise main message for the placement. Used as placement identifier everywhere.</inlineHelpText>
+        <label>Main Message</label>
+        <length>255</length>
+        <required>true</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Notes__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Additional product notes or instructions can be added here</inlineHelpText>
+        <label>Notes</label>
+        <length>131072</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Offer_Type__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Select if the placement is offer/non offer from the drop down. If placement is an offer type then select KODs in the next field</inlineHelpText>
+        <label>Offer/Non-offer</label>
+        <required>true</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Offer</fullName>
+                    <default>false</default>
+                    <label>Offer</label>
+                </value>
+                <value>
+                    <fullName>Non Offer</fullName>
+                    <default>false</default>
+                    <label>Non Offer</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Page_Types__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Select appropriate Home, Landing, Editorials or LTO page type from the drop down, based on what is being built</inlineHelpText>
+        <label>Page Types</label>
+        <required>true</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Brands__c</controllingField>
+            <restricted>true</restricted>
+            <valueSetName>DGTL_Page_Types</valueSetName>
+            <valueSettings>
+                <controllingFieldValue>PINK</controllingFieldValue>
+                <controllingFieldValue>VS</controllingFieldValue>
+                <valueName>Home Page</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>PINK</controllingFieldValue>
+                <controllingFieldValue>VS</controllingFieldValue>
+                <controllingFieldValue>Beauty</controllingFieldValue>
+                <controllingFieldValue>Marketplace</controllingFieldValue>
+                <valueName>LTO</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>PINK</controllingFieldValue>
+                <controllingFieldValue>VS</controllingFieldValue>
+                <controllingFieldValue>Beauty</controllingFieldValue>
+                <controllingFieldValue>Marketplace</controllingFieldValue>
+                <valueName>Offer Spotlight</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>PINK</controllingFieldValue>
+                <controllingFieldValue>VS</controllingFieldValue>
+                <controllingFieldValue>Beauty</controllingFieldValue>
+                <controllingFieldValue>Marketplace</controllingFieldValue>
+                <valueName>Editorials</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>PINK</controllingFieldValue>
+                <controllingFieldValue>VS</controllingFieldValue>
+                <valueName>Bras LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>PINK</controllingFieldValue>
+                <controllingFieldValue>VS</controllingFieldValue>
+                <valueName>Panties LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>PINK</controllingFieldValue>
+                <controllingFieldValue>VS</controllingFieldValue>
+                <valueName>Sport LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>PINK</controllingFieldValue>
+                <controllingFieldValue>VS</controllingFieldValue>
+                <valueName>Sale LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>PINK</controllingFieldValue>
+                <valueName>Tops LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>PINK</controllingFieldValue>
+                <valueName>Bottoms LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>PINK</controllingFieldValue>
+                <valueName>Outfits LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>PINK</controllingFieldValue>
+                <valueName>Awesome Prices LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>PINK</controllingFieldValue>
+                <valueName>Apparel LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>PINK</controllingFieldValue>
+                <valueName>Accessories LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>PINK</controllingFieldValue>
+                <valueName>Swim LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>PINK</controllingFieldValue>
+                <valueName>PINK Beauty</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>PINK</controllingFieldValue>
+                <valueName>New In LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>VS</controllingFieldValue>
+                <valueName>Lounge LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>VS</controllingFieldValue>
+                <controllingFieldValue>Beauty</controllingFieldValue>
+                <valueName>New LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>VS</controllingFieldValue>
+                <valueName>Angel Card LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>VS</controllingFieldValue>
+                <valueName>Lingerie LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>VS</controllingFieldValue>
+                <valueName>Sleep LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>VS</controllingFieldValue>
+                <valueName>Gifts LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>VS</controllingFieldValue>
+                <valueName>Clearance LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>VS</controllingFieldValue>
+                <valueName>Brands We Love</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>VS</controllingFieldValue>
+                <valueName>V-Day LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>VS</controllingFieldValue>
+                <valueName>Gifting LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>VS</controllingFieldValue>
+                <valueName>Mother&#39;s Day LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>VS</controllingFieldValue>
+                <valueName>Store Event LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>VS</controllingFieldValue>
+                <valueName>Special Event LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Beauty</controllingFieldValue>
+                <valueName>Beauty Home Page</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Beauty</controllingFieldValue>
+                <valueName>VS Beauty LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Beauty</controllingFieldValue>
+                <valueName>VS Accessories LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Beauty</controllingFieldValue>
+                <valueName>Beauty Fragrance LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Beauty</controllingFieldValue>
+                <valueName>Beauty Mist &amp; Body LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Beauty</controllingFieldValue>
+                <valueName>Beauty Lip LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Beauty</controllingFieldValue>
+                <valueName>Beauty Pink Beauty LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Beauty</controllingFieldValue>
+                <valueName>Beauty Semiannual sale LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Beauty</controllingFieldValue>
+                <valueName>Beauty Accessories LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Beauty</controllingFieldValue>
+                <valueName>PINK Beauty LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Beauty</controllingFieldValue>
+                <valueName>PINK Accessories LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Beauty</controllingFieldValue>
+                <valueName>Shop by Category LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Beauty</controllingFieldValue>
+                <valueName>Our Fragrances LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Marketplace</controllingFieldValue>
+                <valueName>Swim Home Page</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Marketplace</controllingFieldValue>
+                <valueName>VS Swim LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Marketplace</controllingFieldValue>
+                <valueName>Swim Inspo LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Marketplace</controllingFieldValue>
+                <valueName>Swim Brands LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Marketplace</controllingFieldValue>
+                <valueName>VS Swim Brands LP</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Placement_type__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Select the type of placement from the drop down. E.g. Banner, Cue, feature, Site Majority Offer etc.</inlineHelpText>
+        <label>Placement type</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Feature</fullName>
+                    <default>false</default>
+                    <label>Feature</label>
+                </value>
+                <value>
+                    <fullName>Banner</fullName>
+                    <default>false</default>
+                    <label>Banner</label>
+                </value>
+                <value>
+                    <fullName>Cue</fullName>
+                    <default>false</default>
+                    <label>Cue</label>
+                </value>
+                <value>
+                    <fullName>Site Majority Offer</fullName>
+                    <default>false</default>
+                    <label>Site Majority Offer</label>
+                </value>
+                <value>
+                    <fullName>Floating Cue/Collection Cue</fullName>
+                    <default>false</default>
+                    <label>Floating Cue/Collection Cue</label>
+                </value>
+                <value>
+                    <fullName>Collection Header</fullName>
+                    <default>false</default>
+                    <label>Collection Header</label>
+                </value>
+                <value>
+                    <fullName>Stack Header</fullName>
+                    <default>false</default>
+                    <label>Stack Header</label>
+                </value>
+                <value>
+                    <fullName>Product Page Header</fullName>
+                    <default>false</default>
+                    <label>Product Page Header</label>
+                </value>
+                <value>
+                    <fullName>Offer Copy</fullName>
+                    <default>false</default>
+                    <label>Offer Copy</label>
+                </value>
+                <value>
+                    <fullName>OLCO</fullName>
+                    <default>false</default>
+                    <label>OLCO</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Position__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter position number for the placements to show in a sequence in layout. Leave empty for non-floating cue placements.</inlineHelpText>
+        <label>Position</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Product_list__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter document name for associating product list for Auto Takedown</inlineHelpText>
+        <label>Product list</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Projected__c</fullName>
+        <externalId>false</externalId>
+        <label>Projected</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Row_Start__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Check the box if the placement should display in its own row on the mosaic view</inlineHelpText>
+        <label>Row Start</label>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Shot_Number__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter product shot number from DAM, if available. Typically used for creative direction. Use commas to separate for multiple shot numbers.</inlineHelpText>
+        <label>Shot Number</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>true</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Site_Placements__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Select &quot;Offer&quot; from Offer/Non-offer drop down to see the Site Placements</inlineHelpText>
+        <label>Site Placements</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>MultiselectPicklist</type>
+        <valueSet>
+            <controllingField>Offer_Type__c</controllingField>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Collection Page Header</fullName>
+                    <default>false</default>
+                    <label>Collection Page Header</label>
+                </value>
+                <value>
+                    <fullName>Floating Cue</fullName>
+                    <default>false</default>
+                    <label>Floating Cue</label>
+                </value>
+                <value>
+                    <fullName>Offer Spotlight</fullName>
+                    <default>false</default>
+                    <label>Offer Spotlight</label>
+                </value>
+                <value>
+                    <fullName>Product Page Header</fullName>
+                    <default>false</default>
+                    <label>Product Page Header</label>
+                </value>
+            </valueSetDefinition>
+            <valueSettings>
+                <controllingFieldValue>Offer</controllingFieldValue>
+                <valueName>Collection Page Header</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Offer</controllingFieldValue>
+                <valueName>Floating Cue</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Offer</controllingFieldValue>
+                <valueName>Offer Spotlight</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Offer</controllingFieldValue>
+                <valueName>Product Page Header</valueName>
+            </valueSettings>
+        </valueSet>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Start_Date__c</fullName>
+        <externalId>false</externalId>
+        <label>Start Date</label>
+        <required>true</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Start_Minute__c</fullName>
+        <externalId>false</externalId>
+        <label>Start Minute</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>00</fullName>
+                    <default>true</default>
+                    <label>00</label>
+                </value>
+                <value>
+                    <fullName>01</fullName>
+                    <default>false</default>
+                    <label>01</label>
+                </value>
+                <value>
+                    <fullName>02</fullName>
+                    <default>false</default>
+                    <label>02</label>
+                </value>
+                <value>
+                    <fullName>03</fullName>
+                    <default>false</default>
+                    <label>03</label>
+                </value>
+                <value>
+                    <fullName>04</fullName>
+                    <default>false</default>
+                    <label>04</label>
+                </value>
+                <value>
+                    <fullName>05</fullName>
+                    <default>false</default>
+                    <label>05</label>
+                </value>
+                <value>
+                    <fullName>06</fullName>
+                    <default>false</default>
+                    <label>06</label>
+                </value>
+                <value>
+                    <fullName>07</fullName>
+                    <default>false</default>
+                    <label>07</label>
+                </value>
+                <value>
+                    <fullName>08</fullName>
+                    <default>false</default>
+                    <label>08</label>
+                </value>
+                <value>
+                    <fullName>09</fullName>
+                    <default>false</default>
+                    <label>09</label>
+                </value>
+                <value>
+                    <fullName>10</fullName>
+                    <default>false</default>
+                    <label>10</label>
+                </value>
+                <value>
+                    <fullName>11</fullName>
+                    <default>false</default>
+                    <label>11</label>
+                </value>
+                <value>
+                    <fullName>12</fullName>
+                    <default>false</default>
+                    <label>12</label>
+                </value>
+                <value>
+                    <fullName>13</fullName>
+                    <default>false</default>
+                    <label>13</label>
+                </value>
+                <value>
+                    <fullName>14</fullName>
+                    <default>false</default>
+                    <label>14</label>
+                </value>
+                <value>
+                    <fullName>15</fullName>
+                    <default>false</default>
+                    <label>15</label>
+                </value>
+                <value>
+                    <fullName>16</fullName>
+                    <default>false</default>
+                    <label>16</label>
+                </value>
+                <value>
+                    <fullName>17</fullName>
+                    <default>false</default>
+                    <label>17</label>
+                </value>
+                <value>
+                    <fullName>18</fullName>
+                    <default>false</default>
+                    <label>18</label>
+                </value>
+                <value>
+                    <fullName>19</fullName>
+                    <default>false</default>
+                    <label>19</label>
+                </value>
+                <value>
+                    <fullName>20</fullName>
+                    <default>false</default>
+                    <label>20</label>
+                </value>
+                <value>
+                    <fullName>21</fullName>
+                    <default>false</default>
+                    <label>21</label>
+                </value>
+                <value>
+                    <fullName>22</fullName>
+                    <default>false</default>
+                    <label>22</label>
+                </value>
+                <value>
+                    <fullName>23</fullName>
+                    <default>false</default>
+                    <label>23</label>
+                </value>
+                <value>
+                    <fullName>24</fullName>
+                    <default>false</default>
+                    <label>24</label>
+                </value>
+                <value>
+                    <fullName>25</fullName>
+                    <default>false</default>
+                    <label>25</label>
+                </value>
+                <value>
+                    <fullName>26</fullName>
+                    <default>false</default>
+                    <label>26</label>
+                </value>
+                <value>
+                    <fullName>27</fullName>
+                    <default>false</default>
+                    <label>27</label>
+                </value>
+                <value>
+                    <fullName>28</fullName>
+                    <default>false</default>
+                    <label>28</label>
+                </value>
+                <value>
+                    <fullName>29</fullName>
+                    <default>false</default>
+                    <label>29</label>
+                </value>
+                <value>
+                    <fullName>30</fullName>
+                    <default>false</default>
+                    <label>30</label>
+                </value>
+                <value>
+                    <fullName>31</fullName>
+                    <default>false</default>
+                    <label>31</label>
+                </value>
+                <value>
+                    <fullName>32</fullName>
+                    <default>false</default>
+                    <label>32</label>
+                </value>
+                <value>
+                    <fullName>33</fullName>
+                    <default>false</default>
+                    <label>33</label>
+                </value>
+                <value>
+                    <fullName>34</fullName>
+                    <default>false</default>
+                    <label>34</label>
+                </value>
+                <value>
+                    <fullName>35</fullName>
+                    <default>false</default>
+                    <label>35</label>
+                </value>
+                <value>
+                    <fullName>36</fullName>
+                    <default>false</default>
+                    <label>36</label>
+                </value>
+                <value>
+                    <fullName>37</fullName>
+                    <default>false</default>
+                    <label>37</label>
+                </value>
+                <value>
+                    <fullName>38</fullName>
+                    <default>false</default>
+                    <label>38</label>
+                </value>
+                <value>
+                    <fullName>39</fullName>
+                    <default>false</default>
+                    <label>39</label>
+                </value>
+                <value>
+                    <fullName>40</fullName>
+                    <default>false</default>
+                    <label>40</label>
+                </value>
+                <value>
+                    <fullName>41</fullName>
+                    <default>false</default>
+                    <label>41</label>
+                </value>
+                <value>
+                    <fullName>42</fullName>
+                    <default>false</default>
+                    <label>42</label>
+                </value>
+                <value>
+                    <fullName>43</fullName>
+                    <default>false</default>
+                    <label>43</label>
+                </value>
+                <value>
+                    <fullName>44</fullName>
+                    <default>false</default>
+                    <label>44</label>
+                </value>
+                <value>
+                    <fullName>45</fullName>
+                    <default>false</default>
+                    <label>45</label>
+                </value>
+                <value>
+                    <fullName>46</fullName>
+                    <default>false</default>
+                    <label>46</label>
+                </value>
+                <value>
+                    <fullName>47</fullName>
+                    <default>false</default>
+                    <label>47</label>
+                </value>
+                <value>
+                    <fullName>48</fullName>
+                    <default>false</default>
+                    <label>48</label>
+                </value>
+                <value>
+                    <fullName>49</fullName>
+                    <default>false</default>
+                    <label>49</label>
+                </value>
+                <value>
+                    <fullName>50</fullName>
+                    <default>false</default>
+                    <label>50</label>
+                </value>
+                <value>
+                    <fullName>51</fullName>
+                    <default>false</default>
+                    <label>51</label>
+                </value>
+                <value>
+                    <fullName>52</fullName>
+                    <default>false</default>
+                    <label>52</label>
+                </value>
+                <value>
+                    <fullName>53</fullName>
+                    <default>false</default>
+                    <label>53</label>
+                </value>
+                <value>
+                    <fullName>54</fullName>
+                    <default>false</default>
+                    <label>54</label>
+                </value>
+                <value>
+                    <fullName>55</fullName>
+                    <default>false</default>
+                    <label>55</label>
+                </value>
+                <value>
+                    <fullName>56</fullName>
+                    <default>false</default>
+                    <label>56</label>
+                </value>
+                <value>
+                    <fullName>57</fullName>
+                    <default>false</default>
+                    <label>57</label>
+                </value>
+                <value>
+                    <fullName>58</fullName>
+                    <default>false</default>
+                    <label>58</label>
+                </value>
+                <value>
+                    <fullName>59</fullName>
+                    <default>false</default>
+                    <label>59</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Start_Time_No__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(CONTAINS( TEXT(Start_Time__c) , &#39;AM&#39;),
+					IF(LEN(TEXT(Start_Time__c))=5,
+					IF(CONTAINS( TEXT(Start_Time__c) , &#39;12&#39;),0,VALUE(LEFT(TEXT(Start_Time__c),2))),
+					VALUE(LEFT(TEXT(Start_Time__c),1))
+					),
+					IF(LEN(TEXT(Start_Time__c))=5,
+					VALUE(LEFT(TEXT(Start_Time__c),2))+12,
+					VALUE(LEFT(TEXT(Start_Time__c),1))+12
+					)
+		  ) * 60 + VALUE(Text(Start_Minute__c))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Start Time No</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Start_Time__c</fullName>
+        <externalId>false</externalId>
+        <label>Start Hour</label>
+        <required>true</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>12 AM</fullName>
+                    <default>false</default>
+                    <label>12 AM</label>
+                </value>
+                <value>
+                    <fullName>1 AM</fullName>
+                    <default>false</default>
+                    <label>1 AM</label>
+                </value>
+                <value>
+                    <fullName>2 AM</fullName>
+                    <default>false</default>
+                    <label>2 AM</label>
+                </value>
+                <value>
+                    <fullName>3 AM</fullName>
+                    <default>false</default>
+                    <label>3 AM</label>
+                </value>
+                <value>
+                    <fullName>4 AM</fullName>
+                    <default>false</default>
+                    <label>4 AM</label>
+                </value>
+                <value>
+                    <fullName>5 AM</fullName>
+                    <default>true</default>
+                    <label>5 AM</label>
+                </value>
+                <value>
+                    <fullName>6 AM</fullName>
+                    <default>false</default>
+                    <label>6 AM</label>
+                </value>
+                <value>
+                    <fullName>7 AM</fullName>
+                    <default>false</default>
+                    <label>7 AM</label>
+                </value>
+                <value>
+                    <fullName>8 AM</fullName>
+                    <default>false</default>
+                    <label>8 AM</label>
+                </value>
+                <value>
+                    <fullName>9 AM</fullName>
+                    <default>false</default>
+                    <label>9 AM</label>
+                </value>
+                <value>
+                    <fullName>10 AM</fullName>
+                    <default>false</default>
+                    <label>10 AM</label>
+                </value>
+                <value>
+                    <fullName>11 AM</fullName>
+                    <default>false</default>
+                    <label>11 AM</label>
+                </value>
+                <value>
+                    <fullName>12 PM</fullName>
+                    <default>false</default>
+                    <label>12 PM</label>
+                </value>
+                <value>
+                    <fullName>1 PM</fullName>
+                    <default>false</default>
+                    <label>1 PM</label>
+                </value>
+                <value>
+                    <fullName>2 PM</fullName>
+                    <default>false</default>
+                    <label>2 PM</label>
+                </value>
+                <value>
+                    <fullName>3 PM</fullName>
+                    <default>false</default>
+                    <label>3 PM</label>
+                </value>
+                <value>
+                    <fullName>4 PM</fullName>
+                    <default>false</default>
+                    <label>4 PM</label>
+                </value>
+                <value>
+                    <fullName>5 PM</fullName>
+                    <default>false</default>
+                    <label>5 PM</label>
+                </value>
+                <value>
+                    <fullName>6 PM</fullName>
+                    <default>false</default>
+                    <label>6 PM</label>
+                </value>
+                <value>
+                    <fullName>7 PM</fullName>
+                    <default>false</default>
+                    <label>7 PM</label>
+                </value>
+                <value>
+                    <fullName>8 PM</fullName>
+                    <default>false</default>
+                    <label>8 PM</label>
+                </value>
+                <value>
+                    <fullName>9 PM</fullName>
+                    <default>false</default>
+                    <label>9 PM</label>
+                </value>
+                <value>
+                    <fullName>10 PM</fullName>
+                    <default>false</default>
+                    <label>10 PM</label>
+                </value>
+                <value>
+                    <fullName>11 PM</fullName>
+                    <default>false</default>
+                    <label>11 PM</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Submitted</fullName>
+                    <default>false</default>
+                    <label>Submitted</label>
+                </value>
+                <value>
+                    <fullName>Approved</fullName>
+                    <default>false</default>
+                    <label>Approved</label>
+                </value>
+                <value>
+                    <fullName>Rejected</fullName>
+                    <default>false</default>
+                    <label>Rejected</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Style_Info__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Enter information about the product and it&#39;s description including styles numbers</inlineHelpText>
+        <label>Style Info</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Placement Type old</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>BANNER</fullName>
+                    <default>false</default>
+                    <label>BANNER</label>
+                </value>
+                <value>
+                    <fullName>CUE</fullName>
+                    <default>false</default>
+                    <label>CUE</label>
+                </value>
+                <value>
+                    <fullName>FEATURE</fullName>
+                    <default>false</default>
+                    <label>FEATURE</label>
+                </value>
+                <value>
+                    <fullName>OFFER BANNER</fullName>
+                    <default>false</default>
+                    <label>OFFER BANNER</label>
+                </value>
+                <value>
+                    <fullName>BANNER 1</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>BANNER 1</label>
+                </value>
+                <value>
+                    <fullName>BANNER 2</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>BANNER 2</label>
+                </value>
+                <value>
+                    <fullName>BANNER 3</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>BANNER 3</label>
+                </value>
+                <value>
+                    <fullName>CUE 1</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>CUE 1</label>
+                </value>
+                <value>
+                    <fullName>CUE 2</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>CUE 2</label>
+                </value>
+                <value>
+                    <fullName>CUE 3</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>CUE 3</label>
+                </value>
+                <value>
+                    <fullName>CUE 4</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>CUE 4</label>
+                </value>
+                <value>
+                    <fullName>CUE 5</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>CUE 5</label>
+                </value>
+                <value>
+                    <fullName>SUB CUE</fullName>
+                    <default>false</default>
+                    <isActive>false</isActive>
+                    <label>SUB CUE</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <validationRules>
+        <fullName>Approver_Mandatory</fullName>
+        <active>false</active>
+        <errorConditionFormula>AND(ISPICKVAL( Offer_Type__c ,&quot;Offer&quot;),ISBLANK( Approver__c ))</errorConditionFormula>
+        <errorDisplayField>Approver__c</errorDisplayField>
+        <errorMessage>Approver is Mandatory..!!</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Editorial_Name_Mandatory</fullName>
+        <active>true</active>
+        <description>Editorial name is mandatory when page type is Editorial</description>
+        <errorConditionFormula>AND(
+ISPICKVAL( Page_Types__c , &quot;Editorials&quot;),
+ISBLANK(Editorial_Name__c)
+)</errorConditionFormula>
+        <errorDisplayField>Editorial_Name__c</errorDisplayField>
+        <errorMessage>Editorial Name is Mandatory for Editorials, Please enter Editorial Name</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>End_date_should_be_less_than_Start_date</fullName>
+        <active>true</active>
+        <errorConditionFormula>OR( End_Date__c &lt;  Start_Date__c , if(End_Date__c ==   Start_Date__c , if( End_Time_No__c  &lt;   Start_Time_No__c , true,false) ,false))</errorConditionFormula>
+        <errorDisplayField>End_Date__c</errorDisplayField>
+        <errorMessage>Start Date cannot be after End Date</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Placement_Type_Mandatory</fullName>
+        <active>true</active>
+        <description>Placement_type__c is Mandatory when page type is Editorials</description>
+        <errorConditionFormula>AND(
+ISPICKVAL(Page_Types__c , &quot;Editorials&quot;),
+ISPICKVAL(Placement_type__c,&quot;&quot;)
+)</errorConditionFormula>
+        <errorDisplayField>Placement_type__c</errorDisplayField>
+        <errorMessage>This field is required for Editorials, Please complete the field</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Shot_Number_Mandatory</fullName>
+        <active>false</active>
+        <errorConditionFormula>ISBLANK( Shot_Number__c )</errorConditionFormula>
+        <errorDisplayField>Shot_Number__c</errorDisplayField>
+        <errorMessage>Shot Number Required..!!</errorMessage>
+    </validationRules>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Brands__c</columns>
+        <columns>Page_Types__c</columns>
+        <columns>Start_Date__c</columns>
+        <columns>Start_Time__c</columns>
+        <columns>End_Date__c</columns>
+        <columns>End_Time__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>All1</fullName>
+        <columns>NAME</columns>
+        <columns>Brands__c</columns>
+        <columns>Site_Placements__c</columns>
+        <columns>Offer_Type__c</columns>
+        <columns>Start_Date__c</columns>
+        <columns>End_Date__c</columns>
+        <columns>UPDATEDBY_USER</columns>
+        <columns>LAST_UPDATE</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>Angel_Card</fullName>
+        <columns>NAME</columns>
+        <columns>Main_Message__c</columns>
+        <columns>Brands__c</columns>
+        <columns>Offer_Type__c</columns>
+        <columns>Start_Date__c</columns>
+        <columns>End_Date__c</columns>
+        <columns>Placement_type__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>NAME</field>
+            <operation>contains</operation>
+            <value>Angel Card LP</value>
+        </filters>
+        <label>Angel Card</label>
+    </listViews>
+    <listViews>
+        <fullName>Home_Page</fullName>
+        <columns>NAME</columns>
+        <columns>Type__c</columns>
+        <columns>Start_Date__c</columns>
+        <columns>End_Date__c</columns>
+        <columns>Link__c</columns>
+        <columns>Shot_Number__c</columns>
+        <columns>Main_Message__c</columns>
+        <columns>Projected__c</columns>
+        <columns>Style_Info__c</columns>
+        <columns>Notes__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Brands__c</field>
+            <operation>equals</operation>
+            <value>VS</value>
+        </filters>
+        <filters>
+            <field>Page_Types__c</field>
+            <operation>equals</operation>
+            <value>Home Page</value>
+        </filters>
+        <filters>
+            <field>End_Date__c</field>
+            <operation>greaterThan</operation>
+            <value>10/17/2019</value>
+        </filters>
+        <label>Home Page</label>
+    </listViews>
+    <listViews>
+        <fullName>Marketplace_Placements</fullName>
+        <columns>NAME</columns>
+        <columns>Start_Date__c</columns>
+        <columns>End_Date__c</columns>
+        <columns>CREATED_DATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Brands__c</field>
+            <operation>equals</operation>
+            <value>Marketplace</value>
+        </filters>
+        <label>Marketplace Placements</label>
+    </listViews>
+    <listViews>
+        <fullName>Placement_Library_Approval_Placement_Library</fullName>
+        <columns>NAME</columns>
+        <columns>Start_Date__c</columns>
+        <columns>End_Date__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Brands__c</field>
+            <operation>equals</operation>
+            <value>VS</value>
+        </filters>
+        <filters>
+            <field>Page_Types__c</field>
+            <operation>equals</operation>
+            <value>Editorials</value>
+        </filters>
+        <filters>
+            <field>End_Date__c</field>
+            <operation>greaterOrEqual</operation>
+            <value>10/15/2019</value>
+        </filters>
+        <filters>
+            <field>Start_Date__c</field>
+            <operation>lessOrEqual</operation>
+            <value>10/15/2019</value>
+        </filters>
+        <label>Placement Library Approval</label>
+        <sharedTo>
+            <allInternalUsers/>
+        </sharedTo>
+    </listViews>
+    <listViews>
+        <fullName>VSB_Editorials</fullName>
+        <columns>NAME</columns>
+        <columns>Editorial_Name__c</columns>
+        <columns>Content_Type__c</columns>
+        <columns>Placement_type__c</columns>
+        <columns>Start_Date__c</columns>
+        <columns>Start_Time__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>LAST_UPDATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Brands__c</field>
+            <operation>equals</operation>
+            <value>Beauty</value>
+        </filters>
+        <filters>
+            <field>Page_Types__c</field>
+            <operation>equals</operation>
+            <value>Editorials</value>
+        </filters>
+        <label>VSB - Editorials</label>
+    </listViews>
+    <listViews>
+        <fullName>VSL_Editorials</fullName>
+        <columns>NAME</columns>
+        <columns>Editorial_Name__c</columns>
+        <columns>Content_Type__c</columns>
+        <columns>Placement_type__c</columns>
+        <columns>Start_Date__c</columns>
+        <columns>Start_Time__c</columns>
+        <columns>CREATED_DATE</columns>
+        <columns>LAST_UPDATE</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Brands__c</field>
+            <operation>equals</operation>
+            <value>VS</value>
+        </filters>
+        <filters>
+            <field>Page_Types__c</field>
+            <operation>equals</operation>
+            <value>Editorials</value>
+        </filters>
+        <label>VSL - Editorials</label>
+    </listViews>
+    <listViews>
+        <fullName>VSL_LTO_Placements</fullName>
+        <columns>NAME</columns>
+        <columns>Page_Types__c</columns>
+        <columns>Offer_Type__c</columns>
+        <columns>Content_Type__c</columns>
+        <columns>Placement_type__c</columns>
+        <columns>Start_Date__c</columns>
+        <columns>Start_Time__c</columns>
+        <columns>End_Date__c</columns>
+        <columns>End_Time__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Brands__c</field>
+            <operation>equals</operation>
+            <value>VS</value>
+        </filters>
+        <filters>
+            <field>Page_Types__c</field>
+            <operation>equals</operation>
+            <value>LTO</value>
+        </filters>
+        <label>VSL LTO Placements</label>
+    </listViews>
+    <listViews>
+        <fullName>VSL_Placements</fullName>
+        <columns>NAME</columns>
+        <columns>Page_Types__c</columns>
+        <columns>Offer_Type__c</columns>
+        <columns>Content_Type__c</columns>
+        <columns>Placement_type__c</columns>
+        <columns>Start_Date__c</columns>
+        <columns>Start_Time__c</columns>
+        <columns>End_Date__c</columns>
+        <columns>End_Time__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Brands__c</field>
+            <operation>equals</operation>
+            <value>VS</value>
+        </filters>
+        <label>VSL Placements</label>
+    </listViews>
+    <listViews>
+        <fullName>VS_Evergreen</fullName>
+        <columns>NAME</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>Brands__c</field>
+            <operation>equals</operation>
+            <value>VS</value>
+        </filters>
+        <filters>
+            <field>Evergreen__c</field>
+            <operation>equals</operation>
+            <value>1</value>
+        </filters>
+        <label>VS - Evergreen</label>
+    </listViews>
+    <fieldSets>
+        <fullName>LayoutAddLibraryFields</fullName>
+        <description>This is used in layout component to create new library</description>
+        <displayedFields>
+            <field>Offer_Type__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Main_Message__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Placement_type__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Image__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Shot_Number__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Content_Type__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Editorial_Name__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Style_Info__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Projected__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Notes__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Collection_Page_Url__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Start_Date__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Start_Time__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>End_Date__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>End_Time__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>API_Product_Preview_IDs__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <label>LayoutAddLibraryFields</label>
+    </fieldSets>
+    <fieldSets>
+        <fullName>Placement_Content_Fields</fullName>
+        <description>This field set is used to copy library fields to content fields in DGTL Layout</description>
+        <displayedFields>
+            <field>Image__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Content_Type__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Copy_Image__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Link__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Main_Message__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Notes__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Offer_Type__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Placement_type__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Position__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Projected__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Shot_Number__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Row_Start__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Grouped__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Style_Info__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>KOD__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>Collection_Page_Url__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>App_Copy__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <displayedFields>
+            <field>API_Product_Preview_IDs__c</field>
+            <isFieldManaged>false</isFieldManaged>
+            <isRequired>false</isRequired>
+        </displayedFields>
+        <label>Placement Content Fields</label>
+    </fieldSets>
+</CustomObject>

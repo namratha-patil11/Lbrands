@@ -1,0 +1,41 @@
+<aura:component controller="DGTL_DayViewController" implements="force:appHostable" access="global" >
+    <aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="floorsetId" type="String"/>
+    <aura:attribute name="disabled" type="Boolean" default="true"/>
+    
+    <aura:attribute name="showSpinner" type="Boolean" default="false" />
+    <aura:if isTrue="{!v.showSpinner}">
+        <lightning:spinner />
+    </aura:if>
+    
+    <!-- criteria -->
+    <div class="slds-box slds-theme_shade">
+        <lightning:recordEditForm aura:id="recordEdit" objectApiName="DGTL_Task__c" onsubmit="{!c.getDayViewTaskId}" >
+            <lightning:layout>
+                <lightning:layoutItem> 
+                    <lightning:inputField fieldName="Floorset_Plan__c" value="{!v.floorsetId}" onchange="{!c.checkFloorsetId}" style="width:330px;"/>
+                </lightning:layoutItem>
+                <lightning:layoutItem>
+                <lightning:button disabled="{!v.disabled}" class="slds-button slds-button_brand slds-m-top_large slds-m-left_small" label="Search" type="submit"/>
+            </lightning:layoutItem>
+            </lightning:layout>
+        </lightning:recordEditForm>
+    </div>
+    
+    <!-- result -->
+    <aura:if isTrue="{!and(v.recordId != null,v.recordId != '')}">
+        <div class="slds-m-top_medium">
+            <lightning:recordViewForm recordId="{!v.recordId}" objectApiName="DGTL_Task__c">
+                <div class="slds-box slds-theme_default">
+                    <div style="display:inline-block"><strong>Changes As On : &nbsp;</strong></div>
+                    <div style="display:inline-block">
+                        <lightning:outputField fieldName="CreatedDate" variant=" label-hidden" />
+                    </div>
+                    <lightning:outputField fieldName="Desktop__c" />
+                    <lightning:outputField fieldName="Mobile__c" />
+                </div>
+            </lightning:recordViewForm>
+        </div>
+    </aura:if>
+	
+</aura:component>

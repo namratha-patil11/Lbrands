@@ -1,0 +1,14 @@
+<aura:event type="COMPONENT" description="Used in DGTL layout to get data from child component" >
+    <aura:attribute name="searchFromLibrary" type="List" />
+    <aura:attribute name="AddLibrary" type="List" />
+    <aura:attribute name="AddFromLayout" type="List" />
+    <aura:attribute name="editorialId" type="string" default=""/>
+    <aura:attribute name="editorialPageName" type="string" default=""/>
+    <aura:attribute name="editorialcollectionPageUrl" type="string" default=""/>
+    <aura:attribute name="ABTestingId" type="string" default=""/>
+    <aura:attribute name="ABTestingName" type="string" default=""/>
+    <aura:attribute name="openModal" type="boolean" default="false" />
+    <aura:attribute name="isNewLayout" type="boolean" default="false"/>
+    <aura:attribute name="sendEditorialValues" type="boolean" default="false"/>
+    <aura:attribute name="ConfirmMsg" type="String" description="This variable is used for ok or cancel"/>
+</aura:event>

@@ -1,0 +1,636 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <content>DGTL_PlacementContentView</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>LightningComponent</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Large</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>DGTL_PlacementContentView</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>LightningComponent</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <formFactor>Small</formFactor>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>true</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>true</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <label>Placement Layout</label>
+    <nameField>
+        <label>Placement Layout Name</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Placement Layout</pluralLabel>
+    <searchLayouts>
+        <searchResultsAdditionalFields>Type__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <visibility>Public</visibility>
+    <fields>
+        <fullName>Brands__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Select the brand from the drop down: E.g. VS, PINK, Beauty, Marketplace</inlineHelpText>
+        <label>Brand</label>
+        <required>true</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetName>DGTL_Brands</valueSetName>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Collection_Page_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Editorial Name</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Collection_Page_Url__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Add collection page URLs for collection Header and collection cue placements.  Enter URL without live site details. For e.g. enter “/vs/newarrivals/shop-collection” without “https://victoriassecret.com/”</inlineHelpText>
+        <label>Collection Page Url</label>
+        <length>32768</length>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Compared_Placement_Layout__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Compared Placement Layout</label>
+        <referenceTo>Placement_Layout__c</referenceTo>
+        <relationshipLabel>Placement Layout</relationshipLabel>
+        <relationshipName>Placement_Layout</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Date_Formula__c</fullName>
+        <externalId>false</externalId>
+        <formula>Floorset_Plan__r.Date__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Date Formula</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Device_Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Device Type</label>
+        <required>true</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Desktop</fullName>
+                    <default>false</default>
+                    <label>Desktop</label>
+                </value>
+                <value>
+                    <fullName>Mobile</fullName>
+                    <default>false</default>
+                    <label>Mobile</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Floorset_Plan__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Floorset Plan</label>
+        <lookupFilter>
+            <active>false</active>
+            <filterItems>
+                <field>$Source.Brands__c</field>
+                <operation>equals</operation>
+                <valueField>DGTL_Floorset_Plan__c.Brands__c</valueField>
+            </filterItems>
+            <isOptional>false</isOptional>
+        </lookupFilter>
+        <referenceTo>DGTL_Floorset_Plan__c</referenceTo>
+        <relationshipLabel>Placement Layout</relationshipLabel>
+        <relationshipName>Placement_Layout</relationshipName>
+        <required>true</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Is_Deleted__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Is Deleted</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Processed__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Is Processed?</label>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Page_Types__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Select appropriate Home, Landing, Editorials or LTO page type from the drop down, based on what is being built</inlineHelpText>
+        <label>Page Type</label>
+        <required>true</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>true</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <controllingField>Brands__c</controllingField>
+            <restricted>true</restricted>
+            <valueSetName>DGTL_Page_Types</valueSetName>
+            <valueSettings>
+                <controllingFieldValue>PINK</controllingFieldValue>
+                <controllingFieldValue>VS</controllingFieldValue>
+                <valueName>Home Page</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>PINK</controllingFieldValue>
+                <controllingFieldValue>VS</controllingFieldValue>
+                <controllingFieldValue>Beauty</controllingFieldValue>
+                <controllingFieldValue>Marketplace</controllingFieldValue>
+                <valueName>LTO</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>PINK</controllingFieldValue>
+                <controllingFieldValue>VS</controllingFieldValue>
+                <controllingFieldValue>Beauty</controllingFieldValue>
+                <controllingFieldValue>Marketplace</controllingFieldValue>
+                <valueName>Offer Spotlight</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>PINK</controllingFieldValue>
+                <controllingFieldValue>VS</controllingFieldValue>
+                <controllingFieldValue>Beauty</controllingFieldValue>
+                <controllingFieldValue>Marketplace</controllingFieldValue>
+                <valueName>Editorials</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>PINK</controllingFieldValue>
+                <controllingFieldValue>VS</controllingFieldValue>
+                <valueName>Bras LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>PINK</controllingFieldValue>
+                <controllingFieldValue>VS</controllingFieldValue>
+                <valueName>Panties LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>PINK</controllingFieldValue>
+                <controllingFieldValue>VS</controllingFieldValue>
+                <valueName>Sport LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>PINK</controllingFieldValue>
+                <controllingFieldValue>VS</controllingFieldValue>
+                <valueName>Sale LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>PINK</controllingFieldValue>
+                <valueName>Tops LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>PINK</controllingFieldValue>
+                <valueName>Bottoms LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>PINK</controllingFieldValue>
+                <valueName>Outfits LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>PINK</controllingFieldValue>
+                <valueName>Awesome Prices LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>PINK</controllingFieldValue>
+                <valueName>Apparel LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>PINK</controllingFieldValue>
+                <valueName>Accessories LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>PINK</controllingFieldValue>
+                <valueName>Swim LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>PINK</controllingFieldValue>
+                <valueName>PINK Beauty</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>PINK</controllingFieldValue>
+                <valueName>New In LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>VS</controllingFieldValue>
+                <valueName>Lounge LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>VS</controllingFieldValue>
+                <controllingFieldValue>Beauty</controllingFieldValue>
+                <valueName>New LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>VS</controllingFieldValue>
+                <valueName>Angel Card LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>VS</controllingFieldValue>
+                <valueName>Lingerie LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>VS</controllingFieldValue>
+                <valueName>Sleep LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>VS</controllingFieldValue>
+                <valueName>Gifts LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>VS</controllingFieldValue>
+                <valueName>Clearance LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>VS</controllingFieldValue>
+                <valueName>Brands We Love</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>VS</controllingFieldValue>
+                <valueName>V-Day LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>VS</controllingFieldValue>
+                <valueName>Gifting LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>VS</controllingFieldValue>
+                <valueName>Mother&#39;s Day LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>VS</controllingFieldValue>
+                <valueName>Store Event LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>VS</controllingFieldValue>
+                <valueName>Special Event LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Beauty</controllingFieldValue>
+                <valueName>Beauty Home Page</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Beauty</controllingFieldValue>
+                <valueName>VS Beauty LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Beauty</controllingFieldValue>
+                <valueName>VS Accessories LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Beauty</controllingFieldValue>
+                <valueName>Beauty Fragrance LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Beauty</controllingFieldValue>
+                <valueName>Beauty Mist &amp; Body LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Beauty</controllingFieldValue>
+                <valueName>Beauty Lip LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Beauty</controllingFieldValue>
+                <valueName>Beauty Pink Beauty LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Beauty</controllingFieldValue>
+                <valueName>Beauty Semiannual sale LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Beauty</controllingFieldValue>
+                <valueName>Beauty Accessories LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Beauty</controllingFieldValue>
+                <valueName>PINK Beauty LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Beauty</controllingFieldValue>
+                <valueName>PINK Accessories LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Beauty</controllingFieldValue>
+                <valueName>Shop by Category LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Beauty</controllingFieldValue>
+                <valueName>Our Fragrances LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Marketplace</controllingFieldValue>
+                <valueName>Swim Home Page</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Marketplace</controllingFieldValue>
+                <valueName>VS Swim LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Marketplace</controllingFieldValue>
+                <valueName>Swim Inspo LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Marketplace</controllingFieldValue>
+                <valueName>Swim Brands LP</valueName>
+            </valueSettings>
+            <valueSettings>
+                <controllingFieldValue>Marketplace</controllingFieldValue>
+                <valueName>VS Swim Brands LP</valueName>
+            </valueSettings>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Parent_Placement_Layout__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Parent Placement Layout</label>
+        <referenceTo>Placement_Layout__c</referenceTo>
+        <relationshipLabel>Placement Layout (Parent Placement Layout)</relationshipLabel>
+        <relationshipName>Placement_Layout1</relationshipName>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Snapshot_Date__c</fullName>
+        <description>This Field is to specify the date to get snapshots for different days.</description>
+        <externalId>false</externalId>
+        <label>Snapshot Date</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Test_Name__c</fullName>
+        <externalId>false</externalId>
+        <label>Test Name</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Time_No__c</fullName>
+        <externalId>false</externalId>
+        <formula>Floorset_Plan__r.Time_No__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Time No</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <externalId>false</externalId>
+        <label>Type</label>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Layout</fullName>
+                    <default>false</default>
+                    <label>Layout</label>
+                </value>
+                <value>
+                    <fullName>Snapshot</fullName>
+                    <default>false</default>
+                    <label>Snapshot</label>
+                </value>
+                <value>
+                    <fullName>Testing</fullName>
+                    <default>false</default>
+                    <label>Testing</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Unique_Id__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <externalId>true</externalId>
+        <label>Unique Id</label>
+        <length>200</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Brands__c</columns>
+        <columns>Device_Type__c</columns>
+        <columns>Snapshot_Date__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>Escalation_Content</fullName>
+        <columns>NAME</columns>
+        <filterScope>Mine</filterScope>
+        <label>Escalation Content</label>
+    </listViews>
+</CustomObject>

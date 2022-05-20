@@ -1,0 +1,6 @@
+<aura:event type="COMPONENT" description="Get Unsaved Changes from inputfields to layout page">
+    
+    <aura:attribute name="isUnsaved" type="Boolean"/>
+         
+    
+</aura:event>

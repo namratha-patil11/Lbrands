@@ -1,0 +1,25 @@
+.THIS .overflowcss{
+    overflow: visible;
+}
+
+.THIS .paddingTop{
+    padding-top:8%;
+    padding-left: 10px;
+}
+
+.THIS .tableBorderCurve {
+    border-collapse:separate;
+    border:solid gray 1px;
+    border-radius:6px;
+    -moz-border-radius:6px;
+}
+.THIS .tableTRTHCurve {
+    border-bottom: 1px solid gray;
+    border-right: 1px solid gray;
+  	padding: 10px; 
+   
+}
+
+.THIS .removeborder {
+    width : 90%;
+}

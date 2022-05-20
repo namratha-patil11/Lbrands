@@ -1,0 +1,230 @@
+.THIS .removeIcon {
+    color: #FFFFFF;
+}
+.THIS .yellowBackground{
+     background-color: yellow;
+}
+.THIS .removeIconBg {
+    background-color: #F2463B;
+}
+.THIS .addTakedownIcon {
+    background-color: #54698d;
+}
+.THIS .addTakedownIconClass { 
+    color: #FFFFFF;
+}
+.THIS .kodClass { 
+    background-color: tan;
+}
+.THIS .newComments { 
+    background-color: #78de78;
+}
+.THIS .followClass { 
+    background-color: #B8B8B8;
+}
+.THIS .cascadeClass { 
+   background-color: #b6dcb5;
+}
+.THIS .toggleSwitches{
+    height: 10px;
+}
+.THIS .unApproved {
+    border-color: red;
+    border-width: 2px;
+}
+.THIS .inActive {
+    background-color: #aaa;
+}
+
+.THIS .offerWithoutKOD {
+     background-color: rgba(231, 245, 153, 1);
+}
+.THIS .ContentWithOffer{
+    background-color:rgb(249, 234, 193);
+}
+
+.THIS .viewIcon {
+    color: #FFFFFF;
+}
+.THIS .viewIconBg {
+    background-color: #5876a3;
+}
+.THIS .editIcon {
+    color: #FFFFFF;
+}
+.THIS .editIconBg {
+    background-color: #3BCF85;
+}
+.THIS .commentIcon {
+    color: #FFFFFF;
+}
+.THIS .commentIconBg {
+    background-color: #E3E32F;
+}
+.THIS .historyIcon {
+    color: #FFFFFF;
+}
+.THIS .historyIconBg {
+    background-color: #FFA454;
+}
+.THIS .mergeIcon {
+    color: #FFFFFF;
+}
+.THIS .mergeIconBg {
+    background-color: #FFD700;
+}
+.THIS .Update{
+    background-color: #bbe5f5;
+}
+.THIS .tableBorderCurve {
+    border-collapse:separate;
+    border:solid gray 1px;
+    border-radius:6px;
+    -moz-border-radius:6px;
+}
+.THIS .tableTRTHCurve {
+    border-bottom: 1px solid gray;
+    border-right: 1px solid gray;
+  	padding: 10px; 
+}
+.THIS .removeborder {
+    width : 90%;
+}
+.THIS .divColorVariation {
+    background-color:#d8c6c6;
+}
+.THIS .printable .printDiv{
+   display: none;
+}
+@media print {
+    .THIS .printDiv { display: block!important;  }
+}
+@page{ 
+    margin: 0mm; 
+}
+
+
+.THIS .divpcbuttons {
+    padding: 10px;
+}
+.THIS .slds-form-element__label222{
+    display: none !important; 
+}
+.THIS .forceStyle.slds-form.slds-form-element__label222 {    
+     display: none !important; 
+}
+.THIS .floorsetplan{
+    width:330px;
+}
+.THIS .paddingTop{
+    padding-top:8%;
+    padding-left: 10px;
+}
+.THIS .taskIcon {
+    color: #FFFFFF;
+}
+.THIS .taskIconBg {
+    background-color: green;
+}
+.THIS .brandcss {
+    width:150px;
+}
+.THIS .pagetypecss {
+    width:200px;
+}
+.THIS.loadSpinner{
+    position: relative;
+    display: inline-block;
+    margin-left: 15px;
+    width: 55px;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+.THIS .collectionPageUrl{
+    width:200px;
+    height:40px;
+}
+.THIS .overflowcss{
+    overflow: visible;
+}
+.THIS .overflowautocss{
+    overflow: auto;
+}
+.THIS .liveuserscss{
+     position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  background-color: yellow;
+  padding: 50px;
+  font-size: 20px;
+}
+.THIS .liveusercontainer{
+    color:green;
+    font-size: 14px;
+    padding: 0px;
+    margin: 0px;
+    list-style: none;
+    background-color: transparent;
+    border-style: solid;
+    border-color: #ffffff;
+    border-width: 2px;
+    border-radius: px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    overflow: visible;
+    position: relative;
+}
+.THIS .online {
+    transform: rotate(90deg);
+    position: absolute;
+    width: 13.8rem;
+    left: -9rem;
+    top: 4.8rem;
+    padding: 1rem 0 0 56px;
+    font-size: 1.6rem;
+    color: #fff;
+    height: 42px;
+}
+
+.THIS .showUsers {
+    display:block;
+}
+.THIS .showMiniView {
+    display: inline-block;;
+}
+.THIS .hideUsers {
+    display:none;
+}
+
+ .THIS .online:before{
+      Content :'online users';
+}
+.THIS .conttypebutton {
+  border: none ;
+}
+.THIS .showContent{
+    border: var(--lwc-borderWidthThin,1px) solid var(--lwc-colorBorder,rgb(221, 219, 218));
+    border-radius: var(--lwc-borderRadiusMedium,0.25rem);
+    margin:12px;
+}
+                
+.THIS .online2 {
+    display: block;
+    background: #f2f2f2;
+    width: 30rem;
+    transition: all .5s ease-in;
+    border: 1px solid #91214e;
+}
+.THIS .showErrMsg {
+    display:block;
+    color:red;
+}
+.THIS .hideErrMsg {
+    display:none;
+}
+.THIS .showDiv {
+    display:block;
+}

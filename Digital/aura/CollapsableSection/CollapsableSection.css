@@ -1,0 +1,9 @@
+.THIS .stateFulButton {
+    justify-content: left; 
+}
+
+.THIS .compareType{
+    font-size: 10px;
+    transform: rotate(-21deg);
+    position: absolute;
+}

@@ -1,0 +1,15 @@
+.THIS .slds-form-element__label{
+    display: none !important;
+}
+.THIS .forceStyle.slds-form.slds-form-element__label {    
+     display: none !important; 
+}
+.THIS .Widthoffield{
+    width: 90%;
+    color: red;
+    font-size: 0.75rem !important;
+}
+.THIS .slds-form-element {
+    width: 100%;
+    flex-basis: 100%;
+}

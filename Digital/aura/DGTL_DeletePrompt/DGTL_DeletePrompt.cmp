@@ -1,0 +1,24 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    
+     <!-- Register  Lightning Event for handling delete operation  --> 
+    <aura:registerEvent name="DeleteRowEvt" type="c:DeleteRowEvt"/> 
+    <aura:attribute name="deleteIndex" type="Integer"/>
+    <aura:attribute name="record" type="Placement_Content_Detail__c"/>
+    
+    
+    <div style="height:30%">
+        <section role="alertdialog" tabindex="0" aria-labelledby="prompt-heading-id" aria-describedby="prompt-message-wrapper" class="slds-modal slds-fade-in-open slds-modal_prompt" aria-modal="true">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 class="slds-text-heading_medium slds-hyphenate" id="prompt-heading-id">Are you Sure?</h2>
+                </header>
+              
+                <footer class="slds-modal__footer slds-theme_default">
+                    <lightning:button label="Cancel" title="Cancel" onclick="{! c.handleCancel }"/>
+                    <lightning:button label="Delete" title="Delete" variant="brand" onclick="{! c.handleDetele }"/>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+</aura:component>

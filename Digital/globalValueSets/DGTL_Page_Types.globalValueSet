@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Home Page</fullName>
+        <default>false</default>
+        <label>Home Page</label>
+    </customValue>
+    <customValue>
+        <fullName>Swim Home Page</fullName>
+        <default>false</default>
+        <label>Swim Home Page</label>
+    </customValue>
+    <customValue>
+        <fullName>LTO</fullName>
+        <default>false</default>
+        <label>LTO</label>
+    </customValue>
+    <customValue>
+        <fullName>Offer Spotlight</fullName>
+        <default>false</default>
+        <label>Offer Spotlight</label>
+    </customValue>
+    <customValue>
+        <fullName>Editorials</fullName>
+        <default>false</default>
+        <label>Editorials</label>
+    </customValue>
+    <customValue>
+        <fullName>Beauty Home Page</fullName>
+        <default>false</default>
+        <label>Beauty Home Page</label>
+    </customValue>
+    <customValue>
+        <fullName>Lounge LP</fullName>
+        <default>false</default>
+        <label>Lounge LP</label>
+    </customValue>
+    <customValue>
+        <fullName>New LP</fullName>
+        <default>false</default>
+        <label>New LP</label>
+    </customValue>
+    <customValue>
+        <fullName>Angel Card LP</fullName>
+        <default>false</default>
+        <label>Angel Card LP</label>
+    </customValue>
+    <customValue>
+        <fullName>Bras LP</fullName>
+        <default>false</default>
+        <label>Bras LP</label>
+    </customValue>
+    <customValue>
+        <fullName>Panties LP</fullName>
+        <default>false</default>
+        <label>Panties LP</label>
+    </customValue>
+    <customValue>
+        <fullName>Lingerie LP</fullName>
+        <default>false</default>
+        <label>Lingerie LP</label>
+    </customValue>
+    <customValue>
+        <fullName>Sleep LP</fullName>
+        <default>false</default>
+        <label>Sleep LP</label>
+    </customValue>
+    <customValue>
+        <fullName>Sport LP</fullName>
+        <default>false</default>
+        <label>Sport LP</label>
+    </customValue>
+    <customValue>
+        <fullName>VS Beauty LP</fullName>
+        <default>false</default>
+        <label>VS Beauty LP</label>
+    </customValue>
+    <customValue>
+        <fullName>VS Accessories LP</fullName>
+        <default>false</default>
+        <label>VS Accessories LP</label>
+    </customValue>
+    <customValue>
+        <fullName>VS Swim LP</fullName>
+        <default>false</default>
+        <label>VS Swim LP</label>
+    </customValue>
+    <customValue>
+        <fullName>Sale LP</fullName>
+        <default>false</default>
+        <label>Sale LP</label>
+    </customValue>
+    <customValue>
+        <fullName>Gifts LP</fullName>
+        <default>false</default>
+        <label>Gifts LP</label>
+    </customValue>
+    <customValue>
+        <fullName>Clearance LP</fullName>
+        <default>false</default>
+        <label>Clearance LP</label>
+    </customValue>
+    <customValue>
+        <fullName>Tops LP</fullName>
+        <default>false</default>
+        <label>Tops LP</label>
+    </customValue>
+    <customValue>
+        <fullName>Bottoms LP</fullName>
+        <default>false</default>
+        <label>Bottoms LP</label>
+    </customValue>
+    <customValue>
+        <fullName>Outfits LP</fullName>
+        <default>false</default>
+        <label>Outfits LP</label>
+    </customValue>
+    <customValue>
+        <fullName>Fragrance LP</fullName>
+        <default>false</default>
+        <label>Fragrance LP</label>
+    </customValue>
+    <customValue>
+        <fullName>Bath &amp; Body LP</fullName>
+        <default>false</default>
+        <label>Bath &amp; Body LP</label>
+    </customValue>
+    <customValue>
+        <fullName>Lip LP</fullName>
+        <default>false</default>
+        <label>Lip LP</label>
+    </customValue>
+    <customValue>
+        <fullName>PINK LP</fullName>
+        <default>false</default>
+        <label>PINK LP</label>
+    </customValue>
+    <customValue>
+        <fullName>Bikinis LP</fullName>
+        <default>false</default>
+        <label>Bikinis LP</label>
+    </customValue>
+    <customValue>
+        <fullName>Styles LP</fullName>
+        <default>false</default>
+        <label>Styles LP</label>
+    </customValue>
+    <customValue>
+        <fullName>Inspo LP</fullName>
+        <default>false</default>
+        <label>Inspo LP</label>
+    </customValue>
+    <customValue>
+        <fullName>Beauty Fragrance LP</fullName>
+        <default>false</default>
+        <label>Beauty Fragrance LP</label>
+    </customValue>
+    <customValue>
+        <fullName>Beauty Mist &amp; Body LP</fullName>
+        <default>false</default>
+        <label>Beauty Mist &amp; Body LP</label>
+    </customValue>
+    <customValue>
+        <fullName>Beauty Lip LP</fullName>
+        <default>false</default>
+        <label>Beauty Lip LP</label>
+    </customValue>
+    <customValue>
+        <fullName>Beauty Pink Beauty LP</fullName>
+        <default>false</default>
+        <label>Beauty Pink Beauty LP</label>
+    </customValue>
+    <customValue>
+        <fullName>Beauty Semiannual sale LP</fullName>
+        <default>false</default>
+        <label>Beauty Semiannual sale LP</label>
+    </customValue>
+    <customValue>
+        <fullName>Swim Inspo LP</fullName>
+        <default>false</default>
+        <label>Swim Inspo LP</label>
+    </customValue>
+    <customValue>
+        <fullName>Swim Brands LP</fullName>
+        <default>false</default>
+        <label>Swim Brands LP</label>
+    </customValue>
+    <customValue>
+        <fullName>Awesome Prices LP</fullName>
+        <default>false</default>
+        <label>Awesome Prices LP</label>
+    </customValue>
+    <customValue>
+        <fullName>Beauty Accessories LP</fullName>
+        <default>false</default>
+        <label>Beauty Accessories LP</label>
+    </customValue>
+    <customValue>
+        <fullName>PINK Beauty LP</fullName>
+        <default>false</default>
+        <label>PINK Beauty LP</label>
+    </customValue>
+    <customValue>
+        <fullName>PINK Accessories LP</fullName>
+        <default>false</default>
+        <label>PINK Accessories LP</label>
+    </customValue>
+    <customValue>
+        <fullName>Brands We Love</fullName>
+        <default>false</default>
+        <label>Brands We Love</label>
+    </customValue>
+    <customValue>
+        <fullName>VS Swim Brands LP</fullName>
+        <default>false</default>
+        <label>VS Swim Brands LP</label>
+    </customValue>
+    <customValue>
+        <fullName>V-Day LP</fullName>
+        <default>false</default>
+        <label>V-Day LP</label>
+    </customValue>
+    <customValue>
+        <fullName>Gifting LP</fullName>
+        <default>false</default>
+        <label>Gifting LP</label>
+    </customValue>
+    <customValue>
+        <fullName>Mother&#39;s Day LP</fullName>
+        <default>false</default>
+        <label>Mother&#39;s Day LP</label>
+    </customValue>
+    <customValue>
+        <fullName>Store Event LP</fullName>
+        <default>false</default>
+        <label>Store Event LP</label>
+    </customValue>
+    <customValue>
+        <fullName>Special Event LP</fullName>
+        <default>false</default>
+        <label>Special Event LP</label>
+    </customValue>
+    <customValue>
+        <fullName>Shop by Category LP</fullName>
+        <default>false</default>
+        <label>Shop by Category LP</label>
+    </customValue>
+    <customValue>
+        <fullName>Our Fragrances LP</fullName>
+        <default>false</default>
+        <label>Our Fragrances LP</label>
+    </customValue>
+    <customValue>
+        <fullName>Apparel LP</fullName>
+        <default>false</default>
+        <label>Apparel LP</label>
+    </customValue>
+    <customValue>
+        <fullName>Accessories LP</fullName>
+        <default>false</default>
+        <label>Accessories LP</label>
+    </customValue>
+    <customValue>
+        <fullName>Swim LP</fullName>
+        <default>false</default>
+        <label>Swim LP</label>
+    </customValue>
+    <customValue>
+        <fullName>PINK Beauty</fullName>
+        <default>false</default>
+        <label>PINK Beauty</label>
+    </customValue>
+    <customValue>
+        <fullName>New In LP</fullName>
+        <default>false</default>
+        <label>New In LP</label>
+    </customValue>
+    <customValue>
+        <fullName>Bras Landing Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Bras Landing Page</label>
+    </customValue>
+    <customValue>
+        <fullName>Marketplace Home Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Marketplace Home Page</label>
+    </customValue>
+    <customValue>
+        <fullName>Lingerie Landing Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Lingerie Landing Page</label>
+    </customValue>
+    <customValue>
+        <fullName>Sleep Landing Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Sleep Landing Page</label>
+    </customValue>
+    <customValue>
+        <fullName>Sport Landing Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Sport Landing Page</label>
+    </customValue>
+    <customValue>
+        <fullName>Beauty Landing Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Beauty Landing Page</label>
+    </customValue>
+    <customValue>
+        <fullName>Accessories Landing Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Accessories Landing Page</label>
+    </customValue>
+    <customValue>
+        <fullName>Swim Landing Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Swim Landing Page</label>
+    </customValue>
+    <customValue>
+        <fullName>Sale Landing Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Sale Landing Page</label>
+    </customValue>
+    <customValue>
+        <fullName>Gifts Landing Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Gifts Landing Page</label>
+    </customValue>
+    <customValue>
+        <fullName>Clearance Landing Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Clearance Landing Page</label>
+    </customValue>
+    <customValue>
+        <fullName>Tops Landing Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Tops Landing Page</label>
+    </customValue>
+    <customValue>
+        <fullName>Bottoms Landing Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Bottoms Landing Page</label>
+    </customValue>
+    <customValue>
+        <fullName>Outfits Landing Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Outfits Landing Page</label>
+    </customValue>
+    <customValue>
+        <fullName>Fragrance Landing Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Fragrance Landing Page</label>
+    </customValue>
+    <customValue>
+        <fullName>Bath &amp; Body Landing Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Bath &amp; Body Landing Page</label>
+    </customValue>
+    <customValue>
+        <fullName>Lip Landing Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Lip Landing Page</label>
+    </customValue>
+    <customValue>
+        <fullName>PINK Landing Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>PINK Landing Page</label>
+    </customValue>
+    <customValue>
+        <fullName>Bikinis Landing Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Bikinis Landing Page</label>
+    </customValue>
+    <customValue>
+        <fullName>Styles Landing Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Styles Landing Page</label>
+    </customValue>
+    <customValue>
+        <fullName>Inspo Landing Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Inspo Landing Page</label>
+    </customValue>
+    <customValue>
+        <fullName>Beauty Fragrance Landing Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Beauty Fragrance Landing Page</label>
+    </customValue>
+    <customValue>
+        <fullName>Beauty Bath &amp; Body Landing Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Beauty Bath &amp; Body Landing Page</label>
+    </customValue>
+    <customValue>
+        <fullName>Beauty Lip Landing Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Beauty Lip Landing Page</label>
+    </customValue>
+    <customValue>
+        <fullName>Beauty Pink Beauty Landing Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Beauty Pink Beauty Landing Page</label>
+    </customValue>
+    <customValue>
+        <fullName>Beauty Semiannual sale Landing Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Beauty Semiannual sale Landing Page</label>
+    </customValue>
+    <customValue>
+        <fullName>Swim HP Landing Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Swim HP Landing Page</label>
+    </customValue>
+    <customValue>
+        <fullName>Swim Inspo Landing Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Swim Inspo Landing Page</label>
+    </customValue>
+    <customValue>
+        <fullName>Swim Brands Landing Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Swim Brands Landing Page</label>
+    </customValue>
+    <customValue>
+        <fullName>Awesome Prices Landing Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Awesome Prices Landing Page</label>
+    </customValue>
+    <customValue>
+        <fullName>Beauty Accessories Landing Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Beauty Accessories Landing Page</label>
+    </customValue>
+    <customValue>
+        <fullName>Beauty HP Landing Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Beauty HP Landing Page</label>
+    </customValue>
+    <customValue>
+        <fullName>Landing Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Landing Page</label>
+    </customValue>
+    <customValue>
+        <fullName>VS Home Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>VS Home Page</label>
+    </customValue>
+    <customValue>
+        <fullName>PINK Home Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>PINK Home Page</label>
+    </customValue>
+    <customValue>
+        <fullName>PINK Sport Landing Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>PINK Sport Landing Page</label>
+    </customValue>
+    <customValue>
+        <fullName>PINK Bras Landing Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>PINK Bras Landing Page</label>
+    </customValue>
+    <customValue>
+        <fullName>PINK Panties Landing Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>PINK Panties Landing Page</label>
+    </customValue>
+    <customValue>
+        <fullName>PINK Accessories Landing Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>PINK Accessories Landing Page</label>
+    </customValue>
+    <customValue>
+        <fullName>PINK Beauty Landing Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>PINK Beauty Landing Page</label>
+    </customValue>
+    <customValue>
+        <fullName>PINK Sale Landing Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>PINK Sale Landing Page</label>
+    </customValue>
+    <customValue>
+        <fullName>Beauty Sale Landing Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Beauty Sale Landing Page</label>
+    </customValue>
+    <customValue>
+        <fullName>Swim Accessories Landing Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Swim Accessories Landing Page</label>
+    </customValue>
+    <customValue>
+        <fullName>Beauty Accessories</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Beauty Accessories</label>
+    </customValue>
+    <customValue>
+        <fullName>VS Beauty Landing Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>VS Beauty Landing Page</label>
+    </customValue>
+    <customValue>
+        <fullName>VS Accessories Landing Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>VS Accessories Landing Page</label>
+    </customValue>
+    <customValue>
+        <fullName>VS Swim Landing Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>VS Swim Landing Page</label>
+    </customValue>
+    <customValue>
+        <fullName>VS Marketplace Landing Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>VS Marketplace Landing Page</label>
+    </customValue>
+    <customValue>
+        <fullName>Marketplace Brands Landing Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Marketplace Brands Landing Page</label>
+    </customValue>
+    <customValue>
+        <fullName>Marketplace Inspo Landing Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Marketplace Inspo Landing Page</label>
+    </customValue>
+    <customValue>
+        <fullName>Panties Landing Page</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Panties Landing Page</label>
+    </customValue>
+    <masterLabel>DGTL Page Types</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

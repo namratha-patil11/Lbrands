@@ -1,0 +1,78 @@
+.THIS .imazeSize {
+    height: 5px;
+    width: 5px;
+}
+.THIS .newEntryButton {
+    background-color: #F2463B;
+    color: #FFFFFF;
+}
+.THIS .sameButton {
+    background-color: #61CD22;
+    color: #FFFFFF;
+}
+.THIS .changeButton {
+    background-color: #FFFF00;
+    color: #000000;
+}
+.THIS .pagetypecss {
+padding-top : 0px;
+}
+
+.THIS .pagetypecss .slds-form-element{
+    border-color: rgb(221, 219, 218);
+} 
+.THIS .pagetypecss2 .slds-required{
+    display: none;
+} 
+.THIS .pagetypecss .slds-combobox__input{
+     border-color: rgb(221, 219, 218);
+}
+.THIS .pagetypecss [role=combobox] input[readonly] {
+     border-color: rgb(221, 219, 218);
+}
+.THIS .pagetypecss .slds-input slds-combobox__input{
+    border-color: rgb(221, 219, 218);
+}
+.THIS .pagetypecss .slds-form-element .slds-has-error {
+    border-color: rgb(221, 219, 218);
+}
+.THIS .pagetypecss .slds-combobox__form-element {
+     border-color: rgb(221, 219, 218);
+}
+.THIS .pagetypecss .slds-form-element__help {
+    display: none;          
+}
+
+.THIS .btnCls{
+    padding-top: 2.5%;
+    padding-left: 8px;
+}
+.THIS .noPLButton {
+    background-color: #B0B0AB;
+    color: #FFFFFF;
+}
+.THIS .tableBorderCurve {
+    border-collapse:separate;
+    border:solid gray 1px;
+    border-radius:6px;
+    -moz-border-radius:6px;
+}
+.THIS .tableTRTHCurve {
+    border-bottom: 1px solid gray;
+    border-right: 1px solid gray;
+  	padding: 10px; 
+}
+.THIS .divColorVariation {
+    background-color: #F8FC70;
+}
+
+.THIS .dataCell{
+    word-break: break-word;
+    white-space: pre-line;
+}
+.THIS .floorsetplan{
+    width:330px;
+}
+@page {
+	margin: 0;
+}

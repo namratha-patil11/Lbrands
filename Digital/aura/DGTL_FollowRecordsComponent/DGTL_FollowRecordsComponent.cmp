@@ -1,0 +1,52 @@
+<aura:component controller="DGTL_FollowRecordsController" implements="force:appHostable" >
+    
+    <aura:attribute name="buttonstate" type="Boolean" default="false"/>
+    <aura:attribute name="isFeedEnabled" type="Boolean" default="false"/>
+    <aura:attribute name="objApiName" type="String"/>
+    <aura:attribute name="class" type="String"/>
+    <aura:attribute name="recId" type="String"/>
+    <aura:attribute name="nextAction" type="String" default="Follow"/>
+    <aura:attribute name="showSpinner" type="Boolean" default="false"/>
+    <aura:attribute name="useIcon" type="Boolean" default="true"/>
+    <aura:attribute name="iconName" type="String" default="action:follow"/> 
+    <aura:attribute name="color" type="String" default="followClass"/> 
+    
+    <aura:handler value="{!this}" name="init" action="{!c.doInit}"/>
+   
+    <aura:if isTrue="{!v.showSpinner}">
+    <lightning:spinner alternativeText="Loading" size="small" />
+    </aura:if>
+    
+    <aura:if isTrue="{!v.isFeedEnabled}">
+        
+        <aura:if isTrue="{!v.useIcon}">
+            
+            <button aura:id="followbtn" name="{!v.iconName}" style="{! 'background-color:' + v.color+';'}" class="slds-button">
+                <span onclick="{!c.handleClick}">
+                    <lightning:Icon title="{!v.nextAction}"  iconName="{!v.iconName}"  alternativeText="{!v.nextAction}" size="xx-small" />
+                </span>
+            </button>
+
+           <!-- <lightning:buttonIconStateful iconName="{!v.iconName}" 
+                                          selected="{!v.buttonstate }" 
+                                          onclick="{! c.handleClick}" 
+                                          class="{!v.class}"
+                                          alternativeText="{!v.nextAction}" />-->
+            
+            <aura:set attribute="else">
+                
+                <lightning:buttonStateful
+                                          labelWhenOff="Follow"
+                                          labelWhenOn="Following"
+                                          labelWhenHover="Unfollow"
+                                          iconNameWhenOff="utility:add"
+                                          iconNameWhenOn="utility:check"
+                                          iconNameWhenHover="utility:close"
+                                          state="{!v.buttonstate }"
+                                          onclick="{! c.handleClick }"
+                                          />
+            </aura:set>
+        </aura:if>
+    </aura:if>
+        	
+</aura:component>

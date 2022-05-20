@@ -1,0 +1,240 @@
+<aura:component controller="DGTL_ViewPlcLayout_Controller" implements="force:appHostable,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes" access="global" >
+   <!-- <ltng:require styles="{!$Resource.PrintNoHeaderFooter}" /> -->
+	 
+    <aura:attribute name="searchFields" type="String[]" default="['Brands__c', 'Page_Types__c', 'Floorset_Plan__c']" />
+    <aura:attribute name="searchNextBack" type="String" default="Search"/>
+    <aura:attribute name="selectedBrand" type="String" default=""/>
+    <aura:attribute name="selectedPageType" type="String" default=""/>
+    <aura:attribute name="selectedFloorset" type="String" default=""/>
+    <aura:attribute name="selectedTime" type="Decimal" default=""/>
+    <aura:attribute name="timeValStr" type="String" default=""/>
+    <aura:attribute name="dateSelect" type="Date"/>
+    <aura:attribute name="deviceType" type="String" default="Mobile"/>
+    <aura:attribute name="sectionState" type="String"/>
+    
+    <aura:attribute name="isPDFDownload" type="boolean" default="false"/>
+    <aura:attribute name="snapShotDate" type="Date"/>
+    <aura:attribute name="showDateAndDownload" type="boolean" default="false"/>
+    
+    <aura:handler value="{!this}" name="init" action="{!c.init}"/>
+    
+    <aura:attribute name="SelectedSnapShotDate" type="String"/>
+    <aura:attribute name="placementLayout" type="List"/>
+    <aura:attribute name="placementLayoutList" type="List"/>
+    <aura:attribute name="placementContents" type="List"/>
+    <aura:attribute name="hasContent" type="boolean" default="false"/>
+    <aura:attribute name="showContents" type="boolean" default="false"/>
+    
+    <!--  Access Management variable strart   -->
+    <aura:attribute name="readFieldsList" type="List"/>
+    <aura:attribute name="cDetailsFields" type="List"/>
+    <aura:attribute name="floorsetList" type="List"/>
+    
+    <!--  buttons variable to be displayed    -->
+    <aura:attribute name="nextBtn" type="Boolean" default="false"/>
+    <aura:attribute name="backBtn" type="Boolean" default="false"/>
+    
+    <aura:attribute name="floorsetPlanList" type="List" />
+    
+    <aura:attribute name="spinner" type="boolean" default="false"/>
+    <aura:attribute name="collapsableSection" type="string" default="close"/>
+    <!-- attribute to accept Visualforce page's javascript method -->
+ <!--  <aura:attribute name="sendData" type="object"/> -->
+    <aura:renderIf isTrue="{!v.spinner}">
+        <lightning:spinner alternativeText="Loading" size="medium" />
+    </aura:renderIf>
+    <div class="slds-no-print">
+        <aura:renderIf isTrue="{!not(v.isPDFDownload)}">
+        <div class="slds-box slds-theme_shade slds-no-print">
+            <div class="slds">
+                <lightning:recordEditForm aura:id="recordEdit" objectApiName="Placement_Layout__c" > 
+                    <lightning:layout>	
+                        <lightning:layoutItem padding="around-small">                             
+                            <div class="brandcss">  
+                                <lightning:inputField fieldName="Brands__c" onchange="{!c.onChangeBrand}" value="{!v.selectedBrand}"/> 
+                               <!-- <lightning:inputField fieldName="Brands__c" onchange="{!c.onChangeBrand}" value="{!v.placementLay.Brands__c}"/> -->
+                            </div> 
+                        </lightning:layoutItem> 
+                        <aura:if isTrue="{!and(v.selectedBrand != '',v.selectedBrand != null)}">
+                        <lightning:layoutItem padding="around-small">                             
+                            <div class="pagetypecss">
+                                <lightning:inputField aura:id="pageTypeInput"  fieldName="Page_Types__c" onchange="{!c.onChangePageType}" class="pagetypecss2"> </lightning:inputField>
+                               <!-- <lightning:inputField aura:id="pageTypeInput" variant="Label-hidden" fieldName="Page_Types__c"   value="{!v.placementLay.Page_Types__c}"/> -->
+                            </div>                            
+                        </lightning:layoutItem> 
+                        </aura:if>
+                        <lightning:layoutItem padding="around-small">                             
+                            <div class="floorsetplan">
+                                <lightning:inputField fieldName="Floorset_Plan__c" onchange="{!c.onChangeFloorset}" value="{!v.selectedFloorset}"/> 
+                               <!-- <lightning:inputField fieldName="Floorset_Plan__c" onchange="{!c.onChangeFloorset}" value="{!v.placementLay.Floorset_Plan__c}"/> -->
+                            </div>    
+                        </lightning:layoutItem> 
+                        <lightning:layoutItem padding="around-small">                             
+                            <div class="deviceType">
+                                 <lightning:inputField fieldName="Device_Type__c" aura:id="deviceTypeID" required="true" onchange="{!c.onDeviceType}" value="{!v.deviceType}"/> 
+                               <!-- <lightning:inputField fieldName="Device_Type__c" aura:id="deviceTypeID" required="true" onchange="{!c.onDeviceType}" value="{!v.placementLay.Device_Type__c}"/> -->
+                            </div>    
+                        </lightning:layoutItem> 
+                        <lightning:layoutItem padding="around-small">
+                            <aura:if isTrue="{!v.showDateAndDownload}">
+                                <lightning:input type="date" name="Snapshot Date" onchange="{!c.onChangeSnapshot}" label="Snapshot Date" value="{!v.snapShotDate}" /> 
+                                <!-- <lightning:inputField fieldName="Snapshot_Date__c" onchange="{!c.onChangeSnapshot}" value="{!v.snapShotDate}"/>--> 
+                            </aura:if>
+                        </lightning:layoutItem>   
+                        <lightning:layoutItem padding="around-small">
+                            <br/>
+                            <lightning:button class="btnCls" onclick="{!c.fetchContentJs}" title="Search" label="Search"/>
+                        </lightning:layoutItem>    
+                        <lightning:layoutItem padding="around-small">
+                            <br/>
+                            <lightning:buttonGroup>
+                                <aura:if isTrue="{!v.backBtn}">
+                                    <lightning:buttonIcon class="btnCls"  onclick="{!c.fetchContentJsBack}"  iconName="utility:chevronleft" alternativeText="Previous Update"/>	
+                                </aura:if>					
+                                <aura:if isTrue="{!v.nextBtn}">
+                                    <lightning:buttonIcon class="chevronrightIconBg" iconClass="chevronrightIcon" onclick="{!c.fetchContentJsNext}"  iconName="utility:chevronright" alternativeText="Next Update"/>	
+                                </aura:if>
+                            </lightning:buttonGroup>
+                        </lightning:layoutItem>
+                        <lightning:layoutItem padding="around-small">
+                            <br/>
+                            <aura:if isTrue="{!v.showDateAndDownload}">
+                              <!--  <lightning:buttonIcon class="btnCls" variant="brand" onclick="{!c.openPDF}" iconName="utility:download" size="large" alternativeText="Download PDF"/> -->
+                                <lightning:buttonIcon class="btnCls" variant="brand" onclick="{!c.printPDF}" iconName="utility:download" size="large" alternativeText="print PDF"/>
+                            </aura:if>
+                        </lightning:layoutItem> 
+                    </lightning:layout>  
+                </lightning:recordEditForm> 
+            </div>
+        </div>
+    </aura:renderIf>
+    </div>
+    
+    
+    <!--<aura:if isTrue="{!not(empty(v.placementLayout))}"> -->
+    <aura:if isTrue="{!v.hasContent}">
+        <div id="pdfBlock" style="padding:0.5rem;" class="slds-box slds-theme_default">
+            <div class="stageContainer" style="width:100%">
+                <ul class="slds-has-dividers_around-space dropZone" style="height:100%;overflow-y:auto;">
+                    <aura:iteration items="{!v.placementLayout}" var="layout">  
+                        <!-- <div style="padding-left:5%;background-color:#dad2d2;height:35px;padding-top: 1%;padding-bottom: 2%;"> 
+                            <div>
+                                <strong>PAGE TYPE : {!layout.plcLayout.Page_Types__c} </strong>
+                            </div>
+                        </div> -->
+                        <aura:if isTrue="{! and(layout.plcLayout.Id != null) }"> <!-- , not(empty(layout.list_pContent))  -->
+                            <div style="padding-left:2%;"> <aura:if isTrue="{!v.SelectedSnapShotDate != null}">
+                                <Strong>Snapshot Date - {!v.SelectedSnapShotDate} </Strong> </aura:if></div>
+                            <c:CollapsableSection title="{!layout.plcLayout.Page_Types__c +' '+  layout.plcLayout.Collection_Page_Name__c}" defaultState="open">
+                                <aura:if isTrue="{!layout.plcLayout.Page_Types__c == 'Editorials'}">
+                                	<span style="padding-left: 10px;font-style: italic;">Editorial URL : {!layout.plcLayout.Collection_Page_Url__c}</span>
+                                </aura:if>
+                                <!--<c:NewCollapsableSection title="{!layout.plcLayout.Page_Types__c}" > --> 
+                                <aura:iteration items="{!layout.list_pContent}" indexVar="index" var="content">
+                                    <li class="slds-item slds-m-around_small" id="{!content.pContent.Id}"> 
+                                        <div>
+                                            <article class="slds-tile slds-tile_board slds-box" style="border-width: thick;">
+                                                <div class="slds-grid slds-gutters">
+                                                    <div class="slds-col slds-size_3-of-5">
+                                                       
+                                                        <!-- enhancement starts-->
+                                                        <span style="padding-left:2%;"><strong>
+                                                                {!content.pContent.Placement_type__c} - {!content.pContent.Main_Message__c} - [{!content.pContent.Time_Period__c}]
+                                                         </strong></span> <br/>
+                                                        <table width="100%" class="tableBorderCurve">
+                                                            <aura:iteration items="{!v.readFieldsList}" var="cus" indexVar="key">                                                                    
+                                                                <tr class="tableTRTHCurve">
+                                                                    <td class="tableTRTHCurve">
+                                                                        <div class="slds-truncate" style="white-space:normal;">
+                                                                            <p style="font-size:9px;">{!cus.value}</p>
+                                                                            <c:DGTL_DynamicSobjectOutPutField objName="{!content.pContent}" fieldName="{!cus.key}" />
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            </aura:iteration>
+                                                        </table>
+                                                        <!--<div class="slds-box">
+                                                            <aura:iteration items="{!v.readFieldsList}" var="cus" indexVar="key">
+                                                                <lightning:layout>
+                                                                    <lightning:layoutItem padding="around-small" class="alignRight" size="4"><strong>{!cus.value}</strong></lightning:layoutItem>
+                                                                    <lightning:layoutItem padding="around-small" class="alignLeft" size="8">
+                                                                        <c:DGTL_DynamicSobjectOutPutField objName="{!content.pContent}" fieldName="{!cus.key}" />
+                                                                    </lightning:layoutItem>
+                                                                </lightning:layout>
+                                                            </aura:iteration>
+                                                        </div>-->
+                                                        <!-- ends -->
+                                                        
+                                                        <!--<table>
+                                                            <tr> -->
+                                                                <!-- action buttons removed from here -->
+                                                               <!-- <td><table><tr><td>
+                                                                    <table width="100%" class="tableBorderCurve">
+                                                                        <aura:iteration items="{!v.readFieldsList}" var="cus" indexVar="key">                                                                    
+                                                                            <tr class="tableTRTHCurve">
+                                                                                <td width="30%" class="tableTRTHCurve" style="font-weight:bold;">{!cus.value}</td>
+                                                                                <td width="70%" class="tableTRTHCurve">
+                                                                                    <div class="slds-truncate" style="white-space:normal;">
+                                                                                        <c:DGTL_DynamicSobjectOutPutField objName="{!content.pContent}" fieldName="{!cus.key}" />
+                                                                                    </div> 
+                                                                                </td>
+                                                                            </tr>
+                                                                        </aura:iteration>
+                                                                    </table></td></tr>
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                        </table> --> 
+                                                    </div>
+                                                    <div  class="slds-col slds-size_1-of-5">
+                                                        <lightning:formattedRichText aura:id="outputRT" value="{!content.pContent.Image__c}" /> 
+                                                    </div>
+                                                </div>
+                                                
+                                                <!-- content details starts-->
+                                               <div class="slds-p-top_small">
+                                                   <aura:if isTrue="{!content.hasDetails}">
+                                                       <table class="tableBorderCurve slds-table slds-table_bordered slds-table_fixed-layout slds-table_resizable-cols" style="border-radius:0px;" role="grid">
+                                                           <thead>
+                                                               <tr class="slds-line-height_reset">
+                                                                   <aura:iteration items="{!v.cDetailsFields}" var="cus" indexVar="key">
+                                                                       <th class="{!cus.key eq 'Sub_Type__c' ? 'slds-size_2-of-12' : ''}" style="padding: 5px;">
+                                                                           <div class="slds-truncate" title="{!cus.value}">{!cus.value}</div>
+                                                                       </th>
+                                                                   </aura:iteration>
+                                                               </tr>
+                                                           </thead>
+                                                           <tbody>
+                                                               <aura:iteration items="{!content.contDetails}" indexVar="index" var="contentDetail">
+                                                                   <tr class="slds-hint-parent">
+                                                                       <aura:iteration items="{!v.cDetailsFields}" var="cus" indexVar="key">
+                                                                           <td>
+                                                                               <div class="dataCell">
+                                                                                   <c:DGTL_DynamicSobjectOutPutField objName="{!contentDetail}" fieldName="{!cus.key}" />
+                                                                               </div>
+                                                                           </td>
+                                                                       </aura:iteration>
+                                                                   </tr>
+                                                               </aura:iteration>
+                                                           </tbody>
+                                                       </table>
+                                                       <aura:set attribute="else">
+                                                           No Placement Detail found!
+                                                       </aura:set>
+                                                   </aura:if>
+                                                   <!-- </article>-->
+                                                </div>
+                                                <!-- content details ends -->
+                                            </article>
+                                        </div>
+                                    </li>
+                                </aura:iteration>
+                                <!--</c:NewCollapsableSection>-->
+                            </c:CollapsableSection> 
+                        </aura:if>
+                    </aura:iteration>
+                </ul>
+            </div>
+        </div>
+    </aura:if>
+</aura:component>

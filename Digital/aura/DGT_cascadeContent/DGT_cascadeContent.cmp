@@ -1,0 +1,330 @@
+<aura:component controller="DGT_cascadeContentCtr" implements="flexipage:availableForRecordHome,lightning:isUrlAddressable,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,lightning:actionOverride,force:appHostable" access="global" >
+    <aura:attribute type="String" name="recordId"/>
+    <aura:attribute type="DGT_cascadeContentCtr.mainReturnDataWpr" name="mainReturnValue"/>
+    <aura:attribute type="DGT_cascadeContentCtr.contentWpr" name="mainContent"/>
+    <aura:attribute type="List" name="allRelatedContents"/>
+    <aura:attribute type="List" name="deletedIds"/>
+    <aura:attribute name="isInitialLoad" type="Boolean" default="true"/>
+    <aura:attribute type="String" name="popOverShowCombination" default=""/>
+    <aura:attribute name="viewModes" type="List" default="[
+                                                          {'label': 'View Both', 'value': 'view'},
+                                                          {'label': 'Only Contents', 'value': 'content'},
+                                                          {'label': 'Only Content Details', 'value': 'content_detail'}
+                                                          ]"/>
+    
+    <!--attributes for navigation -->
+    <aura:attribute name="pageReference" type="Object"/>
+    <lightning:navigation aura:id="navService"/>
+    
+    <aura:attribute name="isContentCascaded" type="boolean" default="false" />
+    <aura:attribute name="linkKODs" type="boolean" default="false" />
+    <aura:attribute name="seleContIdKod" type="list" />
+    <aura:attribute type="String" name="selctedMode" default="view"/>
+    <ltng:require styles="{!$Resource.Model_Width_Expand}"/>
+    <aura:handler value="{!this}" name="init" action="{!c.init}"/>
+    <aura:attribute name="Spinner" type="boolean" default="false"/>
+    <aura:attribute type="String" name="unsavedChangesMessage" default=" Cascade, to save click on save "/>
+    <lightning:unsavedChanges aura:id="unsaved" onsave="{!c.saveAll}"
+                              ondiscard="{!c.callInit}"/>
+    <aura:if isTrue="{!v.Spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>     
+    
+    <div class="slds-box slds-theme_default stageContainer" style="width:100%;padding:0.5rem;" >
+        <center>
+            <lightning:radioGroup name="radioButtonGroup"
+                                  label=""
+                                  options="{!v.viewModes}"
+                                  value="{!v.selctedMode}"
+                                  type="button"/>
+        </center>
+        <div class="slds-box slds-theme_default stageContainer" style="width:100%;padding:0.5rem;background: rgb(244, 246, 249);" >
+            <div class="slds-tile slds-tile_board slds-grid slds-gutters">    
+                <aura:if isTrue="{!v.selctedMode == 'view' || v.selctedMode == 'content'}">
+                    <div style="overflow: auto;" class="{!(v.selctedMode == 'view') ? 'slds-col slds-size_5-of-8' : 'slds-col slds-size_8-of-8'}">
+                        <div class="demo-only" style="width:320px">
+                            <ul class="slds-list_horizontal slds-has-dividers_around-space">
+                                <aura:iteration items="{!v.mainContent.list_PlContentFieldData}" var="mpCon" indexVar="mainConFieldIndex">
+                                    <li class="slds-item" data-placeid="{!mainConFieldIndex}" onclick="{!c.selectMainContField}">
+                                        <article class="slds-tile slds-media">
+                                          <!--  <aura:if isTrue="{!!v.mainReturnValue.isContentReadOnly}">-->
+                                            <aura:if isTrue="{!!mpCon.isReadOnly}">
+                                                <div class="slds-media__figure">
+                                                    <span class="slds-icon_container" title="description of icon when needed">
+                                                        <ui:outputCheckbox value="{!mpCon.isChecked}"/>
+                                                    </span>
+                                                </div>
+                                            </aura:if>
+                                            <div class="slds-media__body" style="width:100px;height:100px;overflow: auto;">
+                                                <h3 class="slds-tile__title slds-truncate" title="{!mpCon.fieldLabel+':'}">
+                                                    <a href="javascript:void(0);">{!mpCon.fieldLabel}: </a>
+                                                </h3>
+                                                <div class="slds-tile__detail" title="{!mpCon.fieldType != 'richtext' ? mpCon.newFieldValue : 'Image'}" style="overflow: auto;">
+                                                    <aura:if isTrue="{!mpCon.fieldType == 'boolean'}">
+                                                        <ui:outputCheckbox value="{!mpCon.newBooleanVal}"/>
+                                                    </aura:if>
+                                                    <aura:if isTrue="{!mpCon.fieldType == 'richtext'}">
+                                                        <lightning:formattedRichText value="{!mpCon.newFieldValue}"  class="slds-text-body_small"/>
+                                                    </aura:if>
+                                                    <aura:if isTrue="{!mpCon.fieldType == 'text'}">
+                                                        {!mpCon.newFieldValue}
+                                                    </aura:if>
+                                                </div>
+                                            </div>
+                                        </article>
+                                    </li>
+                                </aura:iteration>
+                            </ul>                         
+                        </div>
+                           <!-- KODS LIST-->                
+                            <div class="demo-only" style="width:100%">
+                                <div style="float:left;"> 
+                                    <ui:inputCheckbox value="{!v.linkKODs}"></ui:inputCheckbox>
+                                </div>
+                                <div style="float:left;">
+                                    &nbsp;<b>Linked KODS : </b> <aura:if isTrue="{!v.mainReturnValue.linkedKods != ''}">
+                                    {!v.mainReturnValue.linkedKods}
+                                    <aura:set attribute="else"><i style="color:grey;font-size: 10px;">No linked KOD found. Cascading will delete the linked KODs in the related Placements.</i></aura:set>
+                                    </aura:if>  
+                                </div>                                
+                            <!-- <lightning:input type="checkbox" checked="{!v.linkKODs}"> &nbsp;<b>Linked KODS : </b> {!v.mainReturnValue.linkedKods}    </lightning:input>     -->             
+                            </div> 
+                    </div>
+                </aura:if><br/>   
+               
+                <aura:if isTrue="{!v.selctedMode == 'view' || v.selctedMode == 'content_detail'}">
+                    <div class="{!(v.selctedMode == 'view') ? 'slds-col slds-size_3-of-8' : 'slds-col slds-size_8-of-8'}" style="overflow: auto;">
+                        <aura:iteration items="{!v.mainContent.list_contentDetWpr}" var="mpConDet" indexVar="mainConDetIndex">
+                            <div class="demo-only" style="width:320px">
+                                <ul class="slds-list_horizontal slds-has-dividers_around-space">
+                                    <aura:iteration items="{!mpConDet.list_PlcConDetFieldData}" var="mpConDetField" indexVar="mainConDetFieldIndex">
+                                        <li class="slds-item" data-placeid="{!mainConDetIndex+'@'+mainConDetFieldIndex}" onclick="{!c.selectMainContDetField}">
+                                            <article class="slds-tile slds-media">
+                                                <div class="slds-media__figure">
+                                                    <span class="slds-icon_container" title="description of icon when needed">
+                                                        <ui:outputCheckbox value="{!mpConDetField.isChecked}"/>
+                                                    </span>
+                                                </div>
+                                                <div class="slds-media__body" style="width:100px;height:100px;">
+                                                    <h3 class="slds-tile__title slds-truncate" title="{!mpConDetField.fieldLabel+':'}">
+                                                        <a href="javascript:void(0);">{!mpConDetField.fieldLabel}: </a> 
+                                                    </h3>
+                                                    <div class="slds-tile__detail slds-text-body_small" title="{!mpConDetField.fieldType != 'richtext' ? mpConDetField.newFieldValue : 'Image'}" style="overflow: auto;white-space:normal;">
+                                                        <aura:if isTrue="{!mpConDetField.fieldType == 'boolean'}">
+                                                            <ui:outputCheckbox value="{!mpConDetField.newBooleanVal}"/>
+                                                        </aura:if>
+                                                        <aura:if isTrue="{!mpConDetField.fieldType == 'richtext'}">
+                                                            <lightning:formattedRichText value="{!mpConDetField.newFieldValue}"  class="slds-text-body_small"/>
+                                                        </aura:if>
+                                                        <aura:if isTrue="{!mpConDetField.fieldType == 'text'}">
+                                                             {!mpConDetField.newFieldValue}       
+                                                        </aura:if>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </article>
+                                        </li>
+                                    </aura:iteration>
+                                </ul>
+                            </div>
+                        </aura:iteration>
+                    </div>
+                </aura:if>                
+            </div>
+            <aura:if isTrue="{!v.selctedMode == 'view' || v.selctedMode == 'content'}">
+                <aura:if isTrue="{!!v.mainReturnValue.isContentReadOnly}">
+                    <lightning:button label="Cascade all selected content" onclick="{!c.promoteAll}"/>
+                </aura:if>
+            </aura:if>
+            <aura:if isTrue="{!v.selctedMode == 'view' || v.selctedMode == 'content_detail'}">
+                <lightning:button label="Cascade all selected content details" onclick="{!c.promoteAllDetails}"/>
+            </aura:if>
+            <aura:if isTrue="{!v.selctedMode == 'view'}">
+                <lightning:button label="Revert All" onclick="{!c.callInit}"/>
+            </aura:if>
+            <aura:if isTrue="{!or(v.selctedMode != 'content',and(v.selctedMode == 'content',!v.mainReturnValue.isContentReadOnly))}">
+                <lightning:button label="Save" disabled="{!!v.isContentCascaded}" onclick="{!c.saveAll}"/>
+            </aura:if>
+        </div>
+        <aura:iteration items="{!v.allRelatedContents}" var="relCon" indexVar="relContIndex">
+            <!--{!relCon.plContent.Id} - {!relCon.plContent.Main_Message__c} - {!relCon.plContent.Offer_Type__c}-->
+            <div class="slds-box slds-theme_default stageContainer" style="width:100%;padding:0.5rem;" >
+                 <b>{!relCon.plContent.Name} {!relCon.plContent.Editorial_Name__c}</b> 
+                <div class="slds-tile slds-tile_board slds-grid slds-gutters">    
+                    <aura:if isTrue="{!v.selctedMode == 'view' || v.selctedMode == 'content'}">
+                        <div style="overflow: auto;" class="{!(v.selctedMode == 'view') ? 'slds-col slds-size_5-of-8' : 'slds-col slds-size_8-of-8'}">
+                            <div class="demo-only" style="width:320px">
+                                <ul class="slds-list_horizontal slds-has-dividers_around-space">
+                                    <aura:if isTrue="{!v.selctedMode != 'content_x'}">
+                                        <aura:if isTrue="{!!v.mainReturnValue.isContentReadOnly}">
+                                            <li><br/>
+                                                <ui:inputCheckbox value="{!relCon.isContentSelected}"/><br/>
+                                                <lightning:buttonIcon iconName="utility:undo" alternativeText="Revert Content" value="{!relContIndex}" onclick="{!c.revertPlcContentRow}"/><br/>
+                                            </li>
+                                        </aura:if>
+                                    </aura:if>
+                                    <aura:iteration items="{!relCon.list_PlContentFieldData}" var="relConField" indexVar="relContFieldIndex">
+                                        <li class="slds-item">
+                                            <article class="slds-tile slds-tile_board">
+                                                <div style="width:100px;height:100px;">
+                                                    <h3 class="slds-tile__title slds-truncate" title="{!relConField.fieldLabel+':'}">
+                                                        <a href="javascript:void(0);">{!relConField.fieldLabel}: </a>
+                                                    </h3>
+                                                    <div class="slds-tile__detail slds-truncate" title="{!relConField.fieldType != 'richtext' ? relConField.newFieldValue : 'Image'}">
+                                                        <aura:if isTrue="{!relConField.fieldType == 'boolean'}">
+                                                            <ui:outputCheckbox value="{!relConField.newBooleanVal}"/>
+                                                        </aura:if>
+                                                        <aura:if isTrue="{!relConField.fieldType == 'richtext'}">
+                                                            <lightning:formattedRichText value="{!relConField.newFieldValue}"  class="slds-text-body_small"/>
+                                                        </aura:if>
+                                                        <aura:if isTrue="{!relConField.fieldType == 'text'}">
+                                                            {!relConField.newFieldValue}
+                                                        </aura:if>
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        </li>
+                                    </aura:iteration>
+                                    <!--
+                                <li><br/>
+                                    <lightning:buttonIcon iconName="utility:forward_up" alternativeText="Cascade Content" value="{!relContIndex}" onclick="{!c.promotePlcContentRow}"/><br/>
+                                    <lightning:buttonIcon iconName="utility:undo" alternativeText="Revert Content" value="{!relContIndex}" onclick="{!c.revertPlcContentRow}"/><br/>
+                                </li>
+                                -->
+                                </ul>
+                            </div>
+                            <!-- KODS LIST-->
+                        <aura:if isTrue="{!relCon.linkedKods != ''}">
+                            <b>Linked KODS : </b> {!relCon.linkedKods}                              
+                        </aura:if> 
+                        </div>
+                    </aura:if>
+                    <aura:if isTrue="{!v.selctedMode == 'view' || v.selctedMode == 'content_detail'}">
+                        <div class="{!(v.selctedMode == 'view') ? 'slds-col slds-size_3-of-8' : 'slds-col slds-size_8-of-8'}" style="overflow: auto;">
+                            <aura:if isTrue="{!v.selctedMode == 'content_detail'}">
+                             <!--   <b>{!relCon.plContent.Name}: </b> -->
+                            </aura:if>
+                            <aura:if isTrue="{!not(empty(relCon.list_contentDetWpr))}">
+                                <aura:iteration items="{!relCon.list_contentDetWpr}" var="relConDet" indexVar="relContDetIndex">
+                                    <div class="demo-only" style="width:320px">
+                                        <!--{!relConDet.plContentDetail.Placement_Content__c}-{!relConDet.plContentDetail.Sub_Type__c}-{!relConDet.plContentDetail.Link_Text__c}-{!relConDet.plContentDetail.Copy__c}-{!relConDet.plContentDetail.Asset_Path__c}-->
+                                        <ul class="slds-list_horizontal slds-has-dividers_around-space">
+                                            <aura:if isTrue="{!v.selctedMode != 'content_detail_x'}">
+                                                <li><br/>
+                                                    <ui:inputCheckbox value="{!relConDet.isConDetSelected}"/>
+                                                    <lightning:buttonIcon iconName="utility:delete" alternativeText="Remove" 
+                                                                          value="{!relContIndex+'@'+relContDetIndex}" onclick="{!c.removePlcDet}" />
+                                                    <br/>
+                                                    <lightning:buttonIcon iconName="utility:undo" alternativeText="Revert" value="{!relContIndex+'@'+relContDetIndex+'@revert'}" onclick="{!c.choosePlcContentDetailRecordIcon}" disabled="{!relConDet.plContentDetail.Id == null}"/><br/>
+                                                    
+                                                    <!-- <aura:if isTrue="{!relConDet.plContentDetail.Id == null}">
+                                                        <lightning:buttonIcon iconName="utility:delete" alternativeText="Remove" value="{!relContIndex+'@'+relContDetIndex}" onclick="{!c.removePlcDet}"/><br/>
+                                                        <aura:set attribute="else">
+                                                            <lightning:buttonIcon iconName="utility:undo" alternativeText="Revert" value="{!relContIndex+'@'+relContDetIndex+'@revert'}" onclick="{!c.choosePlcContentDetailRecordIcon}" disabled="{!relConDet.plContentDetail.Id == null}"/><br/>
+                                                        </aura:set>
+                                                    </aura:if> -->
+                                                    <lightning:buttonIcon iconName="utility:new" alternativeText="New Placement Content Detail" value="{!relContIndex+'@'+relCon.plContent.Id}" onclick="{!c.addPcDetailRowForNew}"/><br/>
+                                                </li>
+                                            </aura:if>
+                                            <aura:iteration items="{!relConDet.list_PlcConDetFieldData}" var="relConDetField" indexVar="relConDetFieldIndex">
+                                                <li class="slds-item">
+                                                    <article class="slds-tile slds-tile_board">
+                                                        <div style="width:100px;height:100px;">
+                                                            
+                                                            <h3 class="slds-tile__title slds-truncate" title="{!relConDetField.fieldLabel+':'}">
+                                                                <a href="javascript:void(0);">{!relConDetField.fieldLabel}: </a>
+                                                            </h3>
+                                                            <div class="slds-tile__detail slds-text-body_small" title="{!relConDetField.fieldType != 'richtext' ? relConDetField.newFieldValue : 'Image'}" style="overflow: auto;white-space:normal;">
+                                                                <aura:if isTrue="{!relConDetField.fieldType == 'boolean'}">
+                                                                    <ui:outputCheckbox value="{!relConDetField.newBooleanVal}"/>
+                                                                </aura:if>
+                                                                <aura:if isTrue="{!relConDetField.fieldType == 'richtext'}">
+                                                                    <lightning:formattedRichText value="{!relConDetField.newFieldValue}"  class="slds-text-body_small"/>
+                                                                </aura:if>
+                                                                <aura:if isTrue="{!relConDetField.fieldType == 'text'}">
+                                                                    {!relConDetField.newFieldValue}
+                                                                </aura:if>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    </article>
+                                                </li>
+                                            </aura:iteration>
+                                            <!--
+                                            <aura:if isTrue="{!v.selctedMode == 'content_detail'}">
+                                            <li>
+                                                <div title="Actions" class="slds-truncate" style="width:100px;height:20px;font-size:10px;">
+                                                    Actions
+                                                </div>
+                                                <lightning:buttonIcon iconName="utility:copy" alternativeText="Promote" value="{!relContIndex+'@'+relContDetIndex+'@'+relConDet.plContentDetail.Id}" onclick="{!c.promotePcDetailRow}"/><br/>
+                                                <aura:if isTrue="{!relConDet.plContentDetail.Id == null}">
+                                                    <lightning:buttonIcon iconName="utility:delete" alternativeText="Remove" value="{!relContIndex+'@'+relContDetIndex}" onclick="{!c.removePlcDet}"/><br/>
+                                                    <aura:set attribute="else">
+                                                        <lightning:buttonIcon iconName="utility:undo" alternativeText="Revert" value="{!relContIndex+'@'+relContDetIndex+'@revert'}" onclick="{!c.choosePlcContentDetailRecordIcon}" disabled="{!relConDet.plContentDetail.Id == null}"/><br/>
+                                                    </aura:set>
+                                                </aura:if>
+                                                <lightning:buttonIcon iconName="utility:new" alternativeText="New Placement Content Detail" value="{!relContIndex+'@'+relCon.plContent.Id}" onclick="{!c.addPcDetailRowForNew}"/><br/>
+                                            </li>
+                                            </aura:if>
+-->
+                                        </ul>
+                                    </div>
+                                </aura:iteration>
+                                <aura:set attribute="else">
+                                    <lightning:buttonIcon iconName="utility:new" alternativeText="New" value="{!relContIndex+'@'+relCon.plContent.Id}" onclick="{!c.addPcDetailRowForNew}"/><br/>
+                                </aura:set>
+                            </aura:if>
+                            <aura:if isTrue="{!v.popOverShowCombination == relContIndex+'@'+relCon.plContent.Id}">
+                                <div class="demo-only demo-only_viewport" style="height:800px">
+                                    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                                        <div class="slds-modal__container">
+                                            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                                                <table border="1" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <aura:iteration items="{!v.mainContent.list_contentDetWpr}" var="mPcd" indexVar="mPcdIndex">
+                                                            <aura:if isTrue="{!mPcdIndex == 0}">
+                                                                <td></td>
+                                                                <aura:iteration items="{!mPcd.list_PlcConDetFieldData}" var="mpcdField">
+                                                                    <td>{!mpcdField.fieldLabel}</td>
+                                                                </aura:iteration>
+                                                            </aura:if>
+                                                        </aura:iteration>
+                                                    </tr>
+                                                    <aura:iteration items="{!v.mainContent.list_contentDetWpr}" var="mPcd" indexVar="selectedMainPlcConDetIndex">
+                                                        <tr>
+                                                            <td>
+                                                                <a data-placeid="{!v.popOverShowCombination+'@'+selectedMainPlcConDetIndex}" onclick="{!c.choosePlcContentDetailRecord}">
+                                                                    <u>Cascade: </u>
+                                                                </a>
+                                                            </td>
+                                                            <aura:iteration items="{!mPcd.list_PlcConDetFieldData}" var="mpcdField">
+                                                                <td>
+                                                                    {!mpcdField.newFieldValue}
+                                                                </td>
+                                                            </aura:iteration>
+                                                        </tr>
+                                                    </aura:iteration>
+                                                </table>
+                                            </div>
+                                            <footer class="slds-modal__footer">
+                                                <lightning:button class="slds-button slds-button_neutral" label="Close" onclick="{!c.closePopOver}"/>
+                                            </footer>
+                                        </div>
+                                    </section>
+                                    <div class="slds-backdrop slds-backdrop_open"></div>
+                                </div>
+                                
+                            </aura:if>
+                        </div>
+                    </aura:if>
+                </div>
+            </div><br/>
+        </aura:iteration>
+    </div>
+</aura:component>

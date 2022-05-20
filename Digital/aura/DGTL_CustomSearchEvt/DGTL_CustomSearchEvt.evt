@@ -1,0 +1,9 @@
+<aura:event type="COMPONENT" 
+            description="Fired when the picklist value changes">
+    <aura:attribute name="selectedOption"
+                    type="Object"
+                    description="Selected Option"/>
+    <aura:attribute name="index"
+                    type="String"
+                    description="Optionally pass index is used inside iteration"/>
+</aura:event>

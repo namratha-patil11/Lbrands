@@ -1,0 +1,38 @@
+<template>
+	<template if:true={title}>
+		<h1>{title}</h1>
+	</template>
+
+	<template if:true={dynamicinputarray.isLayout} for:each={items} for:item="item" for:index="idx">
+		<div class="c-draggable" key={item.conId} draggable="true" 
+			ondragstart={startDrag} 
+			ondragover={allowDrop} 
+			ondrop={dropItem}
+			ondragleave={dragLeave}
+			ondragend={dragEnd}
+			ontouchstart={touchStart} 			
+			ontouchover={touchMove} 
+			ontouchmove={touchMove}
+			ontouchend={touchEnd}
+			ontouchcancel={touchCancel}>
+				<c-draggable-item item={item} dynamicinputarray={dynamicinputarray} index={idx}></c-draggable-item>
+		</div>
+	</template>
+
+	<template if:false={dynamicinputarray.isLayout} for:each={items} for:item="item" for:index="idx">
+		<div class="c-draggable" key={item.Id} draggable="true" 
+			ondragstart={startDrag} 
+			ondragover={allowDrop} 
+			ondrop={dropItem}
+			ondragleave={dragLeave}
+			ondragend={dragEnd}
+			ontouchstart={touchStart} 			
+			ontouchover={touchMove} 
+			ontouchmove={touchMove}
+			ontouchend={touchEnd}
+			ontouchcancel={touchCancel}>
+				<c-draggable-item item={item} dynamicinputarray={dynamicinputarray} index={idx}></c-draggable-item>
+		</div>
+	</template>
+
+</template>

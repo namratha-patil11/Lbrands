@@ -1,0 +1,112 @@
+<aura:component controller="DGTL_HistoryTracking" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    
+    <aura:attribute name="objId" type="String"/>
+    <aura:attribute name="recordIndex" type="String"/>
+    
+    <aura:attribute name="changedFields" type="List"/>
+    <aura:attribute name="changedValues" type="List"/>
+    <aura:attribute name="valueFieldApi" type="List"/>
+    
+    <aura:attribute name="objectName" type="String"/>
+    
+    <aura:attribute name="contentHistoryRecords" type="Map"/>
+    <aura:attribute name="historyRecords" type="Map"/>
+    <aura:attribute name="viewRecord" type="Placement_Content_Detail_History__c" />
+    <aura:attribute name="viewId" type="String" />
+    
+    <aura:attribute name="replaceRecordValue" type="Placement_Content_Detail__c" />
+    
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <!-- Register  Lightning Event for handling delete operation  --> 
+    <aura:registerEvent name="closePrompt" type="c:DGTL_ClosePrompt"/> 
+    <aura:attribute name="spinner" type="boolean" default="false"/>
+    <aura:attribute name="history" type="boolean" default="true"/>
+    
+    
+    <div style="height:70%;width:50%;">
+        <aura:renderIf isTrue="{!v.spinner}">
+            <lightning:spinner alternativeText="Loading" variant="brand" size="medium" />
+        </aura:renderIf>
+        <aura:if isTrue="{!v.history}">
+            <section role="alertdialog" tabindex="-2" aria-labelledby="prompt-heading-id" aria-describedby="prompt-message-wrapper" class="slds-modal slds-fade-in-open slds-modal_prompt" aria-modal="true">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <h2 class="slds-text-heading_medium slds-hyphenate" id="prompt-heading-id">History Tracking </h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-box">
+                            <thead class="slds-box">
+                                <tr class="slds-text-title_caps slds-box">
+                                    <td><strong>Action</strong></td>
+                                    <td><strong>Changed Fields</strong></td>
+                                    <td><strong>Last Modified By</strong></td>
+                                    <td><strong>Last Modified Date</strong></td>
+                                </tr></thead>
+                            <tbody>
+                                <aura:iteration items="{!v.changedFields}" var="item" indexVar="index">
+                                    <tr class ="slds-box">
+                                        <td><a onclick="{!c.ShowDetail}" data-value="{!item.HistRecordId}"
+                                               data-selected-Index="{!index}" >
+                                            <!-- <lightning:icon iconName="action:preview" 
+                                                     variant="inverse" size="small" alternativeText="View"/>-->
+                                            View </a></td>
+                                        <td>{!item.changedFields}</td>
+                                        <td>{!item.changedBy}</td>
+                                        <td>{!item.changedDate}</td>
+                                    </tr>
+                                </aura:iteration></tbody>
+                        </table>
+                    </div>
+                    <footer class="slds-modal__footer slds-theme_default">
+                        <lightning:button label="Close" title="Close" onclick="{! c.handleClose}"/>
+                    </footer>
+                </div>
+            </section>
+            <aura:set attribute="else">
+                <!-- Detail Section -->
+                <section role="alertdialog" tabindex="-2" aria-labelledby="prompt-heading-id" aria-describedby="prompt-message-wrapper" class="slds-modal slds-fade-in-open slds-modal_prompt" aria-modal="true">
+                    <div class="slds-modal__container">
+                        <header class="slds-modal__header">
+                            <h2 class="slds-text-heading_medium slds-hyphenate" id="prompt-heading-id">Changed Values</h2>
+                        </header>
+                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                            <div class="slds-box">
+                                <lightning:recordEditForm objectApiName="{!v.objectName}" 
+                                                          recordId="{!v.viewId}">
+                                    
+                                    <lightning:layout multipleRows="true" >
+                                       <!--
+                                            <lightning:layoutItem padding="around-small" size="2">
+                                                <div style="text-align:left;padding-left:5%;">
+                                                    <a  onclick="{!c.handleReplaceValues}" data-value="{!v.viewId}">
+                                                        <lightning:icon iconName="utility:replace" 
+                                                                        class="slds-icon slds-icon_small"
+                                                                        size="small"
+                                                                        alternativeText="Replace"/>
+                                                    </a>
+                                                </div>
+                                            </lightning:layoutItem> -->
+                                         <aura:iteration items="{!v.valueFieldApi}" var="item" >
+                                            <lightning:layoutItem padding="around-small" size="6">
+                                                <div class="slds-box">
+                                                    <lightning:outputField fieldName="{!item}" />
+                                                </div>
+                                            </lightning:layoutItem>
+                                        </aura:iteration>
+                                    </lightning:layout>
+                                </lightning:recordEditForm>
+                            </div>
+                        </div>
+                        <footer class="slds-modal__footer slds-theme_default">
+                            <lightning:button label="Close Detail" title="Close Detail" onclick="{!c.closeView}"/>
+                        </footer>
+                    </div>
+                </section>
+            </aura:set>
+        </aura:if>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+    
+</aura:component>

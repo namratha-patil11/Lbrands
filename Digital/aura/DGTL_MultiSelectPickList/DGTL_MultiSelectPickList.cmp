@@ -1,0 +1,86 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" > 
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:attribute name="entityName" type="String" default=""/>
+    <aura:attribute name="SelectedAllColor" type="boolean" default="false" /> 
+	<aura:attribute name="disable" type="boolean" default="false" />     
+    <aura:attribute name="SelectedColor" type="String" default=''/>
+    <aura:attribute name="entityList" type="Object[]" />    
+    <aura:attribute name="Selected" type="string" default=''/>  
+    <aura:attribute name="SelectedList" type="List"/>  
+    
+    <aura:handler name="change" value="{!v.disable}" action="{!c.clear}"/>
+    <center style="margin-top:5px;">
+        <lightning:layout multipleRows="true">
+            <lightning:layoutItem size="1">
+                <div aura:id="ddlPart" class="slds-picklist" onclick="{!c.OpenColorToggle}" onmouseleave="{!c.HideColorToggle}" style="{!v.disable ? 'pointer-events: none;background-color: #e2e2de;' : ''}">
+                    <button class="slds-button slds-button--neutral slds-picklist__label" aria-haspopup="false">            
+                        <aura:if isTrue="{!v.SelectedAllColor == true}">
+                            <label id="lblselectvalue">  All {!v.entityName} </label>
+                            <aura:set attribute="else">
+                                <label id="lblselectvalue">
+                                    <aura:if isTrue="{!v.SelectedColor == null}">
+                                        Select {!v.entityName}
+                                        <aura:set attribute="else">
+                                            Selected {!v.entityName} {!v.SelectedColor}
+                                        </aura:set>
+                                    </aura:if>                            
+                                </label>  
+                            </aura:set>
+                        </aura:if>
+                        <lightning:icon iconName="utility:down" alternativeText="down" />
+                    </button>
+                    <div class="slds-dropdown slds-dropdown--left slds-hide" aura:id="droplist_color"  onmouseleave="{!c.HideColorToggle}" style="max-height:200px; overflow:scroll;margin-top:auto;">
+                        <ul class="slds-dropdown__list" role="menu" >                
+                           <!-- <aura:if isTrue="{!v.SelectedAllColor == true}">
+                                <li class="slds-dropdown__item slds-is-selected" role="presentation" id="AllColor">
+                                    <a href="javascript:void(0);" role="menuitemcheckbox" aria-checked="true"  id="AllColor" onclick="{!c.AllColorUnCheck}">
+                                        <span class="slds-truncate" id="AllColor">
+                                            <lightning:icon class="selected" iconName="utility:check" alternativeText="check" size="small"/>
+                                            <label>&nbsp;&nbsp;  All {!v.entityName}</label>
+                                        </span>
+                                    </a>
+                                </li>
+                                <aura:set attribute="else">
+                                    <li class="slds-dropdown__item slds-is-selected" role="presentation" id="AllColor">
+                                        <a href="javascript:void(0);" role="menuitemcheckbox" aria-checked="false"   id="AllColor" onclick="{!c.AllColorCheck}">
+                                            <span class="slds-truncate" id="AllColor">
+                                                <lightning:icon iconName="utility:check" alternativeText="check" size="small"/>
+                                                <label>&nbsp;&nbsp;  All {!v.entityName}</label>
+                                            </span>
+                                        </a>
+                                    </li>
+                                </aura:set>
+                            </aura:if> -->
+                            <aura:iteration items="{!v.entityList}" var="color">                    
+                                <aura:if isTrue="{!color.flag == true}">                        
+                                    <li class="slds-dropdown__item slds-is-selected" role="presentation" id="{!color.Id}">
+                                        <a href="javascript:void(0);" role="menuitemcheckbox" aria-checked="true"  id="{!color.Id}" onclick="{!c.ColorUnCheck}">
+                                            <span class="slds-truncate" id="{!color.Id}">
+                                                <lightning:icon class="selected" iconName="utility:check" alternativeText="check" size="small"/>
+                                                <label id="{!color.Id}"> &nbsp;&nbsp; {!color.Name}</label>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    
+                                    <aura:set attribute="else">
+                                        <li class="slds-dropdown__item slds-is-selected" role="presentation" id="{!color.Id}">
+                                            <a href="javascript:void(0);" role="menuitemcheckbox" aria-checked="false"   id="{!color.Id}" onclick="{!c.ColorCheck}">
+                                                <span class="slds-truncate" id="{!color.Id}">
+                                                    <lightning:icon iconName="utility:check" alternativeText="check" size="small"/>
+                                                    <label id="{!color.Id}"> &nbsp;&nbsp; {!color.Name}</label>
+                                                </span>
+                                            </a>
+                                        </li>
+                                    </aura:set>                        
+                                </aura:if>   
+                            </aura:iteration>
+                        </ul>
+                    </div>
+                </div>
+            </lightning:layoutItem>
+          <!--  <lightning:layoutItem padding="around-small" size="3">
+                <lightning:button variant="brand" label="Get Value" title="Get Value" onclick="{!c.showSelectedColor}"/>                
+            </lightning:layoutItem> -->
+        </lightning:layout>
+    </center>
+ </aura:component>

@@ -1,0 +1,15 @@
+.THIS .scrollable {
+    overflow-y: auto;
+	background: rgb(255, 255, 255);
+    border: 1px solid rgb(217, 219, 221);
+    border-radius: .25rem;
+    z-index: 7000;
+    position: absolute;
+    width: 100%;
+    padding: .5rem 0;
+}
+
+.THIS .disabled {
+    cursor: not-allowed;
+    background-color: #eee;
+}

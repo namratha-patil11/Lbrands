@@ -1,0 +1,12 @@
+Hi Team,<br/><br/><br/>
+
+<p>
+One new Placement Library has been created with Offer Type as <b>"Offer"</b>. It needs to be Approved to publish. 
+
+<a href="https://lbrands--personal02.lightning.force.com/lightning/r/Placement_Library__c/{!Placement_Library__c.Id}/view">Click Here</a> to access the record.
+</p>
+
+Page Type : {!Placement_Library__c.00N2C000001KzqC}<br/>
+KOD : {!Placement_Library__c.KOD__c}<br/>
+Start Date : {!Placement_Library__c.Start_Date__c}<br/>
+End Date :{!Placement_Library__c.End_Date__c}

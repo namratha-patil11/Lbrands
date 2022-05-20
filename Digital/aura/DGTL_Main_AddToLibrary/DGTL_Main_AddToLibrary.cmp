@@ -1,0 +1,62 @@
+<aura:component controller="DGTL_Main_AddToLibrary" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="libFieldSet" type="List"/>
+    <aura:attribute name="pLayoutId" type="String" default=""/>
+    <aura:attribute name="selectedBrand" type="String" default=""/>
+    <aura:attribute name="selectedPageType" type="String" default=""/>
+    <aura:handler value="{!this}" name="init" action="{!c.init}"/>
+    <ltng:require styles="{!$Resource.Model_Width_Expand}"/>
+    
+    
+    <aura:attribute name="cloneThisContent" type="boolean" default='false'/>
+    <aura:registerEvent name="AddLibrary" type="c:DGTL_LayoutEvents"/>
+    <!--aura handler with waiting and donewaiting events-->
+    <aura:attribute name="spinner1" type="boolean" default="false"/> 
+    <div >
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-03" aria-modal="true" aria-describedby="modal-content-id-3" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 id="modal-heading-03" class="slds-text-heading_medium slds-hyphenate">Add To Library</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-3">
+                    <lightning:recordEditForm aura:id="myform" objectApiName="Placement_Library__c" onsubmit="{!c.validateOnSubmit}"  onsuccess="{!c.addLibrary}" >
+                        
+                        <lightning:inputField fieldName="Brands__c" value="{!v.selectedBrand}" disabled="true"/>
+                        <lightning:inputField fieldName="Page_Types__c" value="{!v.selectedPageType}" disabled="true"/>
+                        
+                        <aura:iteration items="{!v.libFieldSet}" var="fld" >                            
+                                    <lightning:inputField fieldName="{!fld}" />    
+                        </aura:iteration>
+                        <aura:if isTrue="{!v.spinner1}">
+                            <lightning:spinner  alternativeText="Loading" size="large" variant="brand"/>
+                        </aura:if>                        
+                        
+                        <div class="slds-clearfix">
+                            <div class="slds-clearfix">
+                                <div class="slds-float_left">
+                                    <lightning:button class="slds-m-top_small" 
+                                                      variant="brand" 
+                                                      type="submit" 
+                                                      name="update" 
+                                                      label="Save" />
+                                    
+                                </div>
+                                <div class="slds-float_left"> &nbsp;&nbsp;
+                                    <lightning:button class="slds-m-top_small" 
+                                                      aura:id ="Allow Clone"
+                                                      variant="brand" 
+                                                      type="submit"
+                                                      label="Save and Add to other Layouts" 
+                                                      onclick="{!c.allowClone}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </lightning:recordEditForm>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning:button class="slds-button slds-button_neutral" label="Cancel" onclick="{!c.closeLibraryModel}"/>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>  
+</aura:component>

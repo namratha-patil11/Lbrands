@@ -1,0 +1,9 @@
+<aura:component implements="force:hasRecordId,force:lightningQuickAction,lightning:isUrlAddressable" >
+    <aura:handler value="{!this}" name="init" action="{!c.doinit}" />
+    
+   <!-- attributes for navigation-->
+    
+    <aura:attribute name="pageReference" type="Object"/>
+    <lightning:navigation aura:id="navService"/>
+    
+</aura:component>

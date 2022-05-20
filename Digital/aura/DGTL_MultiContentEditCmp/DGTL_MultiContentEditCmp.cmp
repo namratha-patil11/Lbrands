@@ -1,0 +1,129 @@
+<aura:component controller="DGTL_MulticntEditController" implements="force:hasRecordId,force:appHostable,force:lightningQuickAction">
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+    <aura:attribute name="recordId" type="string"/> 
+    <aura:attribute name="checkImage" type="string"/>
+    
+    <!--attributes for navigation -->
+    <aura:attribute name="pageReference" type="Object"/>
+    <lightning:navigation aura:id="navService"/> 
+    <aura:attribute name="defaultState" type="String" default="close"/>
+    
+    <aura:attribute name="spinner" type="boolean" default="false"/>
+    <aura:attribute name="placementContents" type="List"/>
+    <aura:attribute name="placementContentsRemoved" type="List"/>
+    
+    <aura:attribute name="isInitialLoad" type="Boolean" default="true"/>
+    <!--   <aura:attribute type="DGT_cascadeContentCtr.mainReturnDataWpr" name="mainReturnValue"/>
+    <aura:attribute type="DGTL_MulticntEditController.maindataWpr" name="mainContent"/>-->
+    <aura:attribute type="List" name="contentDetailList" />
+    <aura:attribute type="object" name="content"/>
+    <aura:attribute type="Map" name="conDetReadMap"/>
+    <aura:attribute type="Map" name="conDetWriteMap"/>
+    <aura:attribute type="List" name="contreadList"/>
+    <aura:attribute type="List" name="contWriteList"/>
+    
+    <aura:attribute type="List" name="allRelatedContents"/>
+    
+    <div class="paddingTop">
+        <lightning:button class="slds-button slds-button_brand" label="Save" onclick="{!c.updateCon}"/>                                                            
+    </div>
+     <aura:if isTrue="{!v.spinner}">
+        <lightning:spinner alternativeText="Loading" size="large" variant="brand"/>
+    </aura:if> 
+    <div class="slds-box slds-theme_default stageContainer" style="width:100%;padding:1rem"> 
+        <div class="slds">
+           <!-- <ul class="slds-has-dividers_around-space dropZone" style="height:100%;overflow-y:auto;">-->
+                <aura:iteration items="{!v.placementContents}" var="content" indexVar="mainConFieldIndex"> 
+                    <div class="slds-box slds-theme_default stageContainer" style="width:100%;padding:2px;padding-top:0.5%;padding-bottom:0.5%;">
+                         
+                        <c:CollapsableSection defaultState="{!v.defaultState}" title="{!content.pContentRec.Placement_Layout__r.Name + ' - ' + content.pContentRec.Placement_type__c +' - '+ content.pContentRec.Main_Message__c }">
+                            <div class="slds-tile slds-tile_board slds-grid slds-gutters"> 
+                              
+                                <lightning:recordEditForm aura:id="recordEdit" objectApiName="Placement_Content__c" class="removeborder" recordId="{!content.pContentRec.Id}">                                                    
+                                    <aura:if isTrue="{!v.checkImage == 'True'}">
+                                            <div class="demo-only">
+                                                <ul class="slds-list_horizontal slds-has-dividers_around-space" style="padding:1rem">
+                                                    <aura:iteration items="{!v.contWriteList}" var="cus1" indexVar="key">
+                                                     <!--    <aura:if isTrue="{!cus1.key != 'Image__c'}">-->
+                                                        <li class="slds-item" data-placeid="{!mainConFieldIndex}"> 
+                                                            <article class="slds-tile slds-media">
+                                                                <div  style="white-space:normal;"> 
+                                                                     
+                                                                    <p style="font-size: 10px;font-weight: bold;">{!cus1.value}</p> 
+                                                                    <div class="slds-media__body">
+                                                                        <h3 class="slds-tile__title">
+                                                                            <c:DGTL_DynamicSobjectInputField objName="{#content.pContentRec}" fieldName="{#cus1.key}" /> <br/>
+                                                                           </h3>
+                                                                    </div>
+                                                                   
+                                                                </div>
+                                                            </article> 
+                                                            
+                                                        </li>  <!--</aura:if>-->
+                                                    </aura:iteration> </ul>
+                                                
+                                            </div>
+                                      
+                                    <aura:set attribute="else">
+                                        <div style="float:left;padding:1rem;width:60%;">
+                                            <table width="80%" class="tableBorderCurve">
+                                                <!--   <aura:iteration items="{!v.contWriteList}" var="cus1" indexVar="key">-->
+                                                <div  style="white-space:normal;"> 
+                                                    <aura:if isTrue="{!v.checkImage == 'Image__c'}">
+                                                        <tr class="tableTRTHCurve">
+                                                            <td class="tableTRTHCurve">
+                                                             <!--   <div style="width:500px;height:500px;">-->
+                                                                    <lightning:inputField variant="label-hidden" fieldName="Image__c" value="{!content.pContentRec.Image__c}"/>
+                                                              <!--  </div> --></td></tr>
+                                                        
+                                                    </aura:if>
+                                                </div>
+                                                <!--  </aura:iteration> --> 
+                                        </table>;
+                                    </div> 
+                                    
+                                   <!--  <div style="float:left;width:50%"> 
+                                            
+                                            </div> -->
+                                    
+                                    <div style="float:right;padding:1rem;width:40%"> 
+                                        <table width="100%" class="tableBorderCurve">
+                                            <aura:iteration items="{!v.contWriteList}" var="cus1" indexVar="key">
+                                                <aura:if isTrue="{!cus1.key != 'Image__c'}">
+                                                    <tr class="tableTRTHCurve">
+                                                        <td class="tableTRTHCurve"> 
+                                                            <div  style="white-space:normal;">
+                                                                <p style="font-size: 10px;font-weight: bold;">{!cus1.value}</p>
+                                                                <c:DGTL_DynamicSobjectInputField objName="{#content.pContentRec}" fieldName="{#cus1.key}" />    
+                                                            </div>
+                                                        </td></tr> </aura:if>
+                                            </aura:iteration> 
+                                        </table>
+                                    </div>  
+                                        </aura:set>  </aura:if>
+                                </lightning:recordEditForm> 
+                            </div>  
+                            
+                            <br/>
+                            <aura:if isTrue="{!content.pContentRec.Id != null}">
+                                <c:DGTL_LayoutContentDetail contentId="{!content.pContentRec.Id}" 
+                                                            brand="{!content.pContentRec.Brands__c}" 
+                                                            readFieldsMap = "{!v.conDetReadMap}"
+                                                            writeFieldsMap= "{!v.conDetWriteMap}"
+                                                            detailList = "{!content.ContentDetWpr.detailList}"
+                                                            deleteList = "{!content.ContentDetWpr.detailDeleteList}"
+                                                            />
+                            </aura:if> 
+                            
+                            
+                            <br/>
+                            <br/>
+                               
+                        </c:CollapsableSection> 
+                    </div>
+                    <br/>
+                </aura:iteration>
+          <!--  </ul>-->
+        </div>
+    </div>     
+</aura:component>

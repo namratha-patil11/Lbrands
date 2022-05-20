@@ -1,0 +1,10 @@
+.THIS .selected svg{
+   fill : #2196f3 !important;
+ }
+
+.THIS .slds-picklist__label {
+    padding-right: 2rem;
+    width: 12rem;
+    color: rgb(22, 50, 92);
+    text-align: left;
+}

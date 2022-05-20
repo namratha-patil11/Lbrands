@@ -1,0 +1,46 @@
+<aura:component controller="DGTL_LayoutisEditorials" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    
+    <aura:attribute name="selectedBrand" type="String" default=""/>
+    <aura:attribute name="selectedPageType" type="String" default=""/>
+    <aura:attribute name="selectedFloorset" type="String" default=""/>
+    <aura:attribute name="selectedDeviceType" type="String" default=""/>
+    <aura:attribute name="collectionPageUrl" type="String" default=""/>
+    <aura:attribute name="editorialLayoutsList" type="List" />
+    <aura:attribute name="selectedEditorialsearch" type="string" default=""/>
+    <aura:attribute name="editorialPageName" type="string" default=""/>
+    <aura:attribute name="spinner" type="boolean" default="false"/>
+    <aura:attribute name="isNewLayout" type="boolean" default="false"/>
+    <aura:handler name="init" action="{!c.init}" value="{!this}"/>
+    <aura:registerEvent name="editorialId" type="c:DGTL_LayoutEvents"/>
+    <aura:registerEvent name="openModal" type="c:DGTL_LayoutEvents"/>
+    <aura:if isTrue="{!v.spinner}">
+        <lightning:spinner alternativeText="Loading" size="large" />
+    </aura:if> 
+    <div class="demo-only" style="height:640px;width:40%">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-modal_large slds-fade-in-open">
+            <div class="slds-modal__container"> 
+                <header class="slds-modal__header">
+                    <lightning:button class="slds-button slds-button_neutral" label="Search" onclick="{!c.searchEditorial}" />
+                    <lightning:button class="slds-button slds-button_neutral" label="Cancel" onclick="{!c.closeModalBox}"/>
+                </header> 
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1"> 
+                        <lightning:select name="myEditorial" label="Select Editorial Name" aura:id="myEditorial" value="{!v.selectedEditorialsearch}"  onchange="{!c.getEditorial}">
+                            <option text="None" value="None" />    
+                            <aura:iteration items="{!v.editorialLayoutsList}" var="item">
+                                <option text="{!item.value}" value="{!item.key}" selected="{!item.selected}"/>
+                            </aura:iteration>
+                    </lightning:select>      <br/>  
+                    <lightning:input name="Editorial Name" label="Editorial Name" required="true" value="{!v.editorialPageName}"/> <br/> 
+                    
+                    <lightning:helptext iconName="utility:info" content="Enter all valid URLs for editorial or collection pages where the placements should live on" /><br/> 
+                   <!-- <lightning:input name="Editorial page URL(s)" label="Editorial page URL(s)" required="true" value="{!v.collectionPageUrl}" fieldLevelHelp="Enter all valid URLs for editorial or collection pages where the placements should live on" /> <br/> -->
+                    <ui:inputTextArea  label="Editorial page URL(s)"  required="true" value="{!v.collectionPageUrl}" />
+                </div>
+            </div>
+            <footer class="slds-modal__footer">
+                <lightning:button class="slds-button slds-button_neutral" label="Cancel" />
+            </footer>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>    
+</aura:component>

@@ -1,0 +1,34 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+     
+    <aura:attribute name="title" type="String" />
+    <aura:attribute name="defaultState" type="String" default="close"/>
+    <aura:attribute name="currentState" type="String" default="close"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doinit}"/>
+    <aura:attribute name="active" type="Boolean" default="true"/>
+    <aura:attribute name="offerType" type="String" default=""/>
+    <aura:attribute name="compareType" type="String" default=""/>
+    
+    <aura:handler name="change" value="{!v.defaultState}" action="{!c.handleBehaviour}"/>
+    
+    <div class="slds-section slds-is-open"
+         aura:id="collapsibleSectionContainer" style="margin-left:5px;margin-right:5px; width:99%;text-align:left;">
+        <span style="{!v.compareType == 'Add' ? 'color:green' : v.compareType == 'Update' ? 'color:blue' : 'color:red'}" class="compareType">{!v.compareType}</span>
+        <h3 class="slds-section__title slds-theme_shade" 
+            style="{!v.active ? 'text-align:left;' : 'text-align:left;text-decoration:line-through;'}" >
+           
+                <lightning:buttonStateful aura:id="button" state="false"
+                                          labelWhenOff="{! v.title }"
+                                          labelWhenOn="{! v.title }"
+                                          iconNameWhenOff="utility:chevrondown"
+                                          iconNameWhenOn="utility:chevronright"
+                                          onclick="{! c.handleSectionHeaderClick }"
+                                          class="slds-section__title-action stateFulButton" />
+                                          <h3 style="text-align: right;width: 10%;padding-right:2%;">{!v.offerType}</h3>
+        </h3> 
+        <!-- Content body-->
+        <div class="slds-section__content" >
+            {! v.body }
+        </div>
+    </div>
+    
+</aura:component>

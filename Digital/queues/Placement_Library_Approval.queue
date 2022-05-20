@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <name>Placement Library Approval</name>
+    <queueMembers>
+        <users>
+            <user>bnagarajan@mast.com</user>
+            <user>hponnuswamy@mast.com</user>
+            <user>mporter@victoria.com</user>
+            <user>vamarnath@mast.com</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Placement_Library__c</sobjectType>
+    </queueSobject>
+</Queue>

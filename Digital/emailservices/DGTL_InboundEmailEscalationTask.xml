@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailServicesFunction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apexClass>DGTL_InboundEmailEscalationTask</apexClass>
+    <attachmentOption>None</attachmentOption>
+    <authenticationFailureAction>Bounce</authenticationFailureAction>
+    <authorizationFailureAction>Bounce</authorizationFailureAction>
+    <emailServicesAddresses>
+        <developerName>DGTL_InboundEmailEscalati</developerName>
+        <isActive>true</isActive>
+        <localPart>dgtl_inboundemailescalationtask</localPart>
+        <runAsUser>bnagarajan@mast.com</runAsUser>
+    </emailServicesAddresses>
+    <errorRoutingAddress>bnagarajan@mast.com</errorRoutingAddress>
+    <functionInactiveAction>Bounce</functionInactiveAction>
+    <functionName>DGTL_InboundEmailEscalationTask</functionName>
+    <isActive>true</isActive>
+    <isAuthenticationRequired>false</isAuthenticationRequired>
+    <isErrorRoutingEnabled>true</isErrorRoutingEnabled>
+    <isTextAttachmentsAsBinary>false</isTextAttachmentsAsBinary>
+    <isTlsRequired>false</isTlsRequired>
+    <overLimitAction>Bounce</overLimitAction>
+</EmailServicesFunction>

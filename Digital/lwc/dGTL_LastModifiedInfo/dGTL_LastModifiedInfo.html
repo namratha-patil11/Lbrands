@@ -1,0 +1,24 @@
+<template>
+
+    <div style="padding-left:3%;width: 104%;">
+        <lightning-record-edit-form record-id={payLayoutId} object-api-name="Placement_Layout__c">
+            <div style="display: inline-block;">
+                Last Modified By :&nbsp; <br />        
+            </div>
+            <div style="display: inline-block;">
+                <lightning-output-field field-name="LastModifiedById" variant="label-hidden" value={LastModifiedName}>
+                </lightning-output-field>
+            </div>
+            <div style="display: inline-block;"><span> ,&nbsp; </span></div>
+            <div style="display: inline-block;">
+                <lightning-output-field field-name="LastModifiedDate" variant="label-hidden" value={LastModifiedDate}>
+                </lightning-output-field>
+            </div>
+        </lightning-record-edit-form>
+    </div>
+
+    <!--<template if:true={layout}>
+    Last Modified By: <br/>
+    {LastModifiedName} ,{LastModifiedDate}    
+</template> -->
+</template>

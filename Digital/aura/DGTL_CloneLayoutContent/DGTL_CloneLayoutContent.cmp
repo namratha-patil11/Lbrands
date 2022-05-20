@@ -1,0 +1,266 @@
+<aura:component controller="DGTL_CloneLayoutContent" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <ltng:require styles="{!$Resource.Model_Width_Expand}"/>
+    <aura:attribute name="placementLayout" type="Placement_Layout__c" 
+                    default="{'sobjectType':'Placement_Layout__c'}"/>
+    <aura:handler value="{!this}" name="init" action="{!c.init}"/>
+    
+    <aura:attribute name="depnedentFieldMap" type="map" description="map to store dependent values with controlling value"/>
+	<aura:attribute name="bDisabledDependentFld" type="boolean" default="true"/> 
+    <aura:attribute name="listDependingValues" type="Object[]" default="[]" description="to store controller field values"/>
+    <aura:attribute  name="pageTypes" type="List"/>
+    <aura:attribute  name="deviceTypeList" type="List"/>
+	<aura:attribute name="selectedDevices" type="List"  default="[]" />
+
+    
+    <aura:handler name="change" value="{!v.pageTypes}" action="{!c.cloneEditorial}"/>
+    <aura:handler name="change" value="{!v.defaultDevice}" action="{!c.clearValues}"/>
+    
+    <aura:attribute name="edtCollecPageUrl" type="String" default=""/>
+    <aura:attribute name="editorialCollecName" type="String" default=""/>
+    <aura:attribute name="selectedBrand" type="String" default=""/>
+    <aura:attribute name="defaultPageType" type="String" default=""/>
+    <aura:attribute name="defaultDevice" type="List"  default="[]" />
+    <aura:attribute name="payLayoutId" type="String"/>
+    <aura:attribute name="clonePlacementContents" type="List"/>
+    <aura:attribute name="startdate" type="date"/>
+    <aura:attribute name="enddate" type="date"/>
+    <aura:attribute name="isEditorialsClone" type="boolean" default="false"/>
+    <aura:attribute name="floorsetList" type="List" />
+    <aura:attribute name="floorsetWrapper" type="List" />
+    <aura:attribute name="data" type="Object"/>
+    <aura:attribute name="columns" type="List"/>
+    <aura:attribute name="recordId" type="String"/>    
+    <aura:attribute name="allData" type="List"/>
+    <aura:attribute name="currentPageNumber" type="Integer" default="1"/>
+   <!-- <aura:attribute name="pageSize" type="Integer" default="10"/> -->
+    <aura:attribute name="totalPages" type="Integer" default="0"/>
+    <aura:attribute name="spinner" type="boolean" default="false"/> 
+    <aura:attribute name="selectedRows" type="List" />
+    <aura:attribute name="pageList" type="List"/>
+    <aura:registerEvent name="openModal" type="c:DGTL_LayoutEvents"/>
+	
+	<!-- aura attributes to store data/values --> 
+	<aura:attribute name="listOfAllAccounts" type="list"/> 
+    <aura:attribute name="PaginationList" type="list"/> 
+    <aura:attribute name="selectedCount" type="integer" default="0"
+                    description="selected Records Count"/>
+    <aura:attribute name="startPage" type="Integer" />
+    <aura:attribute name="endPage" type="Integer"/>
+    <aura:attribute name="totalRecordsCount" type="Integer"/>
+    <aura:attribute name="pageSize" type="Integer" default="10"
+                    description="number of records to be display on per page"/>
+    <aura:attribute name="currentPage" type="integer" default="1"/>
+    <aura:attribute name="totalPagesCount" type="integer"/>
+	<aura:attribute name="removedChildContents" type="list" /> 
+	<aura:attribute name="checkChildContsMsg" type="string" default=""/>
+	<aura:attribute name="placementContents" type="List"/>
+	<aura:attribute name="ContentsWithoutChild" type="List"/>
+    <aura:if isTrue="{!v.spinner}">
+        <lightning:spinner alternativeText="Loading" size="large" />
+    </aura:if>
+    <div class="demo-only  slds-scrollable slds-scrollable--y" >
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open slds-scrollable slds-scrollable--y">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Clone</h2>
+                    </header>
+                    
+                    <div class="slds-modal__content slds-p-around_medium overflowcss " id="modal-content-id-1" >
+                        
+                        <div class="{!v.clonePlacementContents.length > 0 ? 'showDiv' : 'hideErrMsg'}">
+                            <lightning:recordEditForm aura:id="recordEdit" objectApiName="Placement_Layout__c" onsubmit="{!c.fetchFloorsetJs}"> 
+                            <lightning:layout>	
+                                <lightning:layoutItem >                             
+                                    <lightning:inputField fieldName="Brands__c" value="{!v.selectedBrand}" onchange="{!c.clearValues}"/> 
+                                </lightning:layoutItem>
+                                <aura:if isTrue="{!v.selectedBrand != ''}">
+                                    <lightning:layoutItem >
+                                        <div>Page Types*</div> 
+                                        <div >
+                                            <c:DGTL_MultiSelectPickList entityName="Page Type " entityList="{!v.listDependingValues}" SelectedList="{!v.pageTypes}" disable="{!v.bDisabledDependentFld}"/>
+                                        </div>
+                                        <!--<lightning:inputField fieldName="Page_Types__c" onchange="{!c.cloneEditorial}"/>     -->                  
+                                    </lightning:layoutItem></aura:if>
+                                <aura:if isTrue="{!v.isEditorialsClone}">
+                                    <lightning:layoutItem>
+                                        <lightning:inputField fieldName="Collection_Page_Name__c" value="{!v.editorialCollecName}" onchange="{!c.EdtName}"/> 
+                                    </lightning:layoutItem>
+                                    <lightning:layoutItem>
+                                        <lightning:inputField fieldName="Collection_Page_Url__c" value="{!v.edtCollecPageUrl}" onchange="{!c.CollecUrl}"/> 
+                                    </lightning:layoutItem>
+                                </aura:if>
+                                <lightning:layoutItem >  
+                                    <div>Device Type*</div> 
+                                    <div style="width: 111px;">
+                                        <c:DGTL_MultiSelectPickList entityName="Device Type " entityList="{!v.deviceTypeList}" SelectedList="{!v.selectedDevices}"/>
+                                        <!-- <lightning:inputField fieldName="Device_Type__c" value="{!v.defaultDevice}" onchange="{!c.clearValues}"/> -->
+                                    </div>
+                                </lightning:layoutItem> 
+                                <lightning:layoutItem>  
+                                    <div style="padding-left:85px;">
+                                        <lightning:input type="date" label="Start Date" value="{!v.startdate}" onchange="{!c.clearValues}" required="true"/>
+                                    </div>
+                                </lightning:layoutItem> 
+                                <lightning:layoutItem> 
+                                    <div >
+                                        <lightning:input type="date" label="End Date" value="{!v.enddate}" onchange="{!c.clearValues}" required="true"/>
+                                    </div>
+                                </lightning:layoutItem> 
+                                <lightning:layoutItem>  
+                                    <div style="padding-left:15px; padding-top: 25%">
+                                        <lightning:button class="btnCls" label="Search" type="submit"/>
+                                    </div>
+                                </lightning:layoutItem>   
+                            </lightning:layout>
+                        </lightning:recordEditForm>
+                        </div>
+                        
+                        <div class="{!v.ContentsWithoutChild.length > 0 ? 'showDiv' : 'hideErrMsg'}">
+                            <div class="showErrMsg">
+                               Selected Contents without AB Test/Takedown/Contingency
+                           </div>
+                            <aura:iteration items="{!v.ContentsWithoutChild}" var="cont" >
+                               {!cont}
+                        </aura:iteration>
+                        </div>
+                        <div class="{!v.checkChildContsMsg != '' ? 'showErrMsg' : 'hideErrMsg'}" >
+                            {!v.checkChildContsMsg}
+                </div>
+                
+                       <aura:iteration items="{!v.removedChildContents}" var="cont" >
+                           <div style="text-decoration:line-through">
+                        {!cont} </div>
+                        </aura:iteration>
+                        <div class="{!v.clonePlacementContents.length == 0  ? 'showErrMsg' : 'hideErrMsg'}" >
+                            Only AB Test/Takedown/Contingency contents cannot be cloned, please click on Close/Cancel button
+                        </div>
+                        
+                      <!--  <div class="slds-modal__content slds-p-around_medium slds-scrollable overflowautocss " id="modal-content-id-1"> -->
+                        <div class="slds-scrollable" >
+                        	<!-- lightning:button to get selected rows data --> 
+            
+         <!-- display total record and selected record count -->  
+          <div class="{!v.clonePlacementContents.length > 0 ? 'showDiv' : 'hideErrMsg'}">
+              <p class="slds-m-around_small">
+                <span class="slds-badge slds-badge_lightest" style="display:inline-block">
+                    Total Records : {!v.selectedCount > 0 ? v.selectedCount + '/' : ''} {!v.totalRecordsCount} 
+                </span>    
+            </p>
+          </div>
+            
+             <div class="{!v.clonePlacementContents.length > 0 ? 'showDiv' : 'hideErrMsg'}">
+                 <!-- data table start-->  
+          <!--  <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-scrollable overflowautocss"> -->
+                <div class="slds-scrollable slds-scrollable--y"> 
+            <table class="slds-table slds-table--bordered slds-scrollable">
+                <thead>
+                    <tr class="slds-text-title_caps">
+					<!--header checkbox for select all-->
+                        <th style="width:3.25rem;" class="slds-text-align_right">
+                            <div class="slds-form-element">
+                                <div class="slds-form-element__control"> <!--
+                                    <label class="slds-checkbox">
+                                        <ui:inputCheckbox disabled="{!v.totalRecordsCount == 0}"
+                                                          aura:id="selectAllId"
+                                                          change="{!c.selectAllCheckbox}"/>
+                                        <span class="slds-checkbox_faux"></span>
+                                        <span class="slds-form-element__label"></span>
+                                    </label> -->
+                                </div>
+                            </div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate" title="Name">Floorset/Update</div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate" title="Layout">Layout</div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate" title="Status"></div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <aura:iteration items="{!v.PaginationList}" var="obj">
+                        <tr>
+                            <th scope="row" class="slds-text-align_right" style="width:3.25rem;">
+                                <div class="slds-form-element">
+                                    <div class="slds-form-element__control">
+                                        <label class="slds-checkbox">
+                                            <ui:inputCheckbox text="{!obj.floorsetId}"
+                                                              value="{!obj.isSelected}"
+                                                              change="{!c.checkboxSelect}"/>
+                                            <span class="slds-checkbox_faux"></span>
+                                            <span class="slds-form-element__label text"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </th>
+                            <th scope="row">
+                                <div class="slds-truncate" title="{!obj.floorsetName}">
+                                    {!obj.floorsetName}
+                                </div>
+                            </th> 
+                            <th scope="row">
+                                <div class="slds-truncate" title="{!obj.layout.Name}">
+                                    {!obj.layout.Name}
+                                </div>
+                            </th>
+                            <th scope="row">
+                             
+                              <aura:iteration items="{!obj.list_contentResults}" var="lay">
+                                  <aura:if isTrue="{!lay.isSuccess}">
+                                    <div style="color: #4CAF50;white-space:normal; " class="slds-truncate slds-scrollable slds-scrollable--y" title="{!lay.errorMessage}"> {!lay.errorMessage}</div>
+                                <aura:set attribute="else">
+                                  <div style="color: red;white-space:normal;" class="slds-truncate slds-scrollable slds-scrollable--y" title="{!lay.errorMessage}"> {!lay.errorMessage}</div>
+                                </aura:set>
+                              </aura:if>
+                              </aura:iteration>
+                            </th>
+                            
+                        </tr>
+                    </aura:iteration>
+                </tbody>
+            </table>
+        </div>                 
+             <!-- DataTable End -->
+            <br/>
+             </div>               
+           
+            <div class="{!v.clonePlacementContents.length > 0 ? 'showDiv' : 'hideErrMsg'}">
+            <!--  Pagination Buttons Start -->
+            <div class="slds-align_absolute-center">         
+                <lightning:button label="Previous"
+                                  disabled="{!v.startPage == 0}"  
+                                  onclick="{!c.navigation}"
+                                  variant="brand"
+                                  iconName="utility:back"
+                                  name="previous"/>
+                
+                <span class="slds-badge slds-badge_lightest"
+                      style="margin-right: 10px;margin-left: 10px;">
+                    Page {!v.currentPage} out of {!v.totalPagesCount}
+                </span>
+                
+                <lightning:button label="Next"
+                                  disabled="{!(v.endPage + 1) >= v.totalRecordsCount}" 
+                                  onclick="{!c.navigation}"
+                                  variant="brand"
+                                  iconName="utility:forward"
+                                  iconPosition="right"
+                                  name="next"/>
+            </div>  
+            <!--  Pagination Buttons End --> 
+               </div>                          
+                        
+                    </div>
+                    </div>
+                    <footer class="slds-modal__footer">
+                    <lightning:button class="slds-button slds-button_brand" label="Clone" onclick="{!c.addContents}" disabled="{!v.clonePlacementContents.length == 0}"/>
+                        <lightning:button class="slds-button slds-button_neutral" label="Close/Cancel" onclick="{!c.closeModalBox}"/>
+                </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+</aura:component>

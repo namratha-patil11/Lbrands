@@ -1,0 +1,37 @@
+.THIS .imazeSize {
+    height: 5px;
+    width: 5px;
+}
+.THIS .newEntryButton {
+    background-color: #F2463B;
+    color: #FFFFFF;
+}
+.THIS .sameButton {
+    background-color: #61CD22;
+    color: #FFFFFF;
+}
+.THIS .changeButton {
+    background-color: #FFFF00;
+    color: #000000;
+}
+.THIS .noPLButton {
+    background-color: #B0B0AB;
+    color: #FFFFFF;
+}
+.THIS .thickBottom{
+    border-bottom : 3px solid rgb(218, 214, 214);
+    word-wrap: break-word !important;
+}
+.THIS .widthControl{
+    word-break: break-word;
+    white-space: pre-line;
+}
+.THIS .font{
+    font-size: smaller;
+    font-weight: bold;
+}
+
+.THIS .slds-modal__container{
+    max-width: 95rem !important;
+    width:95% !important;
+}

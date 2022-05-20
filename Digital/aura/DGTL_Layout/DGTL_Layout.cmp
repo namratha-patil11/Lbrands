@@ -1,0 +1,1040 @@
+<aura:component controller="DGTL_Layout" implements="lightning:isUrlAddressable,force:appHostable,flexipage:availableForAllPageTypes" access="global" >
+    
+    <!--  <ltng:require styles="{!$Resource.Model_Width_Expand}"/> -->
+    <ltng:require styles="{!join(',',$Resource.dynamic_grid,$Resource.Model_Width_Expand)}"
+                  scripts="{!join(',',$Resource.dynamicGrid_POC,$Resource.agf__jquery_3_3_1_min,$Resource.jquery_ui_min)}" 
+                  afterScriptsLoaded="{!c.init}" /> <!--dummy comment22-->
+    <aura:handler value="{!this}" name="init" action="{!c.init}"/> 
+    <aura:attribute name="isOpenModel" type="Boolean" />
+    <aura:attribute name="loggedUser" type="User" default="{'sobjectType':'User'}"/>
+    <aura:attribute name="custmUnsavedChanges" type="Boolean" default="false" />
+    <aura:attribute name="Change" type="String"/>
+    
+    <aura:attribute name="placementLayout" type="Placement_Layout__c" 
+                    default="{'sobjectType':'Placement_Layout__c', 
+                             'Page_Types__c':'', 'Brands__c':'', 'Floorset_Plan__c':'', 'Device_Type__c': 'Mobile'}"/>
+    <aura:attribute name="PrevplacementLayout" type="Placement_Layout__c" 
+                    default="{'sobjectType':'Placement_Layout__c', 
+                             'Page_Types__c':'', 'Brands__c':'', 'Floorset_Plan__c':'', 'Device_Type__c':''}"/>
+    
+    <aura:attribute name="placementLayoutProxy" type="Placement_Layout__c" 
+                    default="{'sobjectType':'Placement_Layout__c', 
+                             'Page_Types__c':'', 'Brands__c':'', 'Floorset_Plan__c':'', 'Device_Type__c':'Mobile'}"/>
+    <aura:attribute name="searchNextBack" type="String" default="Search"/>
+    <aura:attribute name="hasContents" type="Boolean" default="false"/>
+    <aura:attribute name="isPreviousLayout" type="Boolean" default="false"/> 
+    <aura:attribute name="isPageRefrence" type="Boolean" default="false"/>
+    <aura:attribute name="liveUsers" type="List"/>    
+    <aura:attribute name="placementContents" type="List"/>
+    <aura:attribute name="placementContentToSort" type="List"/>
+    <aura:attribute name="placementContentsRemoved" type="List"/>
+    <aura:attribute name="dragid" type="String"/>
+    <aura:attribute name="payLayoutId" type="String"/>
+    <aura:attribute name="placContId" type="String"/>    
+    <aura:attribute name="isFullView" type="boolean" default="true"/>
+    <aura:attribute name="defaultDeviceLay" type="String"/>
+    <aura:attribute name="defaultDeviceClone" type="String"/>
+    <aura:attribute name="ABTestName" type="String"/>  
+    <aura:attribute name="listIndex" type="integer"/>
+    <aura:attribute name="enableABTestPrompt"  type="boolean" default="false"/>
+    <aura:attribute name="enableTakedownPrompt"  type="boolean" default="false"/>
+    <aura:attribute name="enableDeletePrompt"  type="boolean" default="false"/>
+    <aura:attribute name="enableCreatePrompt"  type="boolean" default="false"/>
+    <aura:attribute name="enableCnDeletePrompt"  type="boolean" default="false"/>
+    <aura:attribute name="showFinalSubmit"  type="boolean" default="false"/>
+    <aura:attribute name="defaultState" type="String" default="close"/>
+    <aura:attribute name="expandAll"  type="boolean" default="false"/>
+    <aura:attribute name="toDelete" type="String" />
+    <aura:attribute name="showRelatedContents"  type="Boolean" default="false"/>
+    <aura:attribute name="relatedContentId" type="String" />
+    <aura:attribute name="dynamicInputArray" type="Object"/>
+    <aura:attribute name="sortableWindow" type="Boolean" default="false"/>
+    <aura:attribute name="detailItemsToSort" type="List"/>
+    
+    <!-- Attributes for unsaved changes -->
+    
+    <aura:attribute name="prevPagetype" type="String"/>
+    <aura:attribute name="prevDeviceType" type="String" />
+    <aura:attribute name="prevFlrset" type="String"/>
+    <aura:attribute name="prevBrand" type="string"/>
+    <aura:attribute name="isBrandChanged" type="Boolean" default="false"/>
+    <aura:attribute name="isPageTypeChanged" type="Boolean" default="false"/>
+    <aura:attribute name="isDeviceTypeChanged" type="Boolean" default="false"/>
+    <aura:attribute name="isFloorsetChanged" type="Boolean" default="false"/>
+    <aura:attribute name="sourceName" type="String" />
+    <aura:attribute name="pagetyperender" type="Boolean" default="false"/>
+    <aura:attribute name="prevVal" type="String"/>
+    <aura:attribute name="discardChangeObj" type="Object"/>
+    
+    
+    
+    <!-- Content Type Prompt Attributes -->
+    <aura:attribute name="enableContentTypePrompt"  type="boolean" default="false" description="This attribute used for AB test,Takedown and Contigency prompt"/>
+    <aura:attribute name="ContentTypesList" type="List" />
+    <aura:attribute name="contentData" type="List" description="This attribute is used to send data to create new content type lwc"/>
+    <aura:attribute name="abtestcount" type="String" default=""/>
+    <aura:attribute name="takedowncount" type="String" default=""/>
+    <aura:attribute name="contigencycount" type="String" default=""/>
+    <!-- Content Detail Attributes -->
+    <aura:attribute name="detailDeleteList" type="Placement_Content_Detail__c[]"/>    
+    
+    <!-- History Attributes -->
+    <aura:attribute name="historyId" type="String"/>
+    <aura:attribute name="historyIndex" type="String"/>
+    <aura:attribute name="layoutLocked" type="Boolean" default="false"/>
+    <!-- editorial variables -->
+    <aura:attribute name="editorialPageName" type="string" default=""/>
+    <aura:attribute name="editorialCollectionUrl" type="string" default=""/>
+    <aura:attribute name="isEditorials" type="Boolean" default="false"/>
+    <aura:attribute name="isNewLayout" type="boolean" default="false"/> 
+    <aura:attribute name="isEditorialsClone" type="boolean" default="false"/>
+    <aura:attribute name="editorialLayouts" type="List" />
+    <aura:attribute name="selectedEditorial" type="string" default=""/>
+    <!--attributes for navigation -->
+    <aura:attribute name="pageReference" type="Object"/>
+    <lightning:navigation aura:id="navService"/>
+    
+    <aura:attribute name="isCloneModalOpen" type="boolean" default="false"/>
+    <aura:attribute name="clonePlacementContents" type="List"/>
+    <aura:attribute name="selectedCount" type="integer" default="0"/>
+    <aura:attribute name="cloneColumns" type="List"/>
+    
+    <aura:attribute name="isAddModalOpen" type="boolean" default="false"/>
+    <aura:attribute name="addPlacementContents" type="List"/>
+    <aura:attribute name="selectedPlacementContents" type="List"/>
+    <aura:attribute name="selectedCountAdd" type="integer" default="0"/>
+    <aura:attribute name="addColumns" type="List"/>
+    
+    <aura:attribute name="isCommentLayoutModalOpen" type="boolean" default="false"/>
+    <aura:attribute name="isCommentContentModalOpen" type="boolean" default="false"/>
+    <aura:attribute name="isHistoryModalOpen" type="boolean" default="false"/>
+    <aura:attribute name="isSaveDisable" type="Boolean" default="false"/>
+    
+    <aura:attribute name="isAddPayLibraryModalOpen" type="boolean" default="false"/>
+    <aura:attribute name="isSearchLibraryModalOpen" type="boolean" default="false"/>
+    <aura:attribute name="showRejected" type="boolean" default="false"/>
+    <aura:attribute name="showTakedown" type="boolean" default="true"/>
+    <aura:attribute name="showABTest" type="boolean" default="true"/>
+    <aura:attribute name="showContingency" type="boolean" default="true"/>
+    <aura:attribute name="showDeleted" type="boolean" default="false"/>
+    <aura:attribute name="showDeleteLayout" type="boolean" default="false"/>
+    <!--  Access Management variable strart   -->
+    <aura:attribute name="readFieldsList" type="List"/>
+    <aura:attribute name="editable" type="Boolean" default="false"/>
+    <aura:attribute name="placementListSize"  type="Boolean" default="false"/>
+    <aura:attribute name="editFieldsList" type="List"/>
+    <aura:attribute name="readFieldsDetMap" type="Map" access="global"/>
+    <aura:attribute name="writeFieldsDetMap" type="Map" access="global"/>
+    <aura:attribute name="miniViewReadFldList" type="List"/>    
+    
+    <!--  buttons variable to be displayed    -->
+    <aura:attribute name="resequence" type="Boolean" default="false"/>
+    <aura:attribute name="layoutResequenced" type="Boolean" default="false"/>
+    <aura:attribute name="commentBtn" type="Boolean" default="false"/>
+    <aura:attribute name="removeBtn" type="Boolean" default="false"/>
+    <aura:attribute name="addKOD" type="Boolean" default="false"/>
+    <aura:attribute name="historyBtn" type="Boolean" default="false"/>
+    <aura:attribute name="commentlayoutBtn" type="Boolean" default="false"/>
+    <aura:attribute name="addToLayoutBtn" type="Boolean" default="false"/>
+    <aura:attribute name="cloneBtn" type="Boolean" default="false"/>
+    <aura:attribute name="deletePlacements" type="Boolean" default="false"/>
+    <aura:attribute name="addToLibraryBtn" type="Boolean" default="false"/>
+    <aura:attribute name="chooseViewBtn" type="Boolean" default="false"/>
+    <aura:attribute name="nextBtn" type="Boolean" default="false"/>
+    <aura:attribute name="backBtn" type="Boolean" default="false"/>
+    <aura:attribute name="moreBtns" type="Boolean" default="false"/>
+    <aura:attribute name="abTestBtn" type="Boolean" default="false"/>
+    <aura:attribute name="TakedownBtns" type="Boolean" default="false"/>
+    <aura:attribute name="updateContent" type="Boolean" default="false"/>
+    <aura:attribute name="cascade" type="Boolean" default="false"/>
+    <aura:attribute name="readProfile" type="Boolean" default="false"/>
+    <aura:attribute name="floorsetPlanList" type="List" />
+    <aura:attribute name="PageLayoutClone" type="Placement_Layout__c" />
+    <aura:attribute name="selectedContentId" type="String"/>
+    <aura:attribute name="selectedContentName" type="String"/>
+    <aura:attribute name="openAddKODModal" type="Boolean" default="false"/>
+    <aura:attribute name="activeSections" type="List" default="[]" />
+    <aura:attribute name="showNotification" type="Boolean" default="false"/>
+
+    <aura:attribute name="defaultReason" type="String" default=""/> 
+    <aura:attribute name="recordTypeId" type="String" default=""/> 
+    
+
+    <!--Attribute for Printing Grid View-->
+    <aura:attribute name="printView" type="boolean" default="false"/>
+    
+    <!--Event handler close KOD link popup which is fire from Child Component-->
+    <aura:handler name="closeKODPopup" event="c:DGTL_CloseMultiKODPopup" action="{!c.kodModalClose}"/>
+
+    <!--Event handler close History which is fire from Child Component-->
+    <aura:handler name="closePrompt" event="c:DGTL_ClosePrompt" action="{!c.closeHistoryModel}"/>
+    
+    <!-- attributes to flag spinner off -->
+    <aura:handler name="change" value="{!v.placementsLoaded}" action="{!c.handelEachLoad}"/>
+    <aura:attribute name="placementsLoaded" type="boolean" default="false"/>
+   
+    <!-- <aura:handler name="RemoveComponent" event="c:RemoveComponent" action="{!c.RemoveComponent}"/> -->
+    <aura:handler name="searchFromLibrary" event="c:DGTL_LayoutEvents" action="{!c.getContFromLib}"/> 
+    <aura:handler name="AddLibrary" event="c:DGTL_LayoutEvents" action="{!c.getAddLibrary}"/> 
+    <aura:handler name="openModal" event="c:DGTL_LayoutEvents" action="{!c.closeLibraryModel}"/>
+    <aura:handler name="editorialId" event="c:DGTL_LayoutEvents" action="{!c.getEditorial}"/> 
+    <!--<aura:handler name="Unsavedchanges" event="c:UnsavedChanges" action="{!c.updateCon}"/>--> 
+    
+    <aura:attribute name="openCloneContent" type="boolean" default='false'/>
+    
+    <aura:attribute name="contEditFields" type="List"/>
+    <aura:attribute name="contDetailEditFields" type="List"/>
+  
+    <aura:handler name="change" value="{!v.isFullView}" action="{!c.handleViewChange}"/>
+    
+     <!--Multi content delete prompt -->
+    <aura:attribute name="openMultiContentDelete" type="boolean" default="false"/> 
+    
+      <!-- EMP API component -->
+      <lightning:empApi aura:id="empApi" />
+      <aura:attribute name="show" type="boolean" default="true"/>
+      <aura:attribute name="sObjectName" type="String" default="Placement_Layout__c"/>
+
+    <!-- hard delete Placements-->
+    <aura:attribute name="contentToDelete" type="Placement_Content__c"/>
+    <aura:attribute name="isContentDeleted" type="boolean" default="false" />
+    
+    <!-- check child contents for Add From Existing Layout-->
+    <aura:attribute name="removedChildContents" type="list" /> 
+	<aura:attribute name="checkChildContsMsg" type="string" default=""/>
+	<aura:attribute name="ContentsWithoutChild" type="List"/>
+	<aura:attribute name="CloneFromExistLay" type="List"/>
+    
+    <!--aura handler with waiting and donewaiting events-->
+    <aura:attribute name="spinner" type="boolean" default="false"/> 
+    <aura:if isTrue="{!v.spinner}">
+        <lightning:spinner alternativeText="Loading" size="large" variant="brand"/>
+    </aura:if>    
+    
+    <div class="slds-box slds-theme_shade slds-no-print">        
+        <div class="slds">
+            <lightning:layout>            
+                <lightning:recordEditForm aura:id="recordEdit" objectApiName="Placement_Layout__c" >
+                    <lightning:layout>
+                        <lightning:layoutItem>    
+                            <div>
+                             <!--<lightning:unsavedChanges aura:id="unsaved"
+                                                          onsave="{!c.updateCon}"
+                                                          ondiscard="{!c.handleDiscard}" />-->
+                            </div>
+                            <div class="brandcss">  
+                                <lightning:inputField aura:id="Brands" fieldName="Brands__c" value="{!v.placementLayout.Brands__c}" onchange="{!c.onBrandChange}" /> 
+                            </div> 
+                        </lightning:layoutItem> 
+                        <aura:if isTrue="{!or(and(v.placementLayout.Brands__c != '',v.placementLayout.Brands__c != null), v.pagetyperender)}">
+                            <lightning:layoutItem>                             
+                                <div class="pagetypecss">
+                                    <lightning:inputField aura:id="Page_Types" fieldName="Page_Types__c" value="{!v.placementLayout.Page_Types__c}" onchange="{!c.onPageTypeChange}"/> 
+                                </div>                            
+                            </lightning:layoutItem>
+                        </aura:if>
+                        <lightning:layoutItem>                             
+                            <div class="brandcss">
+                                <lightning:inputField aura:id="Device_Type" fieldName="Device_Type__c"  value="{!v.placementLayout.Device_Type__c}" onchange="{!c.onDeviceChange}"/> 
+                            </div>                            
+                        </lightning:layoutItem> 
+                        <lightning:layoutItem>                             
+                            <div class="floorsetplan">
+                                <lightning:inputField aura:id="Floorset_Plan" fieldName="Floorset_Plan__c"  value="{!v.placementLayout.Floorset_Plan__c}" onchange="{!c.onFloorChange}"/> 
+                            </div>    
+                        </lightning:layoutItem> 
+                        
+                        <lightning:layoutItem>
+                            <br/>
+                            <div class="paddingTop">
+                               
+                                <lightning:button class="btnCls" label="Search" onclick="{!c.fetchContentJs}" />
+                            </div>                            
+                        </lightning:layoutItem>  
+                    </lightning:layout>
+                </lightning:recordEditForm> 
+                <lightning:layout>
+                    <lightning:layoutItem>
+                        <br/>
+                        <div class="paddingTop" style="padding-top: 4%;">
+                            <lightning:buttonGroup>
+                                <aura:if isTrue="{!and(v.commentlayoutBtn,v.placementLayout.Id != null)}">
+                                    <div style="padding-right: 10px;">
+                                        <lightning:buttonIcon iconName="utility:comments" variant="border-filled"  alternativeText="Comment" onclick="{!c.openLayoutCommentModel}" />
+                                    </div>
+                                </aura:if>
+                                <aura:if isTrue="{!and(v.chooseViewBtn)}">
+                                    <lightning:buttonMenu aura:id="menu" iconName="utility:settings" alternativeText="Show menu" onselect="{!c.viewChange}" disabled="{!!v.placementListSize}" title="Choose View">
+                                        <lightning:menuItem label="Full View" value="Full" />
+                                        <lightning:menuItem label="Mini View" value="Mini" />
+                                    </lightning:buttonMenu>
+                                </aura:if>
+                                <aura:if isTrue="{!and(v.moreBtns, or(v.isNewLayout,v.placementLayout.Id != null))}"> 
+                                    <!-- <aura:if isTrue="{!and(v.moreBtns,v.payLayoutId != '')}"> -->
+                                    <lightning:buttonMenu  onselect="{!c.handleMoreButtons}"  iconName="action:more" alternativeText="Show menu">                                        
+                                        <lightning:menuItem value="Search_Existing_From_Library" label="Search Existing From Library" />
+                                        <aura:if isTrue="{!v.addToLayoutBtn}">
+                                            <lightning:menuItem value="Add_from_Existing_Layout" label="Add from existing layout" />
+                                        </aura:if>
+                                        <aura:if isTrue="{!v.addToLibraryBtn}"> 
+                                            <lightning:menuItem value="Create_Placement" label="Create Placement" />
+                                        </aura:if>
+                                        <aura:if isTrue="{!v.placementListSize}"> 
+                                            <aura:if isTrue="{!v.cloneBtn}">
+                                                <lightning:menuItem value="Clone" label="Clone" disabled="{!v.selectedCount==0 || not(v.placementListSize)}"/>
+                                            </aura:if> 
+                                        </aura:if>
+                                        <aura:if isTrue="{!v.placementListSize}"> 
+                                            <aura:if isTrue="{!v.deletePlacements}">
+                                                <lightning:menuItem value="Delete_Placement" label="Delete Placements" disabled="{!v.selectedCount==0 ||  not(v.placementListSize)}"/>
+                                            </aura:if> 
+                                            <lightning:menuItem disabled="{!!v.resequence}" label="Resequence" value="sort" />
+                                        </aura:if>
+                                        <!--  <aura:if isTrue="{!v.placementLayout.Id != null}"> -->
+                                        <aura:if isTrue="{!and(v.placementLayout.Id != null,v.showDeleteLayout)}">
+                                            <lightning:menuItem value="Delete_Layout" label="Delete Layout" />
+                                        </aura:if>
+                                    </lightning:buttonMenu>
+                                </aura:if>
+                            </lightning:buttonGroup>
+                            <aura:if isTrue="{!v.placementListSize}">
+                                <lightning:buttonIcon class="btnCls" variant="brand" onclick="{!c.printPDF}" iconName="utility:download" size="large" alternativeText="print PDF"/>
+                            </aura:if>
+                        </div>
+                    </lightning:layoutItem>								
+                    <lightning:layoutItem><br/>
+                        <div class="paddingTop">
+                            <lightning:buttonGroup>
+                                <aura:if isTrue="{!v.backBtn}">
+                                    <lightning:buttonIcon aura:id="Previous Update"  onclick="{!c.fetchContentBackNext}"  iconName="utility:chevronleft" variant="border-filled"  alternativeText="Previous Update"/>	
+                                </aura:if>	
+                                <aura:if isTrue="{!v.nextBtn}">
+                                    <lightning:buttonIcon aura:id="Next Update" onclick="{!c.fetchContentBackNext}"  iconName="utility:chevronright" variant="border-filled" alternativeText="Next Update"/>	
+                                </aura:if>
+                            </lightning:buttonGroup>
+                        </div>
+                    </lightning:layoutItem>
+                    <aura:if isTrue="{!v.showFinalSubmit}">
+                        <lightning:layoutItem><br/>
+                            <div class="paddingTop">
+                                <lightning:button class="slds-button slds-button_brand" disabled="{!v.isSaveDisable}" label="Save" onclick="{!c.updateCon}"/>                                                            
+                            </div>
+                            
+                        </lightning:layoutItem>
+                        <lightning:layoutItem><br/>
+                        </lightning:layoutItem>
+                    </aura:if>
+                </lightning:layout> 
+                
+            </lightning:layout> 
+            
+            <div>               
+                <aura:if isTrue="{!v.editorialPageName != ''}">            
+                    <a href="javascript:void(0);"  onclick="{!c.openEditorial}">
+                        {!v.editorialPageName} 
+                    </a>
+                </aura:if>
+            </div>
+            
+        </div>  
+    </div>
+    <!--====== "LIVE USERS BLOCK START"=========== -->
+    <div Class="slds-no-print slds-is-fixed"   Style="position:absolute;right: 0px;top: 0px;bottom:0px;text-align:right;z-index:99;">
+        
+        <c:DGTL_LayoutLiveUsers payLayoutId="{!v.payLayoutId}" /> 
+    </div> 
+    
+    
+    <!--====== "LIVE USERS BLOCK END"===========-->
+    <!--===================================== "CONTENT VIEW BLOCK START"==================================-->
+    
+    <!-- <div style="padding:0.5rem;" class="">-->
+    <div class="slds-box slds-theme_default stageContainer" style="width:100%;padding:0.5rem;" >
+        <!--===================================== FULL VIEW BLOCK START=====================================-->
+      <!--<div aura:id="fullView">  -->
+      <aura:if isTrue="{!v.isFullView}"> 
+            <!-- <aura:if isTrue="{!v.printView}"> -->
+            <div class="printDiv" Style="display:none;text-align:center;font-size:25px;">
+                <strong>
+                    <!-- {!v.placementLayout.Brands__c} -> {!v.placementLayout.Page_Types__c} -> {!v.placementLayout.Device_Type__c} --> 
+                    <lightning:recordViewForm recordId="{!v.placementLayout.Id}" objectApiName="Placement_Layout__c">
+                        <lightning:outputField variant="label-Hidden" fieldName="Name"/>
+                    </lightning:recordViewForm>
+                </strong> 
+            </div>
+            <!-- </aura:if>-->
+            <aura:if isTrue="{!v.placementLayout.Id != null}">             
+                <div class="slds-tile slds-tile_board slds-grid slds-gutters slds-no-print">            
+                    <div class="slds-col slds-size_6-of-12">                          
+                        <div style="display:inline-block;">
+                            <ui:inputCheckbox aura:id="box3" change="{!c.selectAll}" />    
+                        </div>
+                        <div style="display:inline-block;">
+                            <aura:if isTrue="{!and(v.payLayoutId != '',v.show)}">
+                                <c:dGTL_LastModifiedInfo  payLayoutId="{!v.payLayoutId}"></c:dGTL_LastModifiedInfo>
+                                <!-- <div style="display:inline-block;padding-left:2%;" aura:id="details"/>-->
+                            </aura:if></div>
+                    </div>                    
+                        
+                                    
+                    <div class="slds-col slds-size_7-of-12 " style="height: 28px;">
+                        <lightning:buttonMenu aura:id="menu"  alternativeText="Other Contents" label="Show Other Contents">
+                        <div class="{!v.takedowncount != '' ? 'showUsers' : 'hideUsers'}">
+                            <lightning:buttonStateful  iconNameWhenOff="utility:add" iconNameWhenOn="utility:check" state="{!v.showTakedown}" title ="Takedown" onclick="{!c.handleContentTypesBtns}" labelWhenOff="{!v.takedowncount}" labelWhenOn="{!v.takedowncount}" class="conttypebutton"/>    
+                        </div>
+                        <div class="{!v.abtestcount != '' ? 'showUsers' : 'hideUsers'}">
+                            <lightning:buttonStateful  iconNameWhenOff="utility:add" iconNameWhenOn="utility:check" state="{!v.showABTest}" title ="ABTest" onclick="{!c.handleContentTypesBtns}"  labelWhenOff="{!v.abtestcount}" labelWhenOn="{!v.abtestcount}"  class="conttypebutton"/> 
+                        </div>
+                        <div class="{!v.contigencycount != '' ? 'showUsers' : 'hideUsers'}">
+                            <lightning:buttonStateful  iconNameWhenOff="utility:add" iconNameWhenOn="utility:check" state="{!v.showContingency}" title ="Contingency" onclick="{!c.handleContentTypesBtns}"  labelWhenOff="{!v.contigencycount}" labelWhenOn="{!v.contigencycount}"  class="conttypebutton"/> 
+                        </div>
+                        </lightning:buttonMenu>
+                        <lightning:button title ="Reset" onclick="{!c.handleStateFulButtons}" label="Reset Grouping"/>                
+                       <!-- <lightning:buttonStateful  state="{!v.showDeleted}" title ="Deleted" onclick="{!c.handleStateFulButtons}"  labelWhenOff="Show Deleted" labelWhenOn="Hide Deleted"  /> -->
+                        <lightning:buttonStateful  state="{!v.expandAll}" title ="Collapse" onclick="{!c.handleStateFulButtons}"  labelWhenOff="Expand All" labelWhenOn="Collapse All"  />
+                       
+                    </div>
+                     </div>   
+            </aura:if>
+            <div id="dynamicGrid"/>
+            <div aura:id="parentDiv">
+                <ul class="slds-has-dividers_around-space" style="height:100%;overflow-y:auto;" >
+                    
+                  
+                        <aura:iteration items="{!v.placementContents}" indexVar="index" var="content" loaded="{!v.placementsLoaded}">
+                            
+                             <aura:if isTrue="{!or(v.showDeleted,content.pContentRec.Active__c)}">
+                              <!-- <div class="{!or(v.showDeleted,content.pContentRec.Active__c) ? 'showUsers' : 'hideUsers'}"> -->
+                                    <div class="{!content.pContentRec.Type__c == 'Controlled' || and(v.showTakedown,content.pContentRec.Type__c == 'Takedown') || and(v.showABTest,content.pContentRec.Type__c == 'AB Test') || and(v.showContingency,content.pContentRec.Type__c == 'Contingency') ? 'showContent' : 'hideUsers'}"> 
+                               <!-- <aura:if isTrue="{!content.pContentRec.Type__c == 'Controlled' || and(v.showTakedown,content.pContentRec.Type__c == 'Takedown') || and(v.showABTest,content.pContentRec.Type__c == 'AB Test') || and(v.showContingency,content.pContentRec.Type__c == 'Contingency')}"> -->
+                                    <li class="{!content.pContentRec.Has_Unapproved__c ? 'unApproved slds-item slds-m-around_small' : 'slds-item slds-m-around_small'}"  id="{!content.conId}" >   
+                                        <div class="{!and(content.pContentRec.Offer_Type__c == 'Offer',empty(content.kodList)) ? 'slds-theme_shade offerWithoutKOD' : ''}" >
+                                           <!-- <aura:if isTrue="{!and(v.showTakedown,content.pContentRec.Type__c == 'Takedown',v.placementLayout.Page_Types__c != 'Editorials')}"> -->
+                                                <div style="font-style: italic;color: darkblue;" class="{!and(v.showTakedown,content.pContentRec.Type__c == 'Takedown',v.placementLayout.Page_Types__c != 'Editorials') ? 'showUsers' : 'hideUsers'}">
+                                                    <span style="font-weight: bold;">Takedown For&nbsp;&nbsp;</span>{!content.pContentRec.Parent_Content_Name__c}
+                                                </div>
+                                           <!-- </aura:if> -->
+                                                <div style="font-style: italic;color: darkblue;" class="{!and(v.showContingency,content.pContentRec.Type__c == 'Contingency',v.placementLayout.Page_Types__c != 'Editorials') ? 'showUsers' : 'hideUsers'}">
+                                                    <span style="font-weight: bold;">Contingency For&nbsp;&nbsp;</span>{!content.pContentRec.Parent_Content_Name__c}
+                                                </div>
+                                           <!-- <aura:if isTrue="{!and(v.showABTest,content.pContentRec.Type__c == 'AB Test')}"> -->
+                                                <div style="font-style: italic;color:#e80e0ebf" class="{!and(v.showABTest,content.pContentRec.Type__c == 'AB Test') ? 'showUsers' : 'hideUsers'}">
+                                                    <span style="font-weight: bold;">{!content.pContentRec.AB_Test_Name__c}&nbsp; AB Test For&nbsp;&nbsp;</span>{!content.pContentRec.Parent_Content_Name__c}
+                                                </div>
+                                           <!-- </aura:if> -->
+                                            <c:CollapsableSection defaultState="{!v.defaultState}" compareType="{!content.pContentRec.Compare_Type__c}" offerType="{!content.pContentRec.Offer_Type__c}" active="{!content.pContentRec.Active__c}" title="{!content.pContentRec.Id != null ? content.pContentRec.Placement_type__c +' - '+ content.pContentRec.Main_Message__c + ' [' + content.pContentRec.Time_Period__c + ']' :  content.pContentRec.Placement_type__c +' - '+ content.pContentRec.Main_Message__c}">
+                                                
+                                                <div class="slds-tile slds-tile_board slds-grid slds-gutters">                                               
+                                                    <div class="slds-col slds-size_2-of-5">
+                                                        <table >
+                                                            <tr>
+                                                                <td style="width:1%;vertical-align:top">
+                                                                    <div class="divpcbuttons">                                                                     
+                                                                        <div class="{!v.placementLayout.Id != null ? 'showUsers' : 'hideUsers'}">
+                                                                            <ui:inputCheckbox text="{!index}" aura:id="boxPack" value="" change="{!c.checkboxSelect}"/>
+                                                                        </div>                                                                  
+                                                                        <div class="{!content.pContentRec.Id != null ? 'showUsers' : 'hideUsers'}"><br/>
+                                                                            <c:DGTL_FollowRecordsComponent objApiName="Placement_Content_Detail__c" recId="{!content.pContentRec.Id}" class="followClass"/>
+                                                                        </div><br/>                                                                   
+                                                                        <div class="{!content.commentBtn ? 'showUsers' : 'hideUsers'}">
+                                                                            <lightning:buttonIcon iconName="utility:comments" class="commentIconBg" iconClass="commentIcon" alternativeText="Comment" onclick="{!c.openContentCommentModel}"  value="{!content.pContentRec.Id}"/><br/><br/>
+                                                                        </div>
+                                                                        <div class="{!content.removeBtn ? 'showUsers' : 'hideUsers'}">
+                                                                            <lightning:buttonIcon iconName="utility:delete" class="removeIconBg" iconClass="removeIcon" alternativeText="Delete" onclick="{!c.removeRow}" value="{!index}"/>
+                                                                        </div><br/>
+                                                                        <div class="{!content.historyBtn ? 'showUsers' : 'hideUsers'}"  onclick="{!c.fetchHistory}"  data-value="{!content.pContentRec.Id}"  data-selected-Index="{!index}">
+                                                                            <lightning:buttonIcon iconName="utility:clock" class="historyIconBg" iconClass="historyIcon" alternativeText="History" />
+                                                                        </div><br/>
+                                                                        <div class="{!content.updateContent ? 'showUsers' : 'hideUsers'}" onclick="{!c.viewUpdateContent}"  data-value="{!content.pContentRec.Id}"  data-selected-Index="{!index}">
+                                                                            <lightning:buttonIcon iconName="utility:edit" class="Update" iconClass="Update" alternativeText="Update" />
+                                                                        </div><br/>
+                                                                        <div class="{!content.enableContentTypePrompt ? 'showUsers' : 'hideUsers'}">
+                                                                            <lightning:buttonIcon onclick="{!c.addContentType}"   iconName="utility:change_record_type" class="addTakedownIcon" iconClass="addTakedownIconClass" alternativeText="New Content Type" value="{!index}"/>
+                                                                        </div><br/>
+                                                                        <div class="{!content.cascade ? 'showUsers' : 'hideUsers'}"  onclick="{!c.cascadeAction}"  data-value="{!content.pContentRec.Id}"  data-selected-Index="{!content.pContentRec.Placement_Library__c}">
+                                                                            <lightning:buttonIcon  iconName="utility:forward" iconClass="cascadeClass" class="cascadeClass" alternativeText="Cascade"/>
+                                                                        </div> <br/>
+                                                                        <div class="{!content.addKOD ? 'showUsers' : 'hideUsers'}" onclick="{!c.addKOD}"  data-value="{!content.pContentRec.Id}" data-name="{!content.pContentRec.Placement_type__c +' - '+ content.pContentRec.Main_Message__c }" >
+                                                                            <lightning:buttonIcon title="Add Multiple KOD"  iconName="utility:link"  iconClass="kodClass" class="kodClass" alternativeText="Add Multiple KOD" value="{!index}" />
+                                                                        </div> <br/>                                                                   
+                                                                    </div>
+                                                                </td>
+                                                                <td style="vertical-align: top;">
+                                                                    <table width="100%" class="tableBorderCurve">                                                                
+                                                                        <aura:iteration items="{!v.readFieldsList}" var="cus" indexVar="key">                                                                     
+                                                                            <tr class="tableTRTHCurve">                                                                       
+                                                                                <td class="tableTRTHCurve">
+                                                                                    <div class="slds-truncate" style="white-space:normal;">
+                                                                                        <p style="font-size: 10px;font-weight: bold;">{!cus.value}</p>
+                                                                                        <c:DGTL_DynamicSobjectOutPutField objName="{#content.pContentRec}" fieldName="{#cus.key}" />
+                                                                                    </div>
+                                                                                </td>
+                                                                            </tr>                                                                   
+                                                                        </aura:iteration>
+                                                                    </table>
+                                                                    <div class="{!content.pContentRec.Id != null ? 'showUsers' : 'hideUsers'}">
+                                                                        <a data-id="{!content.pContentRec.Id}" onclick="{!c.showRelatedContent}">Show Related Contents</a>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>                                        
+                                                    <div class="slds-col slds-size_1-of-5">
+                                                        <c:DGTL_DynamicSobjectOutPutField objName="{!content.pContentRec}" fieldName="Image__c" />
+                                                        <aura:if isTrue="{!and(v.addKOD, content.pContentRec.Offer_Type__c eq 'Offer',content.pContentRec.Id!=null,content.pContentRec.Active__c)}"> 
+                                                            <div class="slds-page-header" style="padding: 5px;text-align: center;">
+                                                                <div class="slds-page-header__row">
+                                                                    <div class="slds-page-header__col-title">
+                                                                        <div class="slds-media">
+                                                                            <div class="slds-media__body">
+                                                                                <div class="slds-page-header__name">
+                                                                                    <div class="slds-page-header__name-title">
+                                                                                        <h1>
+                                                                                            <span class="slds-page-header__title slds-truncate" title="Linked KOD">Linked KOD</span>
+                                                                                        </h1>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <aura:iteration items="{!content.kodList}" var="kod">
+                                                                <span class="slds-pill slds-pill_link" style="margin:5px;padding: 2px;">
+                                                                    <span class="slds-pill__action" title="{!kod.name}">
+                                                                        <span class="slds-pill__label">{!kod.name}</span>
+                                                                    </span>
+                                                                </span>
+                                                            </aura:iteration>
+                                                        </aura:if>
+                                                        
+                                                          <!-- Task Pick list-->
+                                                        <div class="{!content.pContentRec.Id != null ? 'showUsers' : 'hideUsers'}">
+                                                            <div class="{!content.createTicketBtn  ? 'showUsers' : 'hideUsers'}">
+                                                                <lightning:recordEditForm  recordTypeId="{!v.recordTypeId}"  objectApiName="DGTL_Tickets__c"
+                                                                                          onsubmit="{!c.handleTaskSubmit}">
+                                                                    <lightning:inputField fieldName="Reason__c" value="{!v.defaultReason}"/>
+                                                                    <div style="display:none;">
+                                                                        <lightning:inputField fieldName="Placement_Content__c" value="{!content.pContentRec.Id}"/>
+                                                                        <lightning:inputField fieldName="Layout__c" value="{!content.pContentRec.Placement_Layout__c}"/> 
+                                                                    </div>
+                                                                    <div class="slds-m-top_medium">
+                                                                        <lightning:button variant="brand" type="submit" name="save" label="Create Ticket" />
+                                                                    </div>
+                                                                </lightning:recordEditForm></div>
+                                                        </div> <!-- Task Pick list end-->
+
+                                                                                                       </div>
+                                                    <!-- edit fields -->
+                                                    <aura:if isTrue="{!not(empty(v.editFieldsList))}">
+                                                        <div class="slds-col slds-size_2-of-5">  
+                                                            <lightning:recordEditForm aura:id="recordEdit" objectApiName="Placement_Content__c" class="removeborder" recordId="{!content.pContentRec.Id}">                                                    
+                                                                <table width="100%" class="tableBorderCurve">   
+                                                                    <aura:iteration items="{!v.editFieldsList}" var="cus" indexVar="key">
+                                                                        <!-- <aura:if isTrue="{!and(cus.key != 'JIRA_Project_Link__c',content.pContentRec.Type__c != 'AB Test') || content.pContentRec.Type__c == 'AB Test'}"> -->
+                                                                        <tr class="tableTRTHCurve">
+                                                                            <td class="tableTRTHCurve">                                                                                        
+                                                                                <div  style="white-space:normal;" >
+                                                                                    <p style="font-size: 10px;font-weight: bold;">{!cus.value}</p>
+                                                                                    <!-- checks for compared layout -->
+                                                                                    <aura:if isTrue="{!not(empty(content.pContentRec.Compared_Placement_Layout__c))}">                                                                                
+                                                                                        <lightning:outputfield fieldName="{!cus.key}" variant="label-hidden"></lightning:outputfield>
+                                                                                        <!-- if not compared layout -->
+                                                                                        <aura:set attribute="else">
+                                                                                            <div class="{!cus.key == 'Row_Start__c' ? 'showUsers' : 'hideUsers'}" >
+                                                                                                <lightning:input type="checkbox" onchange="{!c.getChange}" checked="{!content.pContentRec.Row_Start__c}"/>  
+                                                                                            </div>
+                                                                                            <div class="{!cus.key == 'Active__c' ? 'showUsers' : 'hideUsers'}" >
+                                                                                                 <lightning:input type="checkbox" onchange="{!c.getChange}" checked="{!content.pContentRec.Active__c}"/>
+                                                                                            </div>
+                                                                                            <div class="{!cus.key == 'Grouped__c' ? 'showUsers' : 'hideUsers'}" >
+                                                                                                <lightning:inputField variant="label-hidden" fieldName="Grouped__c" value="{!content.pContentRec.Grouped__c}"/>
+                                                                                            </div>
+                                                                                            <aura:if isTrue="{!and(cus.key != 'Active__c',and(cus.key != 'Row_Start__c',cus.key != 'Grouped__c'))}">
+                                                                                                <c:DGTL_DynamicSobjectInputField objName="{!content.pContentRec}" fieldName="{!cus.key}" UnsavedChanges="{!v.custmUnsavedChanges}" /> 
+                                                                                            </aura:if>   
+                                                                                        </aura:set>
+                                                                                    </aura:if>
+                                                                                    
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>                                                                     
+                                                                    </aura:iteration>   
+                                                                </table>
+                                                            </lightning:recordEditForm> 
+                                                        </div>
+                                                    </aura:if>                                        
+                                                </div>
+                                                
+                                                
+                                                <br/>
+                                                <div class="{!content.pContentRec.Id != null ? 'showUsers' : 'hideUsers'}">
+                                                    <div class="slds-clearfix">
+                                                        <div style="{!and(v.resequence,content.ContentDetWpr.detailList.length > 1) ? '' : 'display:none'}" class="slds-float_right" data-index="{!index}" onclick="{!c.sortDetail}">
+                                                            <lightning:button label="Reorder"/>
+                                                        </div>
+                                                    </div>
+                                                    <c:DGTL_LayoutContentDetail layoutLocked="{!v.layoutLocked}" 
+                                                                                contentId="{!content.pContentRec.Id}" 
+                                                                                brand="{!v.placementLayout.Brands__c}" 
+                                                                                readFieldsMap = "{!v.readFieldsDetMap}"
+                                                                                writeFieldsMap= "{!v.writeFieldsDetMap}"
+                                                                                allFields = "{!content.detailAllFeildList}"
+                                                                                hideSubType = "{!content.ContentDetWpr.isCarousel}"
+                                                                                detailList = "{!content.ContentDetWpr.detailList}"
+                                                                                deleteList = "{!content.ContentDetWpr.detailDeleteList}"
+                                                                                isCompared = "{!content.pContentRec.Compared_Placement_Layout__c == null ? false : true}"/>
+                                                                               <!-- UnsavedChanges="{!v.custmUnsavedChanges}"-->
+                                                    
+                                                </div>                                          
+                                            </c:CollapsableSection>  
+                                        </div>
+                                    </li>    
+                             <!--   </aura:if> -->
+                              </div> 
+                               <!-- </div> -->
+                            </aura:if> 
+                                
+                        </aura:iteration>
+                    
+                </ul>
+            </div>
+       </aura:if>
+     <!--</div> -->
+        <!--===================================== FULL VIEW BLOCK END=====================================-->
+        
+        <!--===================================== MINI VIEW BLOCK START=====================================-->
+      <!--<div aura:id="miniView" class="hideUsers">-->
+
+       <aura:if isTrue="{!!v.isFullView}"> 
+            <article class="slds-tile slds-tile_board">
+                <div class="slds-grid slds-gutters slds-item slds-m-around_small">
+                    <div class="divpcbuttons">
+                        <span>
+                            <ui:inputCheckbox aura:id="box3" change="{!c.selectAll}"/>
+                        </span>
+                    </div>
+                    
+                    <div class="slds-col slds-size_1-of-7">
+                        <span><b>Actions</b></span>
+                    </div>
+                    <div class="slds-col slds-size_1-of-7">
+                        <span><div class="slds-truncate" style="white-space:normal;word-wrap:break-word;">
+                            <b>Name</b></div></span>
+                    </div>
+                    <div class="slds-col slds-size_5-of-7">
+                        <table width="100%"> <tr>
+                            <aura:iteration items="{!v.miniViewReadFldList}" indexVar="index" var="cus"> 
+                                
+                                <td width="5%">
+                                    <span> <div style="width:50%;"><b>{!cus.value}</b></div></span> 
+                                </td>
+                            </aura:iteration></tr></table>  </div> </div></article> 
+            
+            <ul class="slds-has-dividers_around-space"  style="height:100%;overflow-y:auto;">
+                <div>
+                    <aura:iteration items="{!v.placementContents}" indexVar="index" var="content">
+                        <!-- <aura:if isTrue="{!and(content.pContentRec.Type__c == 'Controlled' ,or(v.showDeleted,content.pContentRec.Active__c)) ||                                          
+                                    and(v.showTakedown,content.pContentRec.Type__c == 'Takedown',or(v.showDeleted,content.pContentRec.Active__c)) || 
+                                    and(v.showABTest,content.pContentRec.Type__c == 'AB Test',or(v.showDeleted,content.pContentRec.Active__c))}">
+                        
+                </aura:if> -->
+                       <!-- <aura:if isTrue="{!or(v.showDeleted,content.pContentRec.Active__c)}"> -->
+                          <div class="{!or(v.showDeleted,content.pContentRec.Active__c) ? 'showUsers' : 'hideUsers'}">
+                            <div class="{!content.pContentRec.Type__c == 'Controlled' || and(v.showTakedown,content.pContentRec.Type__c == 'Takedown') || and(v.showABTest,content.pContentRec.Type__c == 'AB Test') || and(v.showContingency,content.pContentRec.Type__c == 'Contingency') ? 'showContent' : 'hideUsers'}"> 
+                          <!--  <aura:if isTrue="{!content.pContentRec.Type__c == 'Controlled' || and(v.showTakedown,content.pContentRec.Type__c == 'Takedown') || and(v.showABTest,content.pContentRec.Type__c == 'AB Test') || and(v.showContingency,content.pContentRec.Type__c == 'Contingency')}"> -->
+                                <li id="{!content.conId}" class="{!content.pContentRec.Has_Unapproved__c ? 'slds-item slds-m-around_small unApproved' : 'slds-item slds-m-around_small'}">
+                                    <div class="{!and(content.pContentRec.Offer_Type__c == 'Offer',empty(content.kodList)) ? 'slds-theme_shade offerWithoutKOD' : ''}" >
+                                       <!-- <aura:if isTrue="{!and(v.showTakedown,content.pContentRec.Type__c == 'Takedown',v.placementLayout.Page_Types__c != 'Editorials')}"> -->
+                                            <div style="font-style: italic;color: darkblue;" class="{!and(v.showTakedown,content.pContentRec.Type__c == 'Takedown',v.placementLayout.Page_Types__c != 'Editorials') ? 'showUsers' : 'hideUsers'}">
+                                                <span style="font-weight: bold;">Takedown For&nbsp;&nbsp;</span>{!content.pContentRec.Parent_Content_Name__c}
+                                            </div> 
+                                      <!--  </aura:if> -->
+                                            <div style="font-style: italic;color: darkblue;" class="{!and(v.showContingency,content.pContentRec.Type__c == 'Contingency',v.placementLayout.Page_Types__c != 'Editorials') ? 'showUsers' : 'hideUsers'}">
+                                                <span style="font-weight: bold;">Contingency For&nbsp;&nbsp;</span>{!content.pContentRec.Parent_Content_Name__c}
+                                            </div>
+                                       <!-- <aura:if isTrue="{!and(v.showABTest,content.pContentRec.Type__c == 'AB Test')}"> -->
+                                            <div style="font-style: italic;color:#e80e0ebf" class="{!and(v.showABTest,content.pContentRec.Type__c == 'AB Test') ? 'showUsers' : 'hideUsers'}">
+                                                <span style="font-weight: bold;">{!content.pContentRec.AB_Test_Name__c}&nbsp; AB Test For&nbsp;&nbsp;</span>{!content.pContentRec.Parent_Content_Name__c}
+                                            </div>
+                                       <!-- </aura:if> -->
+                                        <article class="slds-tile slds-tile_board">
+                                            <div class="slds-grid slds-gutters"  Style="{!content.pContentRec.Active__c ? '' : 'text-decoration:line-through'}">
+                                                <div><br/>
+                                                </div>
+                                                <aura:if isTrue="{!v.placementLayout.Id != null}">
+                                                    <div class="divpcbuttons"> &nbsp; &nbsp;&nbsp;&nbsp;
+                                                        <ui:inputCheckbox text="{!index}" aura:id="boxPack" value="" change="{!c.checkboxSelect}"/>
+                                                    </div>
+                                                </aura:if>
+                                                <div class="slds-col slds-size_1-of-7">
+                                                    <span>
+                                                        <!--<aura:if isTrue="{!content.pContentRec.Id!=null}">-->
+                                                        <div class="{!content.pContentRec.Id!=null ? 'showMiniView followClass' : 'hideUsers followClass'}"  >
+                                                            <c:DGTL_FollowRecordsComponent objApiName="Placement_Content_Detail__c" recId="{!content.pContentRec.Id}" class="followClass"/>
+                                                        </div>
+                                                        <!-- </aura:if>-->
+                                                        <!-- <aura:if isTrue="{!content.commentBtn}">  -->                                                     
+                                                        <div class="{!content.commentBtn ? 'showMiniView' : 'hideUsers'}" >
+                                                            <div >
+                                                                <lightning:buttonIcon iconName="utility:comments" class="commentIconBg" iconClass="commentIcon" alternativeText="Comment" onclick="{!c.openContentCommentModel}" disabled="{!content.pContentRec.Id==null}" value="{!content.pContentRec.Id}"/>                                                        
+                                                            </div>
+                                                        </div>  
+                                                        <!-- </aura:if> -->
+                                                        <!-- <aura:if isTrue="{!content.removeBtn}"> -->   
+                                                        <div class="{!content.removeBtn ? 'showMiniView' : 'hideUsers'}">                                                    
+                                                            <lightning:buttonIcon iconName="utility:delete" class="removeIconBg" iconClass="removeIcon" alternativeText="Delete" onclick="{!c.removeRow}" value="{!index}"/>
+                                                        </div>
+                                                        <!-- </aura:if> -->
+                                                        <!-- <aura:if isTrue="{!content.historyBtn}"> -->
+                                                        <div  class="{!content.historyBtn ? 'showMiniView' : 'hideUsers'}" onclick="{!c.fetchHistory}"  data-value="{!content.pContentRec.Id}"  data-selected-Index="{!index}">
+                                                            <lightning:buttonIcon iconName="utility:clock" class="historyIconBg" iconClass="historyIcon" alternativeText="History" />
+                                                        </div>
+                                                        <!-- </aura:if> -->
+                                                        <!-- <aura:if isTrue="{!content.updateContent}"> -->
+                                                        <div class="{!content.updateContent ? 'showMiniView' : 'hideUsers'}"  onclick="{!c.viewUpdateContent}"  data-value="{!content.pContentRec.Id}"  data-selected-Index="{!index}">
+                                                            <lightning:buttonIcon iconName="utility:edit" class="Update" iconClass="Update" alternativeText="Update" />
+                                                        </div>
+                                                        <!-- </aura:if> --> 
+                                                        <div class="{!content.enableContentTypePrompt ? 'showMiniView' : 'hideUsers'}">
+                                                            <lightning:buttonIcon onclick="{!c.addContentType}"   iconName="utility:change_record_type" class="addTakedownIcon" iconClass="addTakedownIconClass" alternativeText="New Content Type" value="{!index}"/>
+                                                        </div>
+                                                        <!-- <aura:if isTrue="{!content.cascade}"> -->
+                                                        <div class="{!content.cascade ? 'showMiniView' : 'hideUsers'}"  onclick="{!c.cascadeAction}"  data-value="{!content.pContentRec.Id}"  data-selected-Index="{!content.pContentRec.Placement_Library__c}">
+                                                            <lightning:buttonIcon  iconName="utility:forward" iconClass="cascadeClass" class="cascadeClass" alternativeText="Cascade"/>
+                                                        </div>
+                                                        <!-- </aura:if> -->
+                                                        <!-- <aura:if isTrue="{!content.addKOD}"> -->
+                                                        <div class="{!content.addKOD ? 'showMiniView' : 'hideUsers'}"  onclick="{!c.addKOD}"  data-value="{!content.pContentRec.Id}" data-name="{!content.pContentRec.Placement_type__c +' - '+ content.pContentRec.Main_Message__c }" >
+                                                            <lightning:buttonIcon title="Add Multiple KOD"  iconName="utility:link" iconClass="kodClass" class="kodClass" alternativeText="Add Multiple KOD" />
+                                                        </div>
+                                                        <!-- </aura:if> -->
+                                                    </span>
+                                                </div>
+                                                <div class="slds-col slds-size_1-of-7">
+                                                    <span><div class="slds-truncate" style="white-space:normal;word-wrap:break-word;">
+                                                        {!content.pContentRec.Placement_type__c} - {!content.pContentRec.Main_Message__c}</div>
+                                                    </span>
+                                                </div>
+                                                <div class="slds-col slds-size_5-of-7">
+                                                    <table width="100%">  <tr>
+                                                        <aura:iteration items="{!v.miniViewReadFldList}" indexVar="index" var="cus">
+                                                            <td width="5%" style="text-align:top;"> 
+                                                                <div style="white-space:normal;word-wrap:break-word;width:50%;" class="slds-truncate"><span> 
+                                                                    <c:DGTL_DynamicSobjectOutPutField objName="{#content.pContentRec}" fieldName="{#cus.key}" />
+                                                                    </span> </div></td>
+                                                            
+                                                            
+                                                        </aura:iteration></tr>
+                                                    </table> </div>
+                                                
+                                            </div>
+                                        </article>                                 
+                                    </div>
+                                </li>
+                           <!-- </aura:if> -->
+                          </div>
+                          </div>
+                       <!-- </aura:if> -->
+                    </aura:iteration>
+                </div>
+            </ul>
+        </aura:if> 
+    <!--</div> -->
+        <!--===================================== MINI VIEW BLOCK END=====================================-->
+    </div>
+    <aura:if isTrue="true">
+        <aura:if isTrue="{!not(and(v.placementLayout.Id == null,or(v.loggedUser.DGTL_Profile__c =='DGTL_Bangalore_Commerce_Services',v.loggedUser.DGTL_Profile__c =='DGTL_Commerce_Operations',v.loggedUser.DGTL_Profile__c =='DGTL_Copy_Writer',v.loggedUser.DGTL_Profile__c =='DGTL_Creative_Design')))}">
+            <div Class="slds-no-print"><lightning:button class="slds-button slds-button_brand" disabled="{!v.isSaveDisable}" label="Save" onclick="{!c.updateCon}"/></div> 
+        </aura:if>
+    </aura:if>
+    <!--</div>
+</aura:if>-->
+    <!--=====================================CONTENT VIEW BLOCK END=====================================-->
+    
+    
+    <!--===================================== SEARCH FROM EXISTING LAYOUT BLOCK START=============-->
+    <aura:if isTrue="{!v.isAddModalOpen}">
+        <div class="demo-only" style="height: 640px;">
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Add from existing layout</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium overflowcss" id="modal-content-id-1">
+                        <lightning:recordEditForm aura:id="recordEdit" objectApiName="Placement_Layout__c" onsubmit="{!c.searchContentToAdd}"> 
+                            <lightning:layout>	
+                                <lightning:layoutItem >                             
+                                    <lightning:inputField fieldName="Brands__c" onchange="{!c.clearValues}" value="{#v.placementLayout.Brands__c}"/> 
+                                </lightning:layoutItem> 
+                                <lightning:layoutItem >                                     
+                                    <lightning:inputField fieldName="Page_Types__c" onchange="{!c.clearValues}"/>                                                                                            
+                                </lightning:layoutItem>
+                                <lightning:layoutItem >                             
+                                    <lightning:inputField fieldName="Device_Type__c" onchange="{!c.clearValues}" value="{!v.defaultDeviceLay}"/>                     
+                                </lightning:layoutItem> 
+                                <lightning:layoutItem>                             
+                                    <lightning:inputField fieldName="Floorset_Plan__c" onchange="{!c.clearValues}" style="width:330px;"/> 
+                                </lightning:layoutItem> 
+                                <lightning:layoutItem>
+                                    <!-- Editorial page's list for selected floorset plan -->
+                                    <aura:if isTrue="{!(not(empty(v.editorialLayouts)))}">
+                                        <lightning:select name="myEditorial" label="Select Editorial Name" aura:id="myEditorial" value="{!v.selectedEditorial}"  onchange="{!c.getContentsExisting}">
+                                            <option text="None" value="None" />
+                                            <aura:iteration items="{!v.editorialLayouts}" var="item">
+                                                <option text="{!item.value}" value="{!item.key}" selected="{!item.selected}"/>
+                                            </aura:iteration>
+                                        </lightning:select>
+                                    </aura:if>
+                                </lightning:layoutItem>
+                                <lightning:layoutItem>  
+                                    <div style="padding-top: 23px;">
+                                        <lightning:button class="slds-button slds-button_brand" label="Search" type="submit"/>
+                                    </div>
+                                </lightning:layoutItem> 
+                                
+                            </lightning:layout>
+                            
+                        </lightning:recordEditForm>
+                         <div class="{!v.ContentsWithoutChild.length > 0 ? 'showDiv' : 'hideErrMsg'}">
+                            <div class="showErrMsg">
+                                Selected Contents without AB Test/Takedown/Contingency
+                             </div>
+                             <aura:iteration items="{!v.ContentsWithoutChild}" var="cont" >
+                                 
+                                 {!cont} 
+                                 
+                             </aura:iteration>
+                        </div>
+                        <div class="{!v.checkChildContsMsg != '' ? 'showErrMsg' : 'hideErrMsg'}" >
+                            {!v.checkChildContsMsg}
+                        </div>
+                        
+                        <aura:iteration items="{!v.removedChildContents}" var="cont" >
+                            <div style="text-decoration:line-through">
+                                {!cont} </div>
+                        </aura:iteration>
+                        <div class="{!and(v.CloneFromExistLay.length == 0,v.selectedPlacementContents.length > 0) ? 'showErrMsg' : 'hideErrMsg'}" >
+                            Only AB Test/Takedown/Contingency contents cannot be cloned, please click on Cancel button
+                        </div>
+                        <aura:if isTrue="{!(empty(v.addPlacementContents))}">
+                            <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                        </aura:if>                        
+                        <aura:if isTrue="{!not(empty(v.addPlacementContents))}">
+                            <div style="padding:0.5rem;" class="slds-box slds-theme_default overflowautocss">
+                                <div class="stageContainer" style="width:100%">
+                                    <div style="height: 300px">
+                                        <div class="slds-truncate" style="white-space:normal;">
+                                            <lightning:datatable keyField="Id" data="{!v.addPlacementContents}" columns="{!v.addColumns}" onrowselection="{!c.handleSelect}" />
+                                        </div>                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </aura:if>
+                    </div>
+                    <footer class="slds-modal__footer">
+                         <lightning:button class="slds-button slds-button_neutral" label="Cancel" onclick="{!c.closeAddModel}"/> 
+                            <div class="{!and(v.CloneFromExistLay.length > 0,v.selectedCountAdd > 0) ? 'showUsers' : 'hideUsers'}" style="float: right">
+                                <lightning:button class="slds-button slds-button_brand" label="Add to Layout" onclick="{!c.addSelectedContent}" disabled="{!if(and(v.selectedCountAdd==0,v.CloneFromExistLay.length==0),true,false)}"/>
+                            </div> 
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </aura:if>
+    <!--===================================== SEARCH FROM EXISTING LAYOUT BLOCK END===================-->
+    <!--===================================== LAYOUT CREATE WITHOUT CONTENT PROMPT BLOCK START========================-->
+    <aura:if isTrue="{!v.enableCreatePrompt}"> 
+        <div style="height:30%">
+            <section role="alertdialog" tabindex="0" aria-labelledby="prompt-heading-id" aria-describedby="prompt-message-wrapper" class="slds-modal slds-fade-in-open slds-modal_prompt" aria-modal="true">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <h2 class="slds-text-heading_medium slds-hyphenate" id="prompt-heading-id">You are trying create/update a layout without any placements. Do you want to continue?</h2>
+                    </header>              
+                    <footer class="slds-modal__footer slds-theme_default">
+                        <lightning:button aura:id="create_Cancel" label="Cancel" title="Cancel" onclick="{! c.handleLayoutCreatePrompt }"/>
+                        <lightning:button aura:id="create_Allow" label="Allow" title="Allow" variant="brand" onclick="{! c.handleLayoutCreatePrompt }"/>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </aura:if>
+    <!--===================================== LAYOUT CREATE WITHOUT CONTENT PROMPT BLOCK END===================-->
+    <!--===================================== LAYOUT DELETE PROMPT BLOCK START========================-->
+    <aura:if isTrue="{!v.enableDeletePrompt}"> 
+        <div style="height:30%">
+            <section role="alertdialog" tabindex="0" aria-labelledby="prompt-heading-id" aria-describedby="prompt-message-wrapper" class="slds-modal slds-fade-in-open slds-modal_prompt" aria-modal="true">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <h2 class="slds-text-heading_medium slds-hyphenate" id="prompt-heading-id">Are you Sure?</h2>
+                    </header>              
+                    <footer class="slds-modal__footer slds-theme_default">
+                        <lightning:button aura:id="delete_Cancel" label="Cancel" title="Cancel" onclick="{! c.handleLayoutDeletePrompt }"/>
+                        <lightning:button aura:id="delete_Allow" label="Delete" title="Delete" variant="brand" onclick="{! c.handleLayoutDeletePrompt }"/>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </aura:if>
+    <!--===================================== LAYOUT DELETE PROMPT BLOCK END =========  ===================-->
+    <!--===================================== Content DELETE PROMPT BLOCK START========================-->
+    <aura:if isTrue="{!v.enableCnDeletePrompt}"> 
+        <div style="height:30%">
+            <section role="alertdialog" tabindex="0" aria-labelledby="prompt-heading-id" aria-describedby="prompt-message-wrapper" class="slds-modal slds-fade-in-open slds-modal_prompt" aria-modal="true">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <h2 class="slds-text-heading_medium slds-hyphenate" id="prompt-heading-id">Are you Sure?</h2>
+                    </header>              
+                    <footer class="slds-modal__footer slds-theme_default">
+                        <lightning:button aura:id="delete_Cancel" label="Cancel" title="Cancel" onclick="{! c.handleContentDeletePrompt }"/>
+                        <lightning:button aura:id="delete_Allow" label="Delete" title="Delete" variant="brand" onclick="{! c.handleContentDeletePrompt }"/>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </aura:if>
+    <!--===================================== Content DELETE PROMPT BLOCK END =========  ===================-->
+    
+    <!--===================================== ADD KOD PROMPT BLOCK START===================-->
+    <aura:if isTrue="{!v.openAddKODModal}">
+        <c:DGTL_MultiKODLinkComponent name="{!v.selectedContentName}" contentId="{!v.selectedContentId}"/>
+    </aura:if>
+    <!--===================================== ADD KOD PROMPT BLOCK END===================-->
+    
+    <!--===================================== Content and Content Detail History PROMPT BLOCK START===================-->
+    <aura:if isTrue="{!v.isHistoryModalOpen}">
+        <c:dGTL_HistoryLWC  layoutLocked="{!v.layoutLocked}" objRecordId="{!v.historyId}" contEditFields="{!v.contEditFields}" contDetailEditFields="{!v.contDetailEditFields}" oncloseHis="{!c.closeHistoryModel}"  onreplaceHis="{!c.historyReplace}"></c:dGTL_HistoryLWC>
+    </aura:if>
+    <!--===================================== Content and Content Detail History PROMPT BLOCK End===================-->
+    
+    <!--===================================== AB Test,Takedown and Contigency PROMPT BLOCK START LWC ===================-->
+    <aura:if isTrue="{!v.enableContentTypePrompt}">
+        <c:dGTL_ContentType  ContentTypesList="{!v.ContentTypesList}" oncloseCont="{!c.closeContTypeModel}" contentData="{!v.contentData}" pLayoutId="{!v.payLayoutId}"></c:dGTL_ContentType>
+    </aura:if>
+    <!--===================================== AB Test,Takedown and Contigency PROMPT BLOCK END LWC===================-->
+    
+    <!-- placement layout comment -->
+    <aura:if isTrue="{!v.isCommentLayoutModalOpen}">
+        <div class="demo-only" style="height: 640px;">
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Add Comment</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <forceChatter:fullFeed type="Record" subjectId="{!v.payLayoutId}"/>                    
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <lightning:button class="slds-button slds-button_neutral" label="Cancel" onclick="{!c.closeCommentModel}"/>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </aura:if>
+    
+    <!-- placement content comment -->
+    <aura:if isTrue="{!v.isCommentContentModalOpen}">
+        <div class="demo-only" style="height: 640px;">
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Add Comment</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <forceChatter:fullFeed type="Record" subjectId="{!v.placContId}"/>                    
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <lightning:button class="slds-button slds-button_neutral" label="Cancel" onclick="{!c.closeCommentModelCont}"/>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </div>
+    </aura:if>        <aura:if isTrue="{!v.isAddPayLibraryModalOpen}">
+        <c:DGTL_Main_AddToLibrary pLayoutId="{!v.payLayoutId}" cloneThisContent="{!v.openCloneContent}" selectedBrand="{!v.placementLayout.Brands__c}" selectedPageType="{!v.placementLayout.Page_Types__c}"></c:DGTL_Main_AddToLibrary>               
+    </aura:if>
+    <aura:if isTrue="{!v.isSearchLibraryModalOpen}">
+        <!-- <c:DGTL_SearchContInLibrary payLayoutId="{!v.payLayoutId}" selectedBrand="{!v.defaultBrandExistingLib}"></c:DGTL_SearchContInLibrary> --> 
+        <c:DGTL_SearchContInLibrary payLayoutId="{!v.payLayoutId}" selectedBrand="{#v.placementLayout.Brands__c}"></c:DGTL_SearchContInLibrary>
+    </aura:if>
+    <aura:if isTrue="{!v.isEditorials}">
+        <c:DGTL_LayoutisEditorials selectedBrand="{!v.placementLayout.Brands__c}" selectedPageType="{!v.placementLayout.Page_Types__c}" selectedFloorset="{!v.placementLayout.Floorset_Plan__c}" selectedDeviceType="{!v.placementLayout.Device_Type__c}"  editorialPageName="{!v.editorialPageName}" selectedEditorialsearch="{!v.payLayoutId}" collectionPageUrl="{!v.editorialCollectionUrl}">
+        </c:DGTL_LayoutisEditorials>
+    </aura:if>
+    <aura:if isTrue="{!v.isCloneModalOpen}">
+        <c:DGTL_CloneLayoutContent payLayoutId="{!v.payLayoutId}" selectedBrand="{#v.placementLayout.Brands__c}" defaultDevice="{!v.defaultDeviceClone}" clonePlacementContents="{!v.clonePlacementContents}" edtCollecPageUrl="{!v.editorialCollectionUrl}" placementContents="{!v.placementContents}"></c:DGTL_CloneLayoutContent>
+    </aura:if>
+    
+    
+    
+<aura:if isTrue="{!v.openMultiContentDelete}">
+        <c:DGTL_MultiContentDelete openMultiContentDelete="{!v.openMultiContentDelete}" content="{!v.contentToDelete}" isContentDeleted="{!v.isContentDeleted}"/>
+    </aura:if>
+
+    
+    <!-- transaction notification -->
+    <div aura:id="transaction"/>
+
+     <!-- related contents -->
+     <aura:if isTrue="{!v.showRelatedContents}">
+        <c:dGTL_LibraryFutureContents oncloseModal="{!c.closeRelatedContentModal}" contentId="{!v.relatedContentId}" />
+    </aura:if>
+
+     <!-- Resequecer -->
+     <aura:if isTrue="{!v.sortableWindow}">
+        <c:dGTL_SortableContainer onsortNow="{!c.applySorting}" detailitems="{!v.detailItemsToSort}" oncloseSortable="{!c.closeSortable}" items="{!v.placementContentToSort}" dynamicInputArray="{!v.dynamicInputArray}" />
+    </aura:if>
+    
+    <!--   Block for Unsaved changes model box -->
+    
+    
+     <aura:if isTrue="{!v.isOpenModel}">
+            
+            <!--###### MODAL BOX Start######--> 
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <!-- ###### MODAL BOX HEADER Start ######-->
+                    <header class="slds-modal__header">
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Save Changes ?</h2>
+                    </header>
+                    <!--###### MODAL BOX BODY Part Start######-->
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <p align="center"><b>
+                            There are unsaved changes. <br/>
+                            
+                            If you leave this Page, you’ll lose your changes.
+                            </b>
+                        </p>
+                    </div>
+                    <!--###### MODAL BOX FOOTER Part Start ######-->
+                    <footer class="slds-modal__footer">
+                        <div align="center">
+                         
+                         <lightning:button variant="neutral" 
+                                          label="Continue Editing"
+                                          title="Continue Editing"
+                                          onclick="{!c.closeModel}" />
+                        <lightning:button variant="neutral" 
+                                          label="Discard Changes"
+                                          title="Discard Changes"
+                                          onclick="{!c.handleDiscard}"/>
+                        <lightning:button variant="brand" 
+                                          label="Save"
+                                          title="Save"
+                                          onclick="{!c.handleSave}"/>    
+                        </div>
+                       
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+            <!--###### MODAL BOX Part END Here ######-->
+            
+        </aura:if>
+    
+</aura:component>

@@ -1,0 +1,11 @@
+.slds-badge{
+    padding: 0.50rem .5rem;
+    word-break: break-word;
+    white-space: pre-line;
+    
+}
+
+.slds-badge:hover{
+    background: yellowgreen;
+    cursor: pointer;
+}

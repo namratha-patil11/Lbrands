@@ -1,0 +1,10 @@
+.THIS .overflowcss{
+    overflow: visible;
+}
+
+.THIS .datecss .slds-form-element__label {
+    visibility: hidden;
+}/*
+.THIS .datecss .slds-form-element__label:after {
+    content: '*Date'; 
+}*/

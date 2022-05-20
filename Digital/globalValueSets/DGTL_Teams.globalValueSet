@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>DGTL_Bangalore_Commerce_Services</fullName>
+        <default>false</default>
+        <label>Bangalore Commerce Services</label>
+    </customValue>
+    <customValue>
+        <fullName>DGTL_Commerce_Operations</fullName>
+        <default>false</default>
+        <label>Commerce Operations</label>
+    </customValue>
+    <customValue>
+        <fullName>DGTL_Copy_Writer</fullName>
+        <default>false</default>
+        <label>Copy Writers</label>
+    </customValue>
+    <customValue>
+        <fullName>DGTL_Creative_Design</fullName>
+        <default>false</default>
+        <label>Creative Design</label>
+    </customValue>
+    <customValue>
+        <fullName>DGTL_Creative_Operations</fullName>
+        <default>false</default>
+        <label>Creative Operations</label>
+    </customValue>
+    <customValue>
+        <fullName>DGTL_Digital_Producers</fullName>
+        <default>false</default>
+        <label>Digital Producers</label>
+    </customValue>
+    <customValue>
+        <fullName>DGTL_Merchandiser</fullName>
+        <default>false</default>
+        <label>Merchandiser</label>
+    </customValue>
+    <description>DGTL Teams</description>
+    <masterLabel>DGTL Teams</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

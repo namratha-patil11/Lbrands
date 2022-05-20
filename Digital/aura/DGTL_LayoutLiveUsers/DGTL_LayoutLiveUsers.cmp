@@ -1,0 +1,25 @@
+<aura:component controller="DGTL_Layout" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+	<aura:attribute name="payLayoutId" type="String"/>
+    <aura:attribute name="liveUsers" type="List"/>
+    
+    <aura:handler value="{!this}" name="init" action="{!c.init}"/>   
+    <div onmouseover="{!c.showUsers}" style="background:#AED6F1;text-align: center;" >
+                <aura:if isTrue="{!v.liveUsers.length > 1}">
+                        <div style="float:left;background:#fc2600;text-align: center;">
+                                <lightning:icon iconName="utility:groups" alternativeText="Online Users" /><br/>{!v.liveUsers.length}                              
+                            </div>
+                    <aura:set attribute="else">
+                            <div style="float:left;background:#7CFC00;text-align: center;">
+                                    <lightning:icon iconName="utility:groups" alternativeText="Online Users" /><br/>{!v.liveUsers.length}                                  
+                                </div>
+                    </aura:set>
+                  </aura:if>
+       
+        <div Class="slds-hide" aura:id="userList" style="float:right;background:#AED6F1;text-align: center;"><br/>
+                 <aura:iteration items="{!v.liveUsers}" var="usr">
+               {!usr} <br/>
+            </aura:iteration>
+            </div>
+    
+    </div>
+</aura:component>
